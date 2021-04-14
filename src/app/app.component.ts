@@ -25,7 +25,7 @@ export class AppComponent {
         this.dialog.open(CalculatorComponent);
         break;
       case AppDialog.NOTIFICATION:
-        this.dialog.open(NotificationComponent);
+        this.dialog.open(NotificationComponent, {minWidth: '400px', maxHeight: '600px'});
         break;
       default:
         alert('Invalid Dialog Argument');
