@@ -36,7 +36,7 @@ export class AuthService {
         .pipe(
             tap(userData => {
                 console.log(userData);
-                const expirationTime = (new Date()).getTime() + HOUR;
+                const expirationTime = (new Date(userData.updated_at)).getTime() + HOUR;
                 this.auth.signIn(userData, expirationTime);
                 this.storeLocal(userData, expirationTime);
             }),
@@ -65,7 +65,9 @@ export class AuthService {
             id: 0,
             name: 'Anonymous',
             username: 'anonymous',
-            token: ''
+            token: '',
+            created_at: '',
+            updated_at: ''
         };
         if (!!ud) {
             userData = JSON.parse(ud) as UserData;
