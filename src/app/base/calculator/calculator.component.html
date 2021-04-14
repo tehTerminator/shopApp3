@@ -1,0 +1,72 @@
+<h2 mat-dialog-title>
+    Calculator
+</h2>
+<div mat-dialog-content>
+    <div class="row">
+        <div class="col">
+            <form [formGroup]="calcForm">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Equation</mat-label>
+                    <input matInput type="text" formControlName="command" class="text-center" placeholder="Enter Math Equation Here">
+                </mat-form-field>
+
+                <div class="row gt-1">
+                    <mat-form-field class="col-6" appearance="fill">
+                        <mat-label>Denomination</mat-label>
+                        <mat-select formControlName="denomination" class="text-center">
+                            <mat-option *ngFor="let i of denominations" [value]="i">
+                                {{ i }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="col-6" appearance="fill">
+                        <mat-label>
+                            Count
+                        </mat-label>
+                        <input matInput formControlName="count" class="text-center" type="text" min="1" step="1">
+                    </mat-form-field>
+                </div>
+
+                <button mat-raised-button color="primary" type="button" class="btn w-100 mb-3" (click)="addCurrency()">Add Currency</button>
+
+            </form>
+        </div>
+    </div>
+    <div class="row" [hidden]="currencyTotal === 0">
+        <div class="col">
+            <table class="table table-sm table-striped table-celled">
+                <thead>
+                    <tr class="text-center">
+                        <th>
+                            Value
+                        </th>
+                        <th>
+                            Count
+                        </th>
+                        <th>
+                            Amount
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let currency of CurrencyArray">
+                        <td class="text-center">Rs. {{ currency.denomination }}</td>
+                        <td class="text-center">x {{ currency.count }}</td>
+                        <td class="text-center pr-5">{{ currency.amount | number:'1.2-2' }}</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="2" class="text-right">
+                            Total
+                        </th>
+                        <th class="text-center pr-5">
+                            {{ currencyTotal | number:'1.2-2'}}
+                        </th>
+                    </tr>
+                </tfoot>
+            </table>
+            <button mat-raised-button color="warn" type="button" class="btn" (click)="resetCurrency()">Reset</button>
+        </div>
+    </div>
+</div>

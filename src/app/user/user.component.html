@@ -1,0 +1,11 @@
+<div class="ui two column grid centered stackable container mt-4">
+    <div class="six wide column">
+        <div class="ui top attached two item tabular menu">
+            <div [routerLink]="['/user', 'sign-in']" routerLinkActive="active" class="item">Sign In</div>
+            <div [routerLink]="['/user', 'register']" routerLinkActive="active" class="item">Register</div>
+        </div>
+        <div class="ui bottom attached stacked segment">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

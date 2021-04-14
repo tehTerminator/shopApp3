@@ -1,0 +1,22 @@
+<form [ngClass]="isLoading ? 'loading' : ''" [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+
+    <mat-form-field appearance="outline" class="d-block w-100">
+        <mat-label>Username</mat-label>
+        <input matInput type="text" name="username" formControlName="username" autocomplete="username" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="d-block w-100">
+        <mat-label>
+            Password
+        </mat-label>
+        <input matInput type="password" name="password" formControlName="password" autocomplete="current-password" required>
+
+    </mat-form-field>
+    <button type="submit" class="ui green submit button">
+        Submit
+    </button>
+
+    <button type="reset" class="ui red reset button">
+        Reset
+    </button>
+</form>

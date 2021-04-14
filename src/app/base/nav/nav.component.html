@@ -1,0 +1,28 @@
+<nav class="ui top attached inverted blue large stackable menu">
+  <div class="header item d-flex justify-content-between">
+    Shop App
+    <div class="mobile only mr-0">
+      <i class="bordered icon bars"></i>
+    </div>
+  </div>
+  <div class="item">
+    <i class="home icon"></i>
+    Home
+  </div>
+  <div class="right menu">
+    <a [routerLink]="['/user', 'sign-in']" class="item" *ngIf="loggedOut; else loggedIn">
+      <i class="sign in alternate icon"></i>
+        Sign In
+    </a>
+    <ng-template #loggedIn>
+      <div class="ui dropdown item" appDropdown>
+          Prateek Kher
+          <i class="dropdown icon"></i>
+          <div class="menu">
+              <div class="item">Profile</div>
+              <div class="item">Logout</div>
+          </div>
+      </div>
+    </ng-template>
+  </div>
+</nav>

@@ -1,0 +1,11 @@
+<div class="ui segement" *ngFor="let message of messages | async" [ngClass]="getClass(message.state)">
+    <div class="ui header">
+        {{ message.title }}
+    </div>
+    <p>
+        {{ message.text }}
+    </p>
+    <div class="ui bottom right attached label">
+        {{ message.createdAt | date: 'hh:MM' }}
+    </div>
+</div>
