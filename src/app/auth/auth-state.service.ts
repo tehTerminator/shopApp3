@@ -86,4 +86,6 @@ export interface UserData {
     name: string;
     username: string;
     token: string;
+    created_at: string;
+    updated_at: string;
 }
