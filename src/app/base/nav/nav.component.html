@@ -8,16 +8,17 @@
   <div class="icon item" (click)="showCalculator()">
     <i class="icon calculator"></i>
   </div>
-  <div class="item">
+  <a routerLink="/home" routerLinkActive="active red" class="item">
     <i class="home icon"></i>
     Home
-  </div>
+  </a>
   <div class="right menu">
     <a class="item" (click)="showNotification()">
       Notifications
     </a>
     <a
       [routerLink]="['/user', 'sign-in']"
+      routerLinkActive="active red"
       class="item"
       *ngIf="loggedOut; else loggedIn"
     >
@@ -30,7 +31,7 @@
         <i class="dropdown icon"></i>
         <div class="menu">
           <div class="item">Profile</div>
-          <div class="item">Logout</div>
+          <a (click)="signOut()" class="item">Logout</a>
         </div>
       </div>
     </ng-template>
