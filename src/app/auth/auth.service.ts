@@ -5,12 +5,17 @@ import { environment } from './../../environments/environment';
 import { HOUR } from '../shared/collection';
 import { tap, catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
-    constructor(private http: HttpClient, private auth: AuthStateService) {}
+    constructor(
+        private http: HttpClient,
+        private auth: AuthStateService,
+        private router: Router
+    ) {}
 
     init(): void {
         const userData: UserData = this.getStoredUserData();
@@ -24,7 +29,7 @@ export class AuthService {
 
     login(username: string, password: string): Observable<any> {
         this.auth.authStarted();
-        const signInUrl = environment.baseUrl + 'user/sign-in';
+        const signInUrl = environment.baseUrl + 'user/login';
 
         console.log('Login Clicked');
         return this.http.post<UserData>(signInUrl, {username, password})
@@ -46,6 +51,7 @@ export class AuthService {
         this.auth.signOut();
         localStorage.removeItem('userData');
         localStorage.removeItem('expirationTime');
+        this.router.navigate(['/user', 'sign-in']);
     }
 
     private storeLocal(userData: UserData, expirationTime: number): void {
