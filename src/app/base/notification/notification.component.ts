@@ -11,8 +11,7 @@ export class NotificationComponent implements OnInit {
 
   constructor(private ns: NotificationService) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   get messages(): BehaviorSubject<Message[]> {
     return this.ns.messages;
