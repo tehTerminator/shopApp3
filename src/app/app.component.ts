@@ -18,14 +18,13 @@ export class AppComponent {
   }
 
   show(dialogType: AppDialog): void {
-    console.log('Event Received');
     this.dialog.closeAll();
     switch (dialogType) {
       case AppDialog.CALCULATOR:
         this.dialog.open(CalculatorComponent);
         break;
       case AppDialog.NOTIFICATION:
-        this.dialog.open(NotificationComponent, {minWidth: '400px', maxHeight: '600px'});
+        this.dialog.open(NotificationComponent, {minWidth: '600px', maxHeight: '500px'});
         break;
       default:
         alert('Invalid Dialog Argument');
