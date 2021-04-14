@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthStateService, UserData } from './auth-state.service';
-import { environment } from './../../environments/environment';
-import { HOUR } from '../shared/collection';
+import { environment } from '../../../../environments/environment';
+import { HOUR } from './../../collection';
 import { tap, catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
@@ -30,8 +30,6 @@ export class AuthService {
     login(username: string, password: string): Observable<any> {
         this.auth.authStarted();
         const signInUrl = environment.baseUrl + 'user/login';
-
-        console.log('Login Clicked');
         return this.http.post<UserData>(signInUrl, {username, password})
         .pipe(
             tap(userData => {

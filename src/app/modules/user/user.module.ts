@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { UserRoutingModule } from './user-routing.module';
 import { UserComponent } from './user.component';
-import { SignInComponent } from './sign-in/sign-in.component';
-import { RegisterComponent } from './register/register.component';
-import { ProfileComponent } from './profile/profile.component';
+import { SignInComponent } from './pages/sign-in/sign-in.component';
+import { RegisterComponent } from './pages/register/register.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 

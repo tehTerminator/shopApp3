@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { AuthService } from '../../auth/auth.service';
-import { AppDialog } from '../../shared/collection';
-import { AuthState, AuthStateService } from './../../auth/auth-state.service';
+import { AuthService } from './../../services/auth/auth.service';
+import { AuthState, AuthStateService } from './../../services/auth/auth-state.service';
+import { AppDialog } from './../../collection';
 
 @Component({
   selector: 'app-nav',
@@ -10,7 +10,7 @@ import { AuthState, AuthStateService } from './../../auth/auth-state.service';
 })
 export class NavComponent implements OnInit {
   @Output() showDialog = new EventEmitter<AppDialog>();
-  
+
   constructor(private authState: AuthStateService, private authService: AuthService) { }
 
   ngOnInit(): void {

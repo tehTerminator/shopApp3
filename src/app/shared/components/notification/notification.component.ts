@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Message, NotificationService, MessageState } from '../../shared/notification.service';
+import { Message, NotificationService, MessageState } from './../../services/notification/notification.service';
 
 @Component({
   selector: 'app-notification',

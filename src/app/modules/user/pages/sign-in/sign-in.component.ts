@@ -1,8 +1,10 @@
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthState, AuthStateService } from '../../auth/auth-state.service';
-import { AuthService } from './../../auth/auth.service';
+import { AuthState, AuthStateService } from './../../../../shared/services/auth/auth-state.service';
+import { AuthService } from './../../../../shared/services/auth/auth.service';
+import { MessageState, NotificationService } from './../../../../shared/services/notification/notification.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -20,7 +22,7 @@ export class SignInComponent implements OnInit {
     private authService: AuthService,
     private authState: AuthStateService,
     private router: Router,
-    // private snackBar: MatSnackBar
+    private ns: NotificationService
   ) { }
 
   ngOnInit(): void {
@@ -28,13 +30,15 @@ export class SignInComponent implements OnInit {
 
   onSubmit(): void {
     if (this.signInForm.invalid) {
-      // this.snackBar.open('Invalid Form Data', 'DISMISS', {duration: 5000});
+      this.ns.showError('Invalid Form Data', 'Please Provide Username and Password');
       return;
     }
 
     this.authService.login(this.username, this.password)
     .subscribe(() => {
       this.router.navigate(['/home']);
+    }, error => {
+      this.ns.showError('Error Occurred', error);
     });
   }
 

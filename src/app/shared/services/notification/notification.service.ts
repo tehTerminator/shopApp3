@@ -10,11 +10,19 @@ export class NotificationService {
 
   constructor(private snackBar: MatSnackBar) { }
 
-  show(title: string, text: string, state: MessageState): void {
+  public show(title: string, text: string, state = MessageState.ALERT): void {
     const createdAt = new Date();
     const message: Message = { title, text, state, createdAt };
     this.snackBar.open(text, 'DISMISS', {duration: 5000});
     this.appendMessage(message);
+  }
+
+  public showError(title: string, text: string): void {
+    this.show(title, text, MessageState.ERROR);
+  }
+
+  public showSuccess(title: string, text: string): void {
+    this.show(title, text, MessageState.SUCCESS);
   }
 
   private appendMessage(message: Message): void {

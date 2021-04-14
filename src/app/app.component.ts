@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { AuthService } from './auth/auth.service';
+import { AuthService } from './shared/services/auth/auth.service';
 import { MatDialog } from '@angular/material/dialog';
-import { CalculatorComponent } from './base/calculator/calculator.component';
-import { NotificationComponent } from './base/notification/notification.component';
+import { CalculatorComponent } from './shared/components/calculator/calculator.component';
+import { NotificationComponent } from './shared/components/notification/notification.component';
 import { AppDialog } from './shared/collection';
 
 @Component({
