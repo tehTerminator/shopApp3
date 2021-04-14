@@ -5,23 +5,33 @@
       <i class="bordered icon bars"></i>
     </div>
   </div>
+  <div class="icon item" (click)="showCalculator()">
+    <i class="icon calculator"></i>
+  </div>
   <div class="item">
     <i class="home icon"></i>
     Home
   </div>
   <div class="right menu">
-    <a [routerLink]="['/user', 'sign-in']" class="item" *ngIf="loggedOut; else loggedIn">
+    <a class="item" (click)="showNotification()">
+      Notifications
+    </a>
+    <a
+      [routerLink]="['/user', 'sign-in']"
+      class="item"
+      *ngIf="loggedOut; else loggedIn"
+    >
       <i class="sign in alternate icon"></i>
-        Sign In
+      Sign In
     </a>
     <ng-template #loggedIn>
       <div class="ui dropdown item" appDropdown>
-          Prateek Kher
-          <i class="dropdown icon"></i>
-          <div class="menu">
-              <div class="item">Profile</div>
-              <div class="item">Logout</div>
-          </div>
+        Prateek Kher
+        <i class="dropdown icon"></i>
+        <div class="menu">
+          <div class="item">Profile</div>
+          <div class="item">Logout</div>
+        </div>
       </div>
     </ng-template>
   </div>

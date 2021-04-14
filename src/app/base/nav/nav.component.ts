@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { AppDialog } from '../../shared/collection';
 import { AuthState, AuthStateService } from './../../auth/auth-state.service';
 
 @Component({
@@ -7,7 +8,8 @@ import { AuthState, AuthStateService } from './../../auth/auth-state.service';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
-
+  @Output() showDialog = new EventEmitter<AppDialog>();
+  
   constructor(private authState: AuthStateService) { }
 
   ngOnInit(): void {
@@ -16,4 +18,7 @@ export class NavComponent implements OnInit {
   get loggedOut(): boolean {
     return this.authState.currentState === AuthState.LOGGED_OUT;
   }
+
+  showCalculator = () => this.showDialog.emit(AppDialog.CALCULATOR);
+  showNotification = () => this.showDialog.emit(AppDialog.NOTIFICATION);
 }

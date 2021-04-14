@@ -11,6 +11,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NotificationComponent } from './base/notification/notification.component';
 import { CalculatorComponent } from './base/calculator/calculator.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatOptionModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -27,6 +30,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     BrowserAnimationsModule,
     MatSnackBarModule,
     MatDialogModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatOptionModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
