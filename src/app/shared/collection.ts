@@ -2,7 +2,7 @@ export const SECOND = 1000;
 export const MINUTE = 60000;
 export const HOUR = 3600000;
 
-export const ALPHA_NUM = '^[0-9a-zA-Z]+$';
+export const ALPHA_NUM = '^[0-9a-zA-Z ]+$';
 
 export interface TableRow{
     id: number;
@@ -28,7 +28,7 @@ export interface Ledger extends TableRow {
 }
 
 export interface UserData extends TableRow {
-    name: string;
+    displayName: string;
     username: string;
     token: string;
 }
