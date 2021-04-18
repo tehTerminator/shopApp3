@@ -1,1 +1,19 @@
-<p>register works!</p>
+<form [formGroup]="userRegistrationForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="outline" class="d-block">
+        <mat-label>Full Name</mat-label>
+        <input matInput type="text" formControlName="displayName" autocomplete="name">
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="d-block">
+        <mat-label>Username</mat-label>
+        <input type="text" matInput formControlName="username" autocomplete="username">
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="d-block">
+        <mat-label>Password</mat-label>
+        <input type="password" matInput formControlName="password" autocomplete="current-password">
+    </mat-form-field>
+
+    <button type="submit" class="ui green button">Register</button>
+    <button type="reset" class="ui red button">
+        Reset Form
+    </button>
+</form>
