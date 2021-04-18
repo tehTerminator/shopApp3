@@ -21,7 +21,6 @@ export class NavComponent implements OnInit, OnDestroy {
     this.authState.user
     .pipe(takeUntil(this.notifier))
     .subscribe(user => {
-      console.log(user);
       this.displayName = user.name;
     });
   }

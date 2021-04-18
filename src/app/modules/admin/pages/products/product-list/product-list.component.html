@@ -1,1 +1,7 @@
-<p>list works!</p>
+<div class="ui paged segment">
+    <div class="ui relaxed divided list">
+        <div class="item" *ngFor="let product of products | async">
+            {{ product.id }} - {{ product.title }}
+        </div>
+    </div>
+</div>

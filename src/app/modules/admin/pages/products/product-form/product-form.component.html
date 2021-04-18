@@ -1,9 +1,18 @@
-<form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="ui raised segment">
+    <h2 class="ui header">{{ editMode ? 'Update Product' : 'Create New Product' }}</h2>
     <mat-form-field appearance="fill" class="d-block">
         <mat-label>ID</mat-label>
-        <input matInput type="number" min="0" step="1" required formControlName="id">
+        <input matInput type="number" min="0" step="1" formControlName="id" (blur)="onIdFieldChange()">
     </mat-form-field>
     <mat-form-field appearance="fill" class="d-block">
-        <mat-label></mat-label>
+        <mat-label>Title</mat-label>
+        <input type="text" matInput required formControlName="title">
     </mat-form-field>
+    <mat-form-field appearance="fill" class="d-block">
+        <mat-label>Rate</mat-label>
+        <input matInput type="number" min="0" step="1" required formControlName="rate">
+    </mat-form-field>
+
+    <button type="submit" class="ui green button">Submit</button>
+    <button type="reset" class="ui red button">Reset Form</button>
 </form>
