@@ -24,7 +24,6 @@ export class AuthStateService {
      * @returns void
      */
     signIn(userData: UserData, expirationTime: number): void {
-        console.log('[AuthState] Received UserData', userData);
         const currentTime = (new Date()).getTime();
         if (expirationTime < currentTime) {
             this.state = AuthState.LOGGED_OUT;
@@ -32,7 +31,7 @@ export class AuthStateService {
         }
 
         if (userData.id > 0) {
-            const newUser = new User(userData.id, userData.name, userData.username, userData.token, expirationTime);
+            const newUser = new User(userData.id, userData.displayName, userData.username, userData.token, expirationTime);
             this.user.next(newUser);
             this.state = AuthState.LOGGED_IN;
             return;

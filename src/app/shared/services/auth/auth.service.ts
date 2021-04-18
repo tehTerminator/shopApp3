@@ -29,11 +29,10 @@ export class AuthService {
 
     login(username: string, password: string): Observable<any> {
         this.auth.authStarted();
-        const signInUrl = environment.baseUrl + 'user/login';
+        const signInUrl = environment.baseUrl + 'users/login';
         return this.http.post<UserData>(signInUrl, {username, password})
         .pipe(
             tap(userData => {
-                console.log(userData);
                 const expirationTime = (new Date(userData.updated_at)).getTime() + HOUR;
                 this.auth.signIn(userData, expirationTime);
                 this.storeLocal(userData, expirationTime);
@@ -61,7 +60,7 @@ export class AuthService {
         const ud = localStorage.getItem('userData');
         let userData: UserData = {
             id: 0,
-            name: 'Anonymous',
+            displayName: 'Anonymous',
             username: 'anonymous',
             token: '',
             created_at: '',
