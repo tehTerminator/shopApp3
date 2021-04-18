@@ -1,0 +1,9 @@
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill" class="d-block">
+        <mat-label>ID</mat-label>
+        <input matInput type="number" min="0" step="1" required formControlName="id">
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="d-block">
+        <mat-label></mat-label>
+    </mat-form-field>
+</form>
