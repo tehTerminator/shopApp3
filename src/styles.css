@@ -27,6 +27,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .d-block {
   display: block !important;
+  width: 100% !important;
 }
 
 .mt-0 {

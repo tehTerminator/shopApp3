@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { UserData, AuthState } from '../../collection';
 import { User } from './user.model';
 
 @Injectable({
@@ -23,6 +24,7 @@ export class AuthStateService {
      * @returns void
      */
     signIn(userData: UserData, expirationTime: number): void {
+        console.log('[AuthState] Received UserData', userData);
         const currentTime = (new Date()).getTime();
         if (expirationTime < currentTime) {
             this.state = AuthState.LOGGED_OUT;
@@ -73,19 +75,4 @@ export class AuthStateService {
     get currentState(): AuthState {
         return this.state;
     }
-}
-
-export enum AuthState {
-    LOGGED_OUT,
-    STARTED,
-    LOGGED_IN,
-}
-
-export interface UserData {
-    id: number;
-    name: string;
-    username: string;
-    token: string;
-    created_at: string;
-    updated_at: string;
 }

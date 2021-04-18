@@ -1,10 +1,10 @@
-import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthState, AuthStateService } from './../../../../shared/services/auth/auth-state.service';
+import { AuthStateService } from './../../../../shared/services/auth/auth-state.service';
 import { AuthService } from './../../../../shared/services/auth/auth.service';
-import { MessageState, NotificationService } from './../../../../shared/services/notification/notification.service';
+import { NotificationService } from './../../../../shared/services/notification/notification.service';
+import { AuthState } from './../../../../shared/collection';
 
 @Component({
   selector: 'app-sign-in',
@@ -35,7 +35,8 @@ export class SignInComponent implements OnInit {
     }
 
     this.authService.login(this.username, this.password)
-    .subscribe(() => {
+    .subscribe((userData) => {
+      this.ns.showSuccess('Success', `Welcome ${userData.displayName}`);
       this.router.navigate(['/home']);
     }, error => {
       this.ns.showError('Error Occurred', error);

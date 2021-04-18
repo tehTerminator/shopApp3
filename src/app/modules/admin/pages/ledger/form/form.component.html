@@ -1,0 +1,32 @@
+<form [formGroup]="ledgerForm" (ngSubmit)="onSubmit()" class="ui stacked segment">
+    <h2 class="ui header">
+        {{ editMode ? 'Update Ledger' : 'Create New Ledger' }}
+    </h2>
+    <mat-form-field appearance="fill" class="d-block">
+        <mat-label>#</mat-label>
+        <input type="number" min="0" step="1" matInput formControlName="id" (blur)="onIdFieldChange()">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="d-block">
+        <mat-label>Ledger Name</mat-label>
+        <input matInput type="text" required formControlName="title">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="d-block">
+        <mat-label>Group</mat-label>
+        <mat-select formControlName="group">
+            <mat-option *ngFor="let group of groups" [value]="group">
+                {{ group }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <button type="submit" class="ui labelled icon green button">
+        <i class="save icon"></i>
+        Save Data
+    </button>
+    <button type="reset" class="ui labelled icon red button">
+        <i class="trash icon"></i>
+        Reset Form
+    </button>
+</form>

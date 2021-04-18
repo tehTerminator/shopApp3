@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AuthStateService, UserData } from './auth-state.service';
+import { AuthStateService } from './auth-state.service';
 import { environment } from '../../../../environments/environment';
-import { HOUR } from './../../collection';
+import { HOUR, UserData } from './../../collection';
 import { tap, catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
@@ -40,7 +40,7 @@ export class AuthService {
             }),
             catchError(error => {
                 console.log(error);
-                return error.error;
+                throw new Error('Invalid Username or Password');
             })
         );
     }

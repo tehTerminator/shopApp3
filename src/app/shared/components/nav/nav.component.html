@@ -12,28 +12,33 @@
     <i class="home icon"></i>
     Home
   </a>
+  <a routerLink="/admin" routerLinkActive="active red" class="item">
+    <i class="home icon"></i>
+    Admin
+  </a>
+
   <div class="right menu">
     <a class="item" (click)="showNotification()">
       Notifications
     </a>
-    <a
+
+    <div class="ui dropdown item" appDropdown *ngIf="loggedIn; else signInMenu">
+      {{ displayName }}
+      <i class="dropdown icon"></i>
+      <div class="menu">
+        <div class="item">Profile</div>
+        <a (click)="signOut()" class="item">Logout</a>
+      </div>
+    </div>
+    
+    <ng-template #signInMenu>
+      <a
       [routerLink]="['/user', 'sign-in']"
       routerLinkActive="active red"
-      class="item"
-      *ngIf="loggedOut; else loggedIn"
-    >
+      class="item">
       <i class="sign in alternate icon"></i>
       Sign In
     </a>
-    <ng-template #loggedIn>
-      <div class="ui dropdown item" appDropdown>
-        Prateek Kher
-        <i class="dropdown icon"></i>
-        <div class="menu">
-          <div class="item">Profile</div>
-          <a (click)="signOut()" class="item">Logout</a>
-        </div>
-      </div>
     </ng-template>
   </div>
 </nav>
