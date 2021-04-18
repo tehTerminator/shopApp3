@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from './../../../../shared/services/api/api.service';
 
 @Component({
   selector: 'app-default',
@@ -9,7 +10,6 @@ export class DefaultComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {  }
 
 }
