@@ -2,7 +2,8 @@ import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/cor
 import { AuthService } from './../../services/auth/auth.service';
 import { AuthStateService } from './../../services/auth/auth-state.service';
 import { AppDialog, AuthState, UserData } from './../../collection';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-nav',
@@ -12,18 +13,22 @@ import { Subscription } from 'rxjs';
 export class NavComponent implements OnInit, OnDestroy {
   @Output() showDialog = new EventEmitter<AppDialog>();
   displayName = 'Anonymous';
-  userSub: Subscription = new Subscription();
+  notifier = new Subject();
 
   constructor(private authState: AuthStateService, private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.userSub = this.authState.user.subscribe(user => {
+    this.authState.user
+    .pipe(takeUntil(this.notifier))
+    .subscribe(user => {
+      console.log(user);
       this.displayName = user.name;
     });
   }
 
   ngOnDestroy(): void {
-    this.userSub.unsubscribe();
+    this.notifier.next();
+    this.notifier.complete();
   }
 
   get loggedIn(): boolean {
