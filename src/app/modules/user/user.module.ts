@@ -8,6 +8,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { CoreModule } from './../core/core.module';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { MatInputModule } from '@angular/material/input';
     UserRoutingModule,
     MatInputModule,
     ReactiveFormsModule,
+    CoreModule,
   ]
 })
 export class UserModule { }
