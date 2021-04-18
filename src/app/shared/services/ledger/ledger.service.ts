@@ -10,8 +10,9 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class LedgerService extends BaseService {
+
   constructor(private api: ApiService, private notification: NotificationService) {
-    super('ledgers', 10 * MINUTE);
+    super('ledger', 10 * MINUTE);
   }
 
   init(forced = false): void {

@@ -21,7 +21,6 @@ export enum AuthState {
     LOGGED_IN,
 }
 
-
 export interface Ledger extends TableRow {
     title: string;
     group: string;
@@ -31,6 +30,11 @@ export interface UserData extends TableRow {
     displayName: string;
     username: string;
     token: string;
+}
+
+export interface Product extends TableRow {
+    title: string;
+    rate: number;
 }
 
 

@@ -8,6 +8,7 @@ import { DefaultComponent } from './pages/default/default.component';
 import { LedgerComponent } from './pages/ledger/ledger.component';
 import { FormComponent } from './pages/ledger/form/form.component';
 import { ListComponent } from './pages/ledger/list/list.component';
+import { ProductsComponent } from './pages/products/products.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { ListComponent } from './pages/ledger/list/list.component';
     DefaultComponent,
     LedgerComponent,
     FormComponent,
-    ListComponent
+    ListComponent,
+    ProductsComponent
   ],
   imports: [
     CommonModule,
