@@ -12,15 +12,12 @@ export class ApiService {
 
   select<Type>(tableName: string, payload?: {[key: string]: string}): Observable<Type>{
     const params = new HttpParams();
-
-    if (payload !== undefined) {
-      for (const key in payload) {
-        if (payload.hasOwnProperty(key)){
-          params.set(key, payload[key]);
-        }
+    for (const item in payload) {
+      if (payload.hasOwnProperty(item)){
+        params.set(item, payload[item]);
       }
     }
-    return this.http.get<Type>(this.url(tableName, ''), {params});
+    return this.http.get<Type>(this.url(tableName), {params});
   }
 
   create<Type>(tableName: string, payload: {[key: string]: any}): Observable<Type>{
@@ -35,7 +32,12 @@ export class ApiService {
     return this.http.delete<Type>(`${this.url(tableName, 'delete')}/${id}`);
   }
 
-  private url(tableName: string, type: string): string {
-    return `${environment.baseUrl}${tableName}/${type}`;
+  private url(tableName: string, type = ''): string {
+    let url = `${environment.baseUrl}${tableName}/${type}`;
+    if (type.length === 0) {
+      // This Removes trailing Forward Slash
+      url = url.substring(0, url.length - 1);
+    }
+    return url;
   }
 }
