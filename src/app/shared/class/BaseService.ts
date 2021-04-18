@@ -53,7 +53,7 @@ export abstract class BaseService {
     }
 
     protected insert(item: TableRow): void {
-        this.data.next([item, ...this.data.value]);
+        this.data.next([...this.data.value, item]);
     }
 
     protected updateItem(item: TableRow): void {
