@@ -22,7 +22,7 @@ import { ProductFormComponent } from './pages/products/product-form/product-form
     LedgerListComponent,
     ProductsComponent,
     ProductFormComponent,
-    ProductListComponent
+    ProductListComponent,
   ],
   imports: [
     CommonModule,

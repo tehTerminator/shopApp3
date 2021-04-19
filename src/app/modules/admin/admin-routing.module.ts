@@ -10,6 +10,7 @@ const routes: Routes = [
     { path: '', component: DefaultComponent },
     { path: 'ledger', component: LedgerComponent },
     { path: 'products', component: ProductsComponent },
+    { path: 'pos-item', loadChildren: () => import('./pages/pos-items/admin-pos.module').then(m => m.AdminPosModule) },
     { path: '**', redirectTo: '', pathMatch: 'full' }
   ]}
 ];
