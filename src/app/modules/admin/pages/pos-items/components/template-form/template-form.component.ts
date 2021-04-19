@@ -103,11 +103,11 @@ export class TemplateFormComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   get products(): Observable<Product[]> {
-    return this.productService.getAsObervable() as Observable<Product[]>;
+    return this.productService.getAsObservable() as Observable<Product[]>;
   }
 
   get ledgers(): Observable<Ledger[]> {
-    return this.ledgerService.getAsObervable() as Observable<Ledger[]>;
+    return this.ledgerService.getAsObservable() as Observable<Ledger[]>;
   }
 
   get id(): FormControl {
