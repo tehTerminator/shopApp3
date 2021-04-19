@@ -20,7 +20,7 @@ export class PosItemListComponent implements OnInit {
   }
 
   get posItems(): Observable<PosItem[]> {
-    return this.posItemService.getAsObervable() as Observable<PosItem[]>;
+    return this.posItemService.getAsObservable() as Observable<PosItem[]>;
   }
 
   onSelect(posItem: PosItem) {

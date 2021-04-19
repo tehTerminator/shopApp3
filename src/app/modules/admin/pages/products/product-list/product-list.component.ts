@@ -17,7 +17,7 @@ export class ProductListComponent implements OnInit {
   }
 
   get products(): Observable<Product[]> {
-    return this.productService.getAsObervable() as Observable<Product[]>;
+    return this.productService.getAsObservable() as Observable<Product[]>;
   }
 
 }

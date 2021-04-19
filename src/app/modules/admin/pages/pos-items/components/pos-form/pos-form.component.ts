@@ -10,7 +10,7 @@ import { PosItemService } from './../../../../../../shared/services/posItem/pos-
   styleUrls: ['./pos-form.component.css']
 })
 export class PosFormComponent implements OnInit {
-  posForm: FormGroup = new FormGroup();
+  posForm: FormGroup = new FormGroup({});
 
   constructor(
     private posService: PosItemService,

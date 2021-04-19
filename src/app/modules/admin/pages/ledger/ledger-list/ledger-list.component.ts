@@ -18,6 +18,6 @@ export class LedgerListComponent implements OnInit {
   }
 
   get ledgers(): Observable<Ledger[]> {
-    return this.ledgerService.getAsObervable() as Observable<Ledger[]>;
+    return this.ledgerService.getAsObservable() as Observable<Ledger[]>;
   }
 }
