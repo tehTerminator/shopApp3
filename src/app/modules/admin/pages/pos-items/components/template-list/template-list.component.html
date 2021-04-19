@@ -1,1 +1,31 @@
-<p>template-list works!</p>
+<table class="ui raised table segment" *ngIf="templates.length > 0; else noItemBanner">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Pos_ID</th>
+            <th>Kind</th>
+            <th>Title</th>
+            <th>Rate</th>
+            <th>Quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let t of templates">
+            <td>{{ t.id }}</td>
+            <td>{{ t.positem_id }}</td>
+            <td>{{ t.kind }}</td>
+            <td>{{ getTitle(t) }}</td>
+            <td>{{ t.rate }}</td>
+            <td>{{ t.quantity }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<ng-template #noItemBanner>
+    <div class="ui placeholder segment">
+        <div class="ui icon header">
+            <i class="delete icon"></i>
+            Sorry No Templates Are Added to This POS Item
+        </div>
+    </div>
+</ng-template>
