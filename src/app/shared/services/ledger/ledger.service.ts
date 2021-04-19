@@ -15,16 +15,6 @@ export class LedgerService extends BaseService {
     super('ledgers', 10 * MINUTE);
   }
 
-  init(forced = false): void {
-    const currentDate = (new Date()).getTime();
-    if (!forced) {
-      if (this.nextUpdate > currentDate) {
-        return;
-      }
-    }
-    this.fetch();
-  }
-
   protected fetch(): void {
     this.api.select<Ledger[]>(this.tableName).subscribe(
       ledgers => {
