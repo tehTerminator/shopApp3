@@ -5,7 +5,6 @@ export abstract class BaseService {
     protected data = new BehaviorSubject<TableRow[]>([]);
     protected nextUpdate = (new Date()).getTime() + this.updateFrequency;
 
-    public abstract init(): void;
     protected abstract fetch(): void;
     public abstract create(data: TableRow): Observable<TableRow>;
     public abstract update(data: TableRow): Observable<TableRow>;
@@ -13,6 +12,16 @@ export abstract class BaseService {
 
     constructor(protected tableName: string, protected updateFrequency: number) {
         this.nextUpdate = (new Date()).getTime() + updateFrequency;
+    }
+
+    public init(forced = false): void {
+        const currentDate = (new Date()).getTime();
+        if (!forced) {
+          if (this.nextUpdate > currentDate) {
+            return;
+          }
+        }
+        this.fetch();
     }
 
     protected store(data: TableRow[]): void {
