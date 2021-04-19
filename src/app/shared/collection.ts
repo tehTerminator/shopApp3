@@ -37,4 +37,18 @@ export interface Product extends TableRow {
     rate: number;
 }
 
+export interface PosItemTemplate extends TableRow {
+    positem_id: number;
+    item_id: number;
+    kind: string;
+    rate: number;
+    quantity: number;
+}
+
+export interface PosItem extends TableRow {
+    title: string;
+    rate: number;
+    templates: PosItemTemplate[];
+}
+
 
