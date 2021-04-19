@@ -15,15 +15,6 @@ export class ProductService extends BaseService {
     super('products', HOUR);
   }
 
-  init(forced = false): void {
-    const currentDate = (new Date()).getTime();
-    if (!forced) {
-      if (this.nextUpdate > currentDate) {
-        return;
-      }
-    }
-    this.fetch();
-  }
 
   protected fetch(): void {
     this.api.select<Product[]>(this.tableName).subscribe(
