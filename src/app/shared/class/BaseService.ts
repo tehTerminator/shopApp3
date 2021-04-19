@@ -3,16 +3,16 @@ import { TableRow } from '../collection';
 
 export abstract class BaseService {
     protected data = new BehaviorSubject<TableRow[]>([]);
-    protected nextUpdate = (new Date()).getTime() + this.updateFrequency;
+    protected nextUpdate = 0;
 
     protected abstract fetch(): void;
     public abstract create(data: TableRow): Observable<TableRow>;
     public abstract update(data: TableRow): Observable<TableRow>;
     public abstract delete(id: number): Observable<any>;
 
-    constructor(private ptableName: string, protected updateFrequency: number) {
-        this.nextUpdate = (new Date()).getTime() + updateFrequency;
-    }
+    constructor(
+        private ptableName: string,
+        protected updateFrequency: number) { }
 
     get tableName(): string {
         return this.ptableName;
@@ -63,10 +63,12 @@ export abstract class BaseService {
 
     protected deleteItem(index: number): void {
         this.data.next(this.data.value.splice(index, 1));
+        this.updateTimeStamp();
     }
 
     protected insert(item: TableRow): void {
         this.data.next([...this.data.value, item]);
+        this.updateTimeStamp();
     }
 
     protected updateItem(item: TableRow): void {
@@ -82,5 +84,10 @@ export abstract class BaseService {
         });
         list.splice(indexOfItemToBeReplaced, 1, item);
         this.data.next(list);
+        this.updateTimeStamp();
+    }
+
+    private updateTimeStamp(): void {
+        this.nextUpdate = (new Date()).getTime() + this.updateFrequency;
     }
 }
