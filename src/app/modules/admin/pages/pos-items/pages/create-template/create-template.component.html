@@ -1,0 +1,26 @@
+<div class="ui three stackable column grid">
+    <div class="column" *ngIf="posItemBeingEdited">
+        <table class="ui raised table segment">
+            <tbody>
+                <tr>
+                    <th role="rowheader">#</th>
+                    <td role="text">{{ posItemBeingEdited.id }}</td>
+                </tr>
+                <tr>
+                    <th role="rowheader">Title</th>
+                    <td role="text">{{ posItemBeingEdited.title }}</td>
+                </tr>
+                <tr>
+                    <th role="rowheader">Rate</th>
+                    <td role="text">{{ posItemBeingEdited.rate | currency:'INR' }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="column">
+        <app-template-form [pos]="posItemBeingEdited.id"></app-template-form>
+    </div>
+    <div class="column">
+        <app-template-list></app-template-list>
+    </div>
+</div>

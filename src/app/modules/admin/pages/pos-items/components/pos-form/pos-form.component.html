@@ -1,1 +1,23 @@
-<p>pos-form works!</p>
+<div class="ui paged segment mt-3">
+    <div class="ui header">
+        {{ editMode ? 'Update POS Item' : 'Create New Pos Item' }}
+    </div>
+    <div class="content">
+        <mat-form-field class="d-block" appearance="fill">
+            <mat-label>id</mat-label>
+            <input type="number" matInput formControlName="id">
+        </mat-form-field>
+        <mat-form-field class="d-block" appearance="fill">
+            <mat-label>Title</mat-label>
+            <input type="text" matInput formControlName="title" required>
+        </mat-form-field>
+        <mat-form-field class="d-block" appearance="fill">
+            <mat-label>Rate</mat-label>
+            <input type="number" matInput formControlName="rate" required>
+        </mat-form-field>
+
+
+        <button type="submit" class="ui green button">Submit</button>
+        <button type="reset" class="ui red button">Reset Form</button>
+    </div>
+</div>

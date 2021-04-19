@@ -1,1 +1,49 @@
-<p>template-form works!</p>
+<div class="ui paged segment" [formGroup]="templateForm" (ngSubmit)="onSubmit()">
+    <div class="ui header">
+        Create / Update Template
+    </div>
+    <div class="content">
+        <mat-form-field appearance="fill" class="d-block">
+            <mat-label>id</mat-label>
+            <input type="number" formControlName="id">
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="d-block">
+            <mat-label>Type</mat-label>
+            <mat-select formControlName="kind">
+                <mat-option value="PRODUCT">PRODUCT</mat-option>
+                <mat-option value="LEDGER">LEDGER</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="d-block" *ngIf="isProduct">
+            <mat-label>Product</mat-label>
+            <mat-select formControlName="item_id">
+                <mat-option *ngFor="let p of products | async" [value]="p.id">
+                    {{ p.title }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="d-block" *ngIf="!isProduct">
+            <mat-label>Ledger</mat-label>
+            <mat-select formControlName="item_id">
+                <mat-option *ngFor="let l of ledgers | async" [value]="l.id">
+                    {{ l.title }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="d-block">
+            <mat-label>Rate</mat-label>
+            <input type="number" formControlName="rate">
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="d-block">
+            <mat-label>Quantity</mat-label>
+            <input type="number" formControlName="quantity">
+        </mat-form-field>
+
+        <button type="submit" class="ui green button">
+            Submit
+        </button>
+        <button type="reset" class="ui red button">
+            Reset
+        </button>
+    </div>
+</div>
