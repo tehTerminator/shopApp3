@@ -10,8 +10,12 @@ export abstract class BaseService {
     public abstract update(data: TableRow): Observable<TableRow>;
     public abstract delete(id: number): Observable<any>;
 
-    constructor(protected tableName: string, protected updateFrequency: number) {
+    constructor(private ptableName: string, protected updateFrequency: number) {
         this.nextUpdate = (new Date()).getTime() + updateFrequency;
+    }
+
+    get tableName(): string {
+        return this.ptableName;
     }
 
     public init(forced = false): void {
