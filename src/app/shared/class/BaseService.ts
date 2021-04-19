@@ -64,7 +64,7 @@ export abstract class BaseService {
         return [...this.data.value];
     }
 
-    getAsObervable(): Observable<TableRow[]> {
+    getAsObservable(): Observable<TableRow[]> {
         return this.data;
     }
 
