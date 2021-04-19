@@ -4,6 +4,7 @@ import { TableRow } from '../collection';
 export abstract class BaseService {
     protected data = new BehaviorSubject<TableRow[]>([]);
     protected nextUpdate = 0;
+    private initialized = false;
 
     protected abstract fetch(): void;
     public abstract create(data: TableRow): Observable<TableRow>;
@@ -25,6 +26,12 @@ export abstract class BaseService {
             return;
           }
         }
+
+        if (this.initialized) {
+            return; // Prevents Multiple Init Calls
+        }
+
+        this.initialized = true;
         this.fetch();
     }
 
