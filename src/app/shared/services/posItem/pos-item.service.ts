@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { tap, catchError } from 'rxjs/operators';
+import { tap, catchError, map } from 'rxjs/operators';
 import { BaseService } from '../../class/BaseService';
 import { HOUR, PosItem, PosItemTemplate } from '../../collection';
 import { ApiService } from '../api/api.service';
@@ -25,6 +25,25 @@ export class PosItemService extends BaseService {
                 this.notificationService.showError('Error', 'An Error Occurred While Fetching Data');
                 console.log(error);
             }
+        );
+    }
+
+    getTemplatesAsObservable(posItemId: number): Observable<PosItemTemplate[]> {
+        return this.data.pipe(
+            map(
+                x => {
+                    const item = (x.find(d => d.id === posItemId) as PosItem);
+                    console.log('getTemplateAsObservable():', item);
+                    if (item === undefined) {
+                        return [];
+                    }
+                    return item.pos_templates;
+                }
+            ),
+            catchError(error => {
+                console.log(error);
+                return [];
+            })
         );
     }
 
@@ -64,8 +83,10 @@ export class PosItemService extends BaseService {
             tap(
                 response => {
                     try{
+                        console.log('Saved Template', response);
                         const posItem = this.getElementById(response.positem_id) as PosItem;
-                        posItem.templates.push(response);
+                        console.log('Inserting Template into ', posItem);
+                        posItem.pos_templates.push(response);
                         this.updateItem(posItem);
                     } catch (e) {
                         throw new Error('Pos Item Not Found');
@@ -87,7 +108,7 @@ export class PosItemService extends BaseService {
                     try{
                         const posItem = this.getElementById(response.positem_id) as PosItem;
                         const indexOfTemplateToBeReplaced = this.findTemplateIndexById(response.positem_id, response.id);
-                        posItem.templates.splice(indexOfTemplateToBeReplaced, 1, response);
+                        posItem.pos_templates.splice(indexOfTemplateToBeReplaced, 1, response);
                         this.updateItem(posItem);
                     } catch (e) {
                         throw new Error('PosItem Not Found');
@@ -109,7 +130,7 @@ export class PosItemService extends BaseService {
                     try{
                         const posItem = this.getElementById(template.positem_id) as PosItem;
                         const indexOfItemToBeDeleted = this.findTemplateIndexById(posItem.id, template.id);
-                        posItem.templates.splice(indexOfItemToBeDeleted, 1);
+                        posItem.pos_templates.splice(indexOfItemToBeDeleted, 1);
                         this.updateItem(posItem);
                     } catch (e) {
                         throw new Error('PosItem Not Found');
@@ -126,7 +147,7 @@ export class PosItemService extends BaseService {
     private findTemplateIndexById(posItemId: number, templateId: number): number {
         try{
             const item = this.getElementById(posItemId) as PosItem;
-            return item.templates.findIndex(
+            return item.pos_templates.findIndex(
                 x => x.id === templateId
             );
         } catch (error) {

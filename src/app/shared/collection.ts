@@ -48,7 +48,7 @@ export interface PosItemTemplate extends TableRow {
 export interface PosItem extends TableRow {
     title: string;
     rate: number;
-    templates: PosItemTemplate[];
+    pos_templates: PosItemTemplate[];
 }
 
 
