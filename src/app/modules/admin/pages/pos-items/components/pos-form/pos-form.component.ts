@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { PosItem } from '../../../../../../shared/collection';
 import { NotificationService } from '../../../../../../shared/services/notification/notification.service';
 import { PosItemService } from './../../../../../../shared/services/posItem/pos-item.service';
 
@@ -13,8 +15,9 @@ export class PosFormComponent implements OnInit {
   posForm: FormGroup = new FormGroup({});
 
   constructor(
+    private router: Router,
     private posService: PosItemService,
-    private fb: FormBuilder, 
+    private fb: FormBuilder,
     private ns: NotificationService) { }
 
   ngOnInit(): void {
@@ -38,13 +41,14 @@ export class PosFormComponent implements OnInit {
     }
   }
 
-  private handleResponse(response: Observable<any>): void {
+  private handleResponse(response: Observable<PosItem>): void {
     const successMessage = this.editMode ? 'PosItem Updated Successfully' : 'PosItem Created Successfully';
 
     response.subscribe(
-      () => {
+      (data) => {
         this.ns.showSuccess('Success', successMessage);
         this.posForm.reset();
+        this.router.navigate(['/admin', 'pos-item', data.id , 'template']);
       },
       error => {
         this.ns.showError('Error', error);
