@@ -17,13 +17,14 @@ export class PosItemListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.posItemService.init();
   }
 
   get posItems(): Observable<PosItem[]> {
     return this.posItemService.getAsObservable() as Observable<PosItem[]>;
   }
 
-  onSelect(posItem: PosItem) {
-    this.router.navigate(['/admin', 'pos-item', 'template', posItem.id]);
+  onSelect(posItem: PosItem): void {
+    this.router.navigate(['/admin', 'pos-item', posItem.id, 'template']);
   }
 }
