@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./ledger-form.component.css']
 })
 export class LedgerFormComponent implements OnInit {
-  readonly groups = ['BANK', 'CASH', 'PAYABLES', 'RECEIVABLES', 'EXPENSE'];
+  readonly groups = ['BANK', 'CASH', 'PAYABLES', 'RECEIVABLES', 'EXPENSE', 'INCOME'];
   ledgerForm: FormGroup = this.fb.group({
     id: [0, Validators.min(0)],
     title: ['', [Validators.required, Validators.pattern(ALPHA_NUM)]],
