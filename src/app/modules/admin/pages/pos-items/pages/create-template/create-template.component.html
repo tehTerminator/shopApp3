@@ -1,26 +1,24 @@
-<div class="ui three stackable column grid">
-    <div class="column" *ngIf="posItemBeingEdited">
-        <table class="ui raised table segment">
-            <tbody>
-                <tr>
-                    <th role="rowheader">#</th>
-                    <td role="text">{{ posItemBeingEdited.id }}</td>
-                </tr>
-                <tr>
-                    <th role="rowheader">Title</th>
-                    <td role="text">{{ posItemBeingEdited.title }}</td>
-                </tr>
-                <tr>
-                    <th role="rowheader">Rate</th>
-                    <td role="text">{{ posItemBeingEdited.rate | currency:'INR' }}</td>
-                </tr>
-            </tbody>
-        </table>
+<div class="ui stackabled grid mt-3">
+    <div class="sixteen wide column" *ngIf="posItemBeingEdited">
+        <div class="ui raised segment">
+            <div class="ui header">Currently Editing</div>
+            <div class="content">
+                <table class="ui table">
+                    <tbody>
+                        <tr>
+                            <td>#{{ posItemBeingEdited.id }}</td>
+                            <td>Title: {{ posItemBeingEdited.title }}</td>
+                            <td>Rate :{{ posItemBeingEdited.rate | currency:'INR' }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-    <div class="column">
+    <div class="eight wide column">
         <app-template-form [pos]="posItemBeingEdited.id"></app-template-form>
     </div>
-    <div class="column">
+    <div class="eight wide column">
         <app-template-list [pos]="posItemBeingEdited.id"></app-template-list>
     </div>
 </div>
