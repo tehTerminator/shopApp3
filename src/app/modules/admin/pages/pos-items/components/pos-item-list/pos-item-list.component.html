@@ -1,1 +1,16 @@
-<p>pos-item-list works!</p>
+<table class="ui raised table segment">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Rate</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let p of posItems | async" (click)="onSelect(p)">
+            <td>{{ p.id }}</td>
+            <td>{{ p.title }}</td>
+            <td>{{ p.rate | currency:'INR' }}</td>
+        </tr>
+    </tbody>
+</table>
