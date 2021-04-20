@@ -10,10 +10,8 @@ import { Observable, Subscription } from 'rxjs';
   templateUrl: './template-list.component.html',
   styleUrls: ['./template-list.component.css']
 })
-export class TemplateListComponent implements OnInit, OnChanges, OnDestroy {
+export class TemplateListComponent implements OnInit, OnChanges {
   @Input() pos = 0;
-  templates: PosItemTemplate[] = [];
-  private sub: Subscription = new Subscription();
 
   constructor(
     private productService: ProductService,
@@ -25,22 +23,6 @@ export class TemplateListComponent implements OnInit, OnChanges, OnDestroy {
     this.productService.init();
     this.ledgerService.init();
     this.posItemService.init();
-
-    this.sub = this.posItems.subscribe(
-      (items) => {
-        try {
-          const temp = items.find(x => x.id === this.pos).templates;
-          if (temp === undefined) {
-            this.templates = [];
-          } else {
-            this.templates = temp;
-          }
-        } catch (e) {
-          console.log('PosItem Not Found');
-          this.templates = [];
-        }
-      }
-    );
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -51,10 +33,21 @@ export class TemplateListComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  ngOnDestroy(): void {
-    this.sub.unsubscribe();
+  deleteItem(template: PosItemTemplate): void {
+    this.posItemService.deleteTemplate(template)
+    .subscribe(
+      () => {
+        console.log('Item Deleted Success');
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
+  getTemplatesAsObservable(): Observable<PosItemTemplate[]> {
+    return this.posItemService.getTemplatesAsObservable(this.pos);
+  }
 
   get posItems(): Observable<PosItem[]> {
     return this.posItemService.getAsObservable() as Observable<PosItem[]>;
