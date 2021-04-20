@@ -11,13 +11,7 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
   select<Type>(tableName: string, payload?: {[key: string]: string}): Observable<Type>{
-    const params = new HttpParams();
-    for (const item in payload) {
-      if (payload.hasOwnProperty(item)){
-        params.set(item, payload[item]);
-      }
-    }
-    return this.http.get<Type>(this.url(tableName), {params});
+    return this.http.get<Type>(this.url(tableName), {params: payload});
   }
 
   create<Type>(tableName: string, payload: {[key: string]: any}): Observable<Type>{
