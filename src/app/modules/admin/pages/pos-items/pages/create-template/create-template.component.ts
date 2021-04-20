@@ -10,7 +10,15 @@ import { PosItemService } from '../../../../../../shared/services/posItem/pos-it
   styleUrls: ['./create-template.component.css']
 })
 export class CreateTemplateComponent implements OnInit {
-  posItemBeingEdited: PosItem;
+  posItemBeingEdited: PosItem = {
+    id: 0,
+    title: '',
+    rate: 0,
+    pos_templates: [],
+    created_at: '',
+    updated_at: ''
+  };
+
   constructor(
     private posItemService: PosItemService,
     private notificationService: NotificationService,
