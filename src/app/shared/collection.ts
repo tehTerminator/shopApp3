@@ -51,4 +51,13 @@ export interface PosItem extends TableRow {
     pos_templates: PosItemTemplate[];
 }
 
-
+export interface Voucher extends TableRow {
+    cr: number;
+    dr: number;
+    narration: string;
+    amount: number;
+    user_id: number;
+    state: boolean;
+    creditor: Ledger;
+    debtor: Ledger;
+}
