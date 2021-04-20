@@ -7,8 +7,8 @@ import { PosItemsComponent } from "./pos-items.component";
 const routes: Routes = [
     {
         path: '', component: PosItemsComponent, children: [
-            { path: 'pos-item', component: CreatePosItemComponent },
-            { path: 'templates/{id}', component: CreateTemplateComponent },
+            { path: '', component: CreatePosItemComponent },
+            { path: ':id/template', component: CreateTemplateComponent },
             { path: '**', redirectTo: 'pos-item', pathMatch: 'full' }
         ]
     }
