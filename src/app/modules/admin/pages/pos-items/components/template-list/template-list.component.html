@@ -1,22 +1,28 @@
-<table class="ui raised table segment" *ngIf="templates.length > 0; else noItemBanner">
+<table class="ui raised table center aligned segment">
     <thead>
         <tr>
             <th>#</th>
-            <th>Pos_ID</th>
             <th>Kind</th>
             <th>Title</th>
             <th>Rate</th>
             <th>Quantity</th>
+            <th>
+                <i class="trash icon"></i>
+            </th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let t of templates">
-            <td>{{ t.id }}</td>
-            <td>{{ t.positem_id }}</td>
-            <td>{{ t.kind }}</td>
-            <td>{{ getTitle(t) }}</td>
-            <td>{{ t.rate }}</td>
-            <td>{{ t.quantity }}</td>
+        <tr *ngFor="let template of getTemplatesAsObservable() | async">
+            <td>{{ template.id }}</td>
+            <td>{{ template.kind }}</td>
+            <td>{{ getTitle(template) }}</td>
+            <td>{{ template.rate }}</td>
+            <td>{{ template.quantity }}</td>
+            <td>
+                <button class="ui icon red circular mini button" (click)="deleteItem(template)">
+                    <i class="trash icon"></i>
+                </button>
+            </td>
         </tr>
     </tbody>
 </table>
