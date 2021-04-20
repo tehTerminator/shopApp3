@@ -5,22 +5,32 @@
       <i class="bordered icon bars"></i>
     </div>
   </div>
-  <a routerLink="/home" routerLinkActive="active red" class="item">
+  <a routerLink="/home" routerLinkActive="active teal" class="item">
     <i class="home icon"></i>
     Home
   </a>
-  <a routerLink="/admin" routerLinkActive="active red" class="item">
-    <i class="home icon"></i>
+  <a class="ui dropdown item" routerLinkActive="active teal" appDropdown>
+    Cashbook
+    <i class="dropdown icon"></i>
+    <div class="menu">
+      <a href="" class="item" routerLink="/cashbook/voucher">
+        <i class="pencil icon"></i>
+        Voucher</a>
+    </div>
+  </a>
+  <a class="ui dropdown item" routerLinkActive="active teal" appDropdown>
     Admin
+    <i class="dropdown icon"></i>
+    <div class="menu">
+      <a href="" class="item" routerLink="/admin/ledger">Ledger</a>
+      <a href="" class="item" routerLink="/admin/products">Products</a>
+      <a href="" class="item" routerLink="/admin/pos-item">PosItems</a>
+    </div>
   </a>
 
   <div class="right menu">
-    <a class="item" (click)="showCalculator()">
-      Calculator
-    </a>
-    <a class="item" (click)="showNotification()">
-      Notifications
-    </a>
+    <a class="item" (click)="showCalculator()"> Calculator </a>
+    <a class="item" (click)="showNotification()"> Notifications </a>
 
     <div class="ui dropdown item" appDropdown *ngIf="loggedIn; else signInMenu">
       {{ displayName }}
@@ -30,15 +40,16 @@
         <a (click)="signOut()" class="item">Logout</a>
       </div>
     </div>
-    
+
     <ng-template #signInMenu>
       <a
-      [routerLink]="['/user', 'sign-in']"
-      routerLinkActive="active red"
-      class="item">
-      <i class="sign in alternate icon"></i>
-      Sign In
-    </a>
+        [routerLink]="['/user', 'sign-in']"
+        routerLinkActive="active teal"
+        class="item"
+      >
+        <i class="sign in alternate icon"></i>
+        Sign In
+      </a>
     </ng-template>
   </div>
 </nav>
