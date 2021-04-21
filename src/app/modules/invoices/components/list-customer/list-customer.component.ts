@@ -19,6 +19,7 @@ export class ListCustomerComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.customerService.init();
   }
 
   get customers(): Observable<Customer[]> {
