@@ -1,5 +1,7 @@
-<div class="ui divided relaxed list">
-    <a class="item" *ngFor="let item of items | async" (click)="onSelect(item)">
-        {{ item.id }}
-    </a>
+<div class="ui raised segment">
+    <div class="ui divided relaxed list">
+        <a class="item" *ngFor="let item of items " (click)="onSelect(item)">
+            {{ item.title }}
+        </a>
+    </div>
 </div>
