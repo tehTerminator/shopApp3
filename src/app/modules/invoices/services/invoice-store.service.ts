@@ -9,7 +9,7 @@ import { ProductService } from '../../../shared/services/product/product.service
   providedIn: 'root'
 })
 export class InvoiceStoreService {
-  private readonly baseInvoice = {
+  readonly baseInvoice = {
     id: 0,
     customer_id: 1,
     customer: {
@@ -76,6 +76,9 @@ export class InvoiceStoreService {
   }
 
   appendTransaction(transction: Transaction): void {
+    if (transction.quantity === 0) {
+      return;
+    }
     const invoice = this.invoice.value;
     const indexOfTransaction = this.transactionsIndex(transction);
     if (indexOfTransaction >= 0) {
