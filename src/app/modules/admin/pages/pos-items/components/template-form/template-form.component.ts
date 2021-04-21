@@ -66,6 +66,14 @@ export class TemplateFormComponent implements OnInit, OnChanges, OnDestroy {
     this.sub.unsubscribe();
   }
 
+  private onReset(): void {
+    this.templateForm.reset();
+    this.templateForm.patchValue({
+      id: 0,
+      positem_id: this.pos
+    });
+  }
+
   onSubmit(): void {
     if (this.templateForm.invalid) {
       this.ns.showError('Form Error', 'Invalid Form Entries');
@@ -90,7 +98,7 @@ export class TemplateFormComponent implements OnInit, OnChanges, OnDestroy {
     response.subscribe(
       () => {
         this.ns.showSuccess('Success', successMessage);
-        this.templateForm.reset();
+        this.onReset();
       },
       error => {
         this.ns.showError('Error', error);
