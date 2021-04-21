@@ -1,1 +1,8 @@
-<p>list-customer works!</p>
+<div class="ui divided relaxed list">
+    <a class="item" *ngFor="let customer of customers |async" (click)="onSelect(customer)">
+        <div class="content">
+            <div class="header">{{ customer.title }}</div>
+            <div class="description">{{ customer.address }}</div>
+        </div>
+    </a>
+</div>
