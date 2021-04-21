@@ -2,7 +2,7 @@ export const SECOND = 1000;
 export const MINUTE = 60000;
 export const HOUR = 3600000;
 
-export const ALPHA_NUM = '^[0-9a-zA-Z ]+$';
+export const STRING = '^[0-9a-zA-Z ]+$';
 
 export interface TableRow{
     id: number;
@@ -61,3 +61,29 @@ export interface Voucher extends TableRow {
     creditor: Ledger;
     debtor: Ledger;
 }
+
+export interface Customer extends TableRow {
+    title: string;
+    address: string;
+}
+
+export interface Transaction extends TableRow {
+    invoice_id: number;
+    item_id: number;
+    item_type: string;
+    description: string;
+    quantity: number;
+    rate: number;
+    discount: number;
+}
+
+export interface Invoice extends TableRow {
+    customer: Customer;
+    customer_id: number;
+    user_id: number;
+    paid: boolean;
+    paymentMethod: string;
+    amount: number;
+    transactions: Transaction[];
+}
+

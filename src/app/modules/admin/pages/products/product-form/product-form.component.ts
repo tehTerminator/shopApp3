@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { ALPHA_NUM, Product } from '../../../../../shared/collection';
+import { STRING, Product } from '../../../../../shared/collection';
 import { NotificationService } from '../../../../../shared/services/notification/notification.service';
 import { ProductService } from '../../../../../shared/services/product/product.service';
 
@@ -21,7 +21,7 @@ export class ProductFormComponent implements OnInit {
   ngOnInit(): void {
     this.productForm = this.fb.group({
       id: 0,
-      title: ['', [Validators.required, Validators.pattern(ALPHA_NUM)]],
+      title: ['', [Validators.required, Validators.pattern(STRING)]],
       rate: [0, [Validators.required, Validators.min(1)]]
     });
   }

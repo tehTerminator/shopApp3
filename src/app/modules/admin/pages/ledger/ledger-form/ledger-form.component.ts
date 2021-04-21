@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LedgerService } from '../../../../../shared/services/ledger/ledger.service';
 import { NotificationService } from '../../../../../shared/services/notification/notification.service';
-import { ALPHA_NUM, Ledger } from '../../../../../shared/collection';
+import { STRING, Ledger } from '../../../../../shared/collection';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -14,7 +14,7 @@ export class LedgerFormComponent implements OnInit {
   readonly groups = ['BANK', 'CASH', 'PAYABLES', 'RECEIVABLES', 'EXPENSE', 'INCOME'];
   ledgerForm: FormGroup = this.fb.group({
     id: [0, Validators.min(0)],
-    title: ['', [Validators.required, Validators.pattern(ALPHA_NUM)]],
+    title: ['', [Validators.required, Validators.pattern(STRING)]],
     group: ['', Validators.required]
   });
   sub = new Subscription();
