@@ -3,8 +3,6 @@ import { Router } from '@angular/router';
 import { LedgerService } from './../../../../shared/services/ledger/ledger.service';
 import { ProductService } from './../../../../shared/services/product/product.service';
 import { PosItemService } from './../../../../shared/services/posItem/pos-item.service';
-import { asyncScheduler, concat, EMPTY, from, merge, Observable, scheduled, } from 'rxjs';
-import { concatAll, concatMap, map, mergeAll, mergeMap, take } from 'rxjs/operators';
 import { Ledger, PosItem, Product } from '../../../../shared/collection';
 import { InvoiceStoreService } from '../../services/invoice-store.service';
 import { NotificationService } from '../../../../shared/services/notification/notification.service';
@@ -15,7 +13,7 @@ import { NotificationService } from '../../../../shared/services/notification/no
   styleUrls: ['./list-items.component.css']
 })
 export class ListItemsComponent implements OnInit {
-
+  searchText = '';
   constructor(
     private router: Router,
     private ledgerService: LedgerService,
@@ -57,15 +55,19 @@ export class ListItemsComponent implements OnInit {
     const newList: GeneralItem[] = [];
     list.forEach((item: Product | Ledger | PosItem) => {
       let type = ItemType.PRODUCT;
+      let rate = 0;
       if (this.ledgerService.isInstanceOfLedger(item)) {
         type = ItemType.LEDGER;
       } else if (this.posItemService.isInstanceOfPosItem(item)) {
         type = ItemType.POSITEM;
+        rate = item.rate;
+      } else {
+        rate = item.rate;
       }
       newList.push({
         id: item.id,
         title: item.title,
-        type,
+        type, rate
       });
     });
     return newList;
@@ -97,6 +99,7 @@ interface GeneralItem {
   id: number;
   title: string;
   type: ItemType;
+  rate: number;
 }
 
 enum ItemType {
