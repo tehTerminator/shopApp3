@@ -1,1 +1,69 @@
-<p>preview-invoice works!</p>
+<div class="ui raised segment">
+    <div class="ui two column grid">
+        <div class="ten wide column">
+            <div class="ui center aligned basic segment">
+                <h2 class="ui header">
+                    MAHARAJA COMPUTERS
+                </h2>
+                <p>
+                    Kher Complex, Opp Civil Hospital, Ashoknagar (M.P.)
+                    PIN 473331 Ph. 9144268770; email: maharajac@gmail.com
+                    website: http://www.maharajac.in
+                </p>
+            </div>
+        </div>
+        <div class="six wide column">
+            <div class="ui basic segment">
+                <h1 class="ui center aligned header blue">
+                    INVOICE
+                </h1>
+                <table class="ui basic compact table segment">
+                    <tbody>
+                        <tr>
+                            <td>Invoice #</td>
+                            <td>{{ invoice.id }}</td>
+                        </tr>
+                        <tr>
+                            <td>Customer #</td>
+                            <td>{{ invoice.customer.id }}</td>
+                        </tr>
+                        <tr>
+                            <td>Posted On</td>
+                            <td>{{ invoice.created_at }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="sixteen wide column">
+            <div class="ui header">
+                Bill To : {{ invoice.customer.title }}
+            </div>
+            <p>
+                Address : {{ invoice.customer.address }}
+            </p>
+        </div>
+        <div class="sixteen wide column">
+            <table class="ui celled center aligned table segment">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Qty</th>
+                        <th>Rate</th>
+                        <th>Disc.</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let t of invoice.transactions">
+                        <td>{{ t.description }}</td>
+                        <td>{{ t.quantity }}</td>
+                        <td>{{ t.rate }}</td>
+                        <td>{{ t.discount }}</td>
+                        <td>{{ rowAmount(t) }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
