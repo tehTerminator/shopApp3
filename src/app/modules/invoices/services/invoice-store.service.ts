@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { runInThisContext } from 'node:vm';
 import { BehaviorSubject } from 'rxjs';
-import { Customer, Invoice, Transaction } from '../../../shared/collection';
-import { CustomerService } from './customer.service';
+import { Customer, Invoice, Ledger, PosItem, PosItemTemplate, Product, Transaction } from '../../../shared/collection';
+import { LedgerService } from '../../../shared/services/ledger/ledger.service';
+import { ProductService } from '../../../shared/services/product/product.service';
 
 @Injectable({
   providedIn: 'root'
@@ -27,20 +27,44 @@ export class InvoiceStoreService {
     updated_at: ''
   };
 
+  private readonly baseTransaction = {
+    id: 0,
+    invoice_id: 0,
+    item_id: 0,
+    item_type: 'PRODUCT',
+    description: '',
+    quantity: 0,
+    rate: 0,
+    discount: 0,
+    created_at: '',
+    updated_at: ''
+  };
+
+  selectedItem: Product | Ledger | PosItem  = {
+    id: 0,
+    title: '',
+    rate: 0,
+    created_at: '',
+    updated_at: ''
+  };
+
   invoice = new BehaviorSubject<Invoice>(this.baseInvoice);
 
-  constructor() { }
+  constructor(
+    private ledgerService: LedgerService,
+    private productService: ProductService
+  ) { }
 
   set customer(customer: Customer) {
     this.invoice.next({ ...this.invoice.value, customer, customer_id: customer.id });
   }
 
   set paid(paid: boolean) {
-    this.invoice.next({...this.invoice.value, paid});
+    this.invoice.next({ ...this.invoice.value, paid });
   }
 
   set paymentMethod(paymentMethod: string) {
-    this.invoice.next({...this.invoice.value, paymentMethod});
+    this.invoice.next({ ...this.invoice.value, paymentMethod });
   }
 
   removeTransaction(index: number): void {
@@ -52,7 +76,7 @@ export class InvoiceStoreService {
   appendTransaction(transction: Transaction): void {
     const invoice = this.invoice.value;
     const indexOfTransaction = this.transactionsIndex(transction);
-    if ( indexOfTransaction >= 0) {
+    if (indexOfTransaction >= 0) {
       invoice.transactions.splice(indexOfTransaction, 1, transction);
     } else {
       invoice.transactions.push(transction);
@@ -79,6 +103,60 @@ export class InvoiceStoreService {
     return invoice.transactions.findIndex(
       x => x.item_id === transaction.item_id
     );
+  }
+
+  createTransaction(quantity: number, rate: number, discount = 0): void {
+    let transaction = { ...this.baseTransaction };
+
+    if (this.isInstanceOfLedger(this.selectedItem)) {
+      transaction = this.createTransactionFromLedger(quantity, rate);
+    } else if (this.isInstanceOfPosItem(this.selectedItem)) {
+      for (const template of this.selectedItem.pos_templates) {
+        try {
+          let item: Product | Ledger | PosItem = {... this.selectedItem };
+          if (template.kind === 'PRODUCT') {
+            item = this.productService.getElementById(template.item_id) as Product;
+          } else {
+            item = this.ledgerService.getElementById(template.item_id) as Ledger;
+          }
+          this.selectedItem = item;
+          this.createTransaction(template.quantity * quantity, template.rate);
+        } catch (e) {
+          console.log('Error for Template', template);
+          throw new Error('Unable to Create Transaction, Please Check Log');
+        }
+      }
+    } else {
+      transaction = this.createTransactionFromProduct(quantity, rate, discount);
+    }
+    this.appendTransaction(transaction);
+  }
+
+  private createTransactionFromLedger(quantity: number, rate: number): Transaction {
+      const description = `${this.selectedItem.title} Payment`;
+      const discount = 0; // No Discount for Payments
+      // tslint:disable-next-line: variable-name
+      const item_id = this.selectedItem.id;
+      // tslint:disable-next-line: variable-name
+      const item_type = 'LEDGER';
+
+      return { ...this.baseTransaction, description, discount, item_id, item_type, quantity, rate };
+  }
+
+  private createTransactionFromProduct(quantity: number, rate: number, discount: number): Transaction {
+    const description = this.selectedItem.title;
+    // tslint:disable-next-line: variable-name
+    const item_id = this.selectedItem.id;
+
+    return {...this.baseTransaction, quantity, rate, discount, description, item_id };
+  }
+
+  private isInstanceOfPosItem(data: any): data is PosItem {
+    return 'pos_templates' in data;
+  }
+
+  private isInstanceOfLedger(data: any): data is Ledger {
+    return 'group' in data;
   }
 
   reset(): void {
