@@ -61,7 +61,7 @@ export class ListItemsComponent implements OnInit {
     );
   }
 
-  selectItem(item: GeneralItem): void {
+  onSelect(item: GeneralItem): void {
     try {
       this.store.selectedItem = this.getActualItem(item);
       this.router.navigate(['/invoices', 'transactions']);
