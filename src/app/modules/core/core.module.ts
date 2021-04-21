@@ -4,10 +4,12 @@ import { DropdownDirective } from './directives/dropdown/dropdown.directive';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { SearchPipe } from './pipe/search.pipe';
 
 @NgModule({
   declarations: [
-    DropdownDirective
+    DropdownDirective,
+    SearchPipe
   ],
   imports: [
     CommonModule,
@@ -20,6 +22,7 @@ import { MatSelectModule } from '@angular/material/select';
     ReactiveFormsModule,
     MatInputModule,
     MatSelectModule,
+    SearchPipe
   ]
 })
 export class CoreModule { }

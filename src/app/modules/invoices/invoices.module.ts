@@ -13,6 +13,7 @@ import { ChoosePaymentMethodComponent } from './pages/choose-payment-method/choo
 import { PreviewInvoiceComponent } from './components/preview-invoice/preview-invoice.component';
 import { InvoiceStoreService } from './services/invoice-store.service';
 import { CustomerService } from './services/customer.service';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { CustomerService } from './services/customer.service';
   imports: [
     CommonModule,
     InvoicesRoutingModule,
-    CoreModule
+    CoreModule,
+    FormsModule
   ],
   providers: [InvoiceStoreService, CustomerService]
 })

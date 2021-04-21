@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Customer } from '../../../../shared/collection';
@@ -11,7 +12,8 @@ import { InvoiceStoreService } from './../../services/invoice-store.service';
   styleUrls: ['./list-customer.component.css']
 })
 export class ListCustomerComponent implements OnInit {
-
+  searchText = '';
+  
   constructor(
     private router: Router,
     private customerService: CustomerService,

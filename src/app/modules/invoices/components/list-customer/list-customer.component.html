@@ -1,5 +1,11 @@
+<div class="ui search">
+    <div class="ui fluid icon input">
+        <i class="search icon"></i>
+        <input type="text" class="prompt" name="customer" placeholder="Search Customer..." [(ngModel)]="searchText">
+    </div>
+</div>
 <div class="ui divided relaxed list">
-    <a class="item" *ngFor="let customer of customers | async" (click)="onSelect(customer)">
+    <a class="item" *ngFor="let customer of customers | async | slice:0:10 | search:'title':searchText" (click)="onSelect(customer)">
         <div class="content">
             <div class="header">{{ customer.title }}</div>
             <div class="description">{{ customer.address }}</div>
