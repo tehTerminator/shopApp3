@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Customer, Invoice, Ledger, PosItem, PosItemTemplate, Product, Transaction } from '../../../shared/collection';
 import { LedgerService } from '../../../shared/services/ledger/ledger.service';
+import { PosItemService } from '../../../shared/services/posItem/pos-item.service';
 import { ProductService } from '../../../shared/services/product/product.service';
 
 @Injectable({
@@ -52,7 +53,8 @@ export class InvoiceStoreService {
 
   constructor(
     private ledgerService: LedgerService,
-    private productService: ProductService
+    private productService: ProductService,
+    private posItemService: PosItemService,
   ) { }
 
   set customer(customer: Customer) {
@@ -108,9 +110,9 @@ export class InvoiceStoreService {
   createTransaction(quantity: number, rate: number, discount = 0): void {
     let transaction = { ...this.baseTransaction };
 
-    if (this.isInstanceOfLedger(this.selectedItem)) {
+    if (this.ledgerService.isInstanceOfLedger(this.selectedItem)) {
       transaction = this.createTransactionFromLedger(quantity, rate);
-    } else if (this.isInstanceOfPosItem(this.selectedItem)) {
+    } else if (this.posItemService.isInstanceOfPosItem(this.selectedItem)) {
       for (const template of this.selectedItem.pos_templates) {
         try {
           let item: Product | Ledger | PosItem = {... this.selectedItem };
@@ -149,14 +151,6 @@ export class InvoiceStoreService {
     const item_id = this.selectedItem.id;
 
     return {...this.baseTransaction, quantity, rate, discount, description, item_id };
-  }
-
-  private isInstanceOfPosItem(data: any): data is PosItem {
-    return 'pos_templates' in data;
-  }
-
-  private isInstanceOfLedger(data: any): data is Ledger {
-    return 'group' in data;
   }
 
   reset(): void {
