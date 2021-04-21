@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { CoreModule } from './../core/core.module';
 import { InvoicesRoutingModule } from './invoices-routing.module';
 import { InvoicesComponent } from './invoices.component';
 import { SelectCustomerComponent } from './pages/select-customer/select-customer.component';
@@ -27,7 +28,8 @@ import { CustomerService } from './services/customer.service';
   ],
   imports: [
     CommonModule,
-    InvoicesRoutingModule
+    InvoicesRoutingModule,
+    CoreModule
   ],
   providers: [InvoiceStoreService, CustomerService]
 })
