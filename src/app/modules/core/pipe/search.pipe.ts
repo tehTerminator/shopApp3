@@ -4,7 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'search'
 })
 export class SearchPipe implements PipeTransform {
-  public transform(value: any, keys: string, term: string) {
+  public transform(value: Array<any>, keys: string, term: string): Array<any> {
     if (!term) {
       return value;
     }
