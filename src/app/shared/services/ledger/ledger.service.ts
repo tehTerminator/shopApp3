@@ -54,4 +54,8 @@ export class LedgerService extends BaseService {
       throw new Error('Item Not Found Error');
     }
   }
+
+  public isInstanceOfLedger(data: any): data is Ledger {
+    return 'group' in data;
+  }
 }
