@@ -63,7 +63,7 @@ export class ListItemsComponent implements OnInit {
 
   onSelect(item: GeneralItem): void {
     try {
-      this.store.selectedItem = this.getActualItem(item);
+      this.store.selectedItem = this.selectActualItem(item);
       this.router.navigate(['/invoices', 'transactions']);
     } catch (e) {
       console.log('Cant Find in Any Service', item);
@@ -71,7 +71,7 @@ export class ListItemsComponent implements OnInit {
     }
   }
 
-  private getActualItem(item: GeneralItem): Product | Ledger | PosItem {
+  private selectActualItem(item: GeneralItem): Product | Ledger | PosItem {
     switch (item.type) {
       case ItemType.PRODUCT:
         return this.productService.getElementById(item.id) as Product;
