@@ -1,1 +1,41 @@
-<p>create-transaction works!</p>
+<div class="ui raised segment">
+    <h2 class="ui header">
+        {{ productName }}
+    </h2>
+    <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()">
+        <mat-form-field class="d-block" appearance="outline">
+            <mat-label>Quantity</mat-label>
+            <input type="number" name="quantity" matInput formControlName="quantity">
+        </mat-form-field>
+        <mat-form-field class="d-block" appearance="outline">
+            <mat-label>Rate</mat-label>
+            <input type="number" name="rate" matInput formControlName="rate">
+        </mat-form-field>
+        <mat-form-field class="d-block" appearance="outline">
+            <mat-label>Discount</mat-label>
+            <input type="number" name="discount" matInput formControlName="discount">
+        </mat-form-field>
+
+        <button type="submit" class="ui green button">Submit</button>
+        <button type="reset" class="ui red button">Reset</button>
+    </form>
+</div>
+
+<table class="ui raised center aligned table segment">
+    <thead>
+        <tr>
+            <th>
+                Net Amount
+            </th>
+            <th>Total Discount</th>
+            <th>Gross Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ netPrice | currency:'INR'}}</td>
+            <td>{{ discountedAmount | currency:'INR'}}</td>
+            <td>{{ grossPrice | currency:'INR'}}</td>
+        </tr>
+    </tbody>
+</table>
