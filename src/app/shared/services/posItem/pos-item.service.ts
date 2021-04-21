@@ -33,7 +33,6 @@ export class PosItemService extends BaseService {
             map(
                 x => {
                     const item = (x.find(d => d.id === posItemId) as PosItem);
-                    console.log('getTemplateAsObservable():', item);
                     if (item === undefined) {
                         return [];
                     }
@@ -49,9 +48,17 @@ export class PosItemService extends BaseService {
 
     create(posItem: PosItem): Observable<PosItem> {
         return this.api.create<PosItem>(this.tableName, posItem)
-            .pipe(tap(response => {
-                this.insert(response);
-            }));
+            .pipe(
+                tap(
+                    response => this.insert(response)
+                ),
+                catchError(
+                    e => {
+                        console.log(e);
+                        throw new Error('Unable to Insert New Item to List');
+                    }
+                )
+            );
     }
 
     update(posItem: PosItem): Observable<PosItem> {
@@ -83,12 +90,15 @@ export class PosItemService extends BaseService {
                 tap(
                     response => {
                         try {
-                            console.log('Saved Template', response);
                             const posItem = this.getElementById(response.positem_id) as PosItem;
-                            console.log('Inserting Template into ', posItem);
-                            posItem.pos_templates.push(response);
+                            if (posItem.hasOwnProperty('pos_templates')) {
+                                posItem.pos_templates.push(response);
+                            } else {
+                                posItem.pos_templates = [response];
+                            }
                             this.updateItem(posItem);
                         } catch (e) {
+                            console.log(e);
                             throw new Error('Pos Item Not Found');
                         }
                     }
