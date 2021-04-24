@@ -52,15 +52,23 @@
                         <th>Rate</th>
                         <th>Disc.</th>
                         <th>Amount</th>
+                        <th>
+                            <i class="delete icon"></i>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let t of invoice.transactions">
+                    <tr *ngFor="let t of invoice.transactions;let i=index">
                         <td>{{ t.description }}</td>
                         <td>{{ t.quantity }}</td>
                         <td>{{ t.rate }}</td>
                         <td>{{ t.discount }}</td>
                         <td>{{ rowAmount(t) }}</td>
+                        <td>
+                            <button class="ui mini circular icon button" (click)="deleteTransaction(i)">
+                                <i class="delete icon"></i>
+                            </button>
+                        </td>
                     </tr>
                 </tbody>
             </table>

@@ -22,7 +22,11 @@ export class PreviewInvoiceComponent implements OnInit, OnDestroy {
     this.sub.unsubscribe();
   }
 
-  rowAmount(transaction: Transaction) {
+  rowAmount(transaction: Transaction): number {
     return (transaction.quantity * transaction.rate ) * (1 - transaction.discount / 100);
+  }
+
+  deleteTransaction(index: number): void {
+    this.store.deleteTransaction(index);
   }
 }
