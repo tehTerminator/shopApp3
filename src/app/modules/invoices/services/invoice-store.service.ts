@@ -75,16 +75,17 @@ export class InvoiceStoreService {
     this.invoice.next(invoice);
   }
 
-  appendTransaction(transction: Transaction): void {
-    if (transction.quantity === 0) {
+  appendTransaction(transaction: Transaction): void {
+    if (transaction.quantity === 0 || transaction.rate === 0) {
       return;
     }
     const invoice = this.invoice.value;
-    const indexOfTransaction = this.transactionsIndex(transction);
+    const indexOfTransaction = this.transactionsIndex(transaction);
     if (indexOfTransaction >= 0) {
-      invoice.transactions.splice(indexOfTransaction, 1, transction);
+      transaction.quantity += invoice.transactions[indexOfTransaction].quantity;
+      invoice.transactions.splice(indexOfTransaction, 1, transaction);
     } else {
-      invoice.transactions.push(transction);
+      invoice.transactions.push(transaction);
     }
     invoice.amount = this.grandTotal(invoice);
     this.invoice.next(invoice);
@@ -106,7 +107,9 @@ export class InvoiceStoreService {
   private transactionsIndex(transaction: Transaction): number {
     const invoice = this.invoice.value;
     return invoice.transactions.findIndex(
-      x => x.item_id === transaction.item_id
+      x => {
+        return x.item_id === transaction.item_id && x.rate === transaction.rate;
+      }
     );
   }
 
@@ -116,21 +119,7 @@ export class InvoiceStoreService {
     if (this.ledgerService.isInstanceOfLedger(this.selectedItem)) {
       transaction = this.createTransactionFromLedger(quantity, rate);
     } else if (this.posItemService.isInstanceOfPosItem(this.selectedItem)) {
-      for (const template of this.selectedItem.pos_templates) {
-        try {
-          let item: Product | Ledger | PosItem = {... this.selectedItem };
-          if (template.kind === 'PRODUCT') {
-            item = this.productService.getElementById(template.item_id) as Product;
-          } else {
-            item = this.ledgerService.getElementById(template.item_id) as Ledger;
-          }
-          this.selectedItem = item;
-          this.createTransaction(template.quantity * quantity, template.rate);
-        } catch (e) {
-          console.log('Error for Template', template);
-          throw new Error('Unable to Create Transaction, Please Check Log');
-        }
-      }
+      this.handlePosItem(this.selectedItem, quantity);
     } else {
       transaction = this.createTransactionFromProduct(quantity, rate, discount);
     }
@@ -154,6 +143,24 @@ export class InvoiceStoreService {
     const item_id = this.selectedItem.id;
 
     return {...this.baseTransaction, quantity, rate, discount, description, item_id };
+  }
+
+  private handlePosItem(posItem: PosItem, quantity: number): void {
+    for (const template of posItem.pos_templates) {
+      try {
+        let item: Product | Ledger | PosItem = {... posItem };
+        if (template.kind === 'PRODUCT') {
+          item = this.productService.getElementById(template.item_id) as Product;
+        } else {
+          item = this.ledgerService.getElementById(template.item_id) as Ledger;
+        }
+        this.selectedItem = item;
+        this.createTransaction(template.quantity * quantity, template.rate);
+      } catch (e) {
+        console.log('Error for Template', template);
+        throw new Error('Unable to Create Transaction, Please Check Log');
+      }
+    }
   }
 
   reset(): void {
