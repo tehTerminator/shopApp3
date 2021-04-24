@@ -163,6 +163,12 @@ export class InvoiceStoreService {
     }
   }
 
+  deleteTransaction(index: number): void {
+    const invoice = this.invoice.value;
+    invoice.transactions.splice(index, 1);
+    this.invoice.next(invoice);
+  }
+
   reset(): void {
     this.invoice.next(this.baseInvoice);
   }
