@@ -20,7 +20,6 @@ export class CreateTransactionComponent implements OnInit {
     private store: InvoiceStoreService,
     private fb: FormBuilder,
     private ledgerService: LedgerService,
-    private posItemService: PosItemService
   ) { }
 
   ngOnInit(): void {
@@ -44,18 +43,14 @@ export class CreateTransactionComponent implements OnInit {
     }
 
     this.store.createTransaction(this.quantity.value, this.rate.value, this.discount.value);
+  }
+
+  next(): void {
     this.router.navigate(['/invoices', 'paymentMethod']);
   }
 
-  isDiscountAllowed(): boolean {
-    if (this.ledgerService.isInstanceOfLedger(this.store.selectedItem)) {
-      return false;
-    }
-
-    if (this.posItemService.isInstanceOfPosItem(this.store.selectedItem)) {
-      return false;
-    }
-    return true;
+  prev(): void {
+    this.router.navigate(['/invoices', 'list-items']);
   }
 
   get productName(): string {
@@ -75,14 +70,14 @@ export class CreateTransactionComponent implements OnInit {
   }
 
   get quantity(): FormControl {
-    return this.transactionForm.get('quantity') as FormControl
+    return this.transactionForm.get('quantity') as FormControl;
   }
 
   get rate(): FormControl {
-    return this.transactionForm.get('rate') as FormControl
+    return this.transactionForm.get('rate') as FormControl;
   }
 
   get discount(): FormControl {
-    return this.transactionForm.get('discount') as FormControl
+    return this.transactionForm.get('discount') as FormControl;
   }
 }

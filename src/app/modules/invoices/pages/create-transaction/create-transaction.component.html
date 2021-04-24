@@ -2,7 +2,7 @@
     <h2 class="ui header">
         {{ productName }}
     </h2>
-    <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="transactionForm">
         <mat-form-field class="d-block" appearance="outline">
             <mat-label>Quantity</mat-label>
             <input type="number" name="quantity" matInput formControlName="quantity">
@@ -16,8 +16,9 @@
             <input type="number" name="discount" matInput formControlName="discount">
         </mat-form-field>
 
-        <button type="submit" class="ui green button">Submit</button>
-        <button type="reset" class="ui red button">Reset</button>
+        <button type="button" class="ui green button" (click)="onSubmit();next()">Submit</button>
+        <button type="button" class="ui green button" (click)="onSubmit();prev()">Save and Add More</button>
+        <button type="reset" class="ui red button" style="margin-top: 5px">Reset</button>
     </form>
 </div>
 
