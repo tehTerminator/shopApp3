@@ -29,7 +29,7 @@
                         </tr>
                         <tr>
                             <td>Posted On</td>
-                            <td>{{ invoice.created_at }}</td>
+                            <td>{{ invoice.created_at | date:'dd MM y' }}</td>
                         </tr>
                     </tbody>
                 </table>

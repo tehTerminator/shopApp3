@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { InvoiceStoreService } from '../../services/invoice-store.service';
 
 @Component({
   selector: 'app-select-customer',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SelectCustomerComponent implements OnInit {
 
-  constructor() { }
+  constructor(private store: InvoiceStoreService) { }
 
   ngOnInit(): void {
+    this.store.reset();
   }
 
 }
