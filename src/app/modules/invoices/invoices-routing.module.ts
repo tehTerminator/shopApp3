@@ -5,17 +5,19 @@ import { ChoosePaymentMethodComponent } from './pages/choose-payment-method/choo
 import { CreateTransactionComponent } from './pages/create-transaction/create-transaction.component';
 import { ListItemsComponent } from './pages/list-items/list-items.component';
 import { SelectCustomerComponent } from './pages/select-customer/select-customer.component';
+import { WaitPageComponent } from './pages/wait-page/wait-page.component';
 
 const routes: Routes = [
   {
-    path: '', component: InvoicesComponent, children: [
-      { path: 'customer', component: SelectCustomerComponent },
+    path: 'create', component: InvoicesComponent, children: [
+      { path: 'select-customer', component: SelectCustomerComponent },
       { path: 'list-items', component: ListItemsComponent },
       { path: 'transactions', component: CreateTransactionComponent },
       { path: 'paymentMethod', component: ChoosePaymentMethodComponent },
-      { path: '**', redirectTo: 'customer', pathMatch: 'full'}
-    ]
-  }
+      { path: '**', redirectTo: 'select-customer', pathMatch: 'full'}
+    ],
+  },
+  { path: 'wait', component: WaitPageComponent },
 ];
 
 @NgModule({

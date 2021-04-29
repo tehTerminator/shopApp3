@@ -13,7 +13,7 @@ export class InvoicesComponent implements OnInit {
   constructor(
     private ledgerService: LedgerService,
     private productService: ProductService,
-    private posItemService: PosItemService
+    private posItemService: PosItemService,
   ) { }
 
   ngOnInit(): void {

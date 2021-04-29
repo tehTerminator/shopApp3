@@ -43,16 +43,9 @@ export class CreateTransactionComponent implements OnInit {
     }
 
     this.store.createTransaction(this.quantity.value, this.rate.value, this.discount.value);
+    this.router.navigate(['/invoices', 'create', 'paymentMethod']);
   }
-
-  next(): void {
-    this.router.navigate(['/invoices', 'paymentMethod']);
-  }
-
-  prev(): void {
-    this.router.navigate(['/invoices', 'list-items']);
-  }
-
+  
   get productName(): string {
     return this.store.selectedItem.title;
   }

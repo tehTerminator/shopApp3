@@ -6,6 +6,7 @@ import { PosItemService } from './../../../../shared/services/posItem/pos-item.s
 import { Ledger, PosItem, Product } from '../../../../shared/collection';
 import { InvoiceStoreService } from '../../services/invoice-store.service';
 import { NotificationService } from '../../../../shared/services/notification/notification.service';
+import { BoundText } from '@angular/compiler/src/render3/r3_ast';
 
 @Component({
   selector: 'app-list-items',
@@ -76,7 +77,7 @@ export class ListItemsComponent implements OnInit {
   onSelect(item: GeneralItem): void {
     try {
       this.store.selectedItem = this.selectActualItem(item);
-      this.router.navigate(['/invoices', 'transactions']);
+      this.router.navigate(['/invoices', 'create', 'transactions']);
     } catch (e) {
       console.log('Cant Find in Any Service', item);
       this.notification.showError('Error', e);
@@ -91,6 +92,17 @@ export class ListItemsComponent implements OnInit {
         return this.ledgerService.getElementById(item.id) as Ledger;
       default:
         return this.posItemService.getElementById(item.id) as PosItem;
+    }
+  }
+
+  getIcon(item: GeneralItem): string {
+    switch (item.type) {
+      case ItemType.PRODUCT:
+        return 'cart';
+      case ItemType.POSITEM:
+        return 'box';
+      default:
+        return 'currency';
     }
   }
 }

@@ -1,8 +1,12 @@
+<a class="ui fluid labeled icon button" [routerLink]="['/invoices', 'create', 'list-items']">
+    <i class="left arrow icon"></i>
+    Go Back
+</a>
 <div class="ui raised segment">
     <h2 class="ui header">
         {{ productName }}
     </h2>
-    <form [formGroup]="transactionForm">
+    <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()">
         <mat-form-field class="d-block" appearance="outline">
             <mat-label>Quantity</mat-label>
             <input type="number" name="quantity" matInput formControlName="quantity">
@@ -16,9 +20,8 @@
             <input type="number" name="discount" matInput formControlName="discount">
         </mat-form-field>
 
-        <button type="button" class="ui green button" (click)="onSubmit();next()">Submit</button>
-        <button type="button" class="ui green button" (click)="onSubmit();prev()">Save and Add More</button>
-        <button type="reset" class="ui red button" style="margin-top: 5px">Reset</button>
+        <button type="submit" class="ui green button">Submit</button>
+        <button type="reset" class="ui red button">Reset</button>
     </form>
 </div>
 

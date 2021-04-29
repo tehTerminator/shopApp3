@@ -23,7 +23,7 @@ export enum AuthState {
 
 export interface Ledger extends TableRow {
     title: string;
-    group: string;
+    kind: string;
 }
 
 export interface UserData extends TableRow {

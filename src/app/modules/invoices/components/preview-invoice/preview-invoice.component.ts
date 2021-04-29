@@ -29,4 +29,43 @@ export class PreviewInvoiceComponent implements OnInit, OnDestroy {
   deleteTransaction(index: number): void {
     this.store.deleteTransaction(index);
   }
+
+  showButtons(): boolean {
+    return this.invoice.id === 0;
+  }
+
+  private grossRowAmount(t: Transaction): number {
+    return t.quantity * t.rate;
+  }
+
+  private rowDiscount(t: Transaction): number {
+    return t.quantity * t.rate * t.discount / 100;
+  }
+
+  get grossAmount(): number {
+    let total = 0;
+    for (const t of this.invoice.transactions) {
+      total += this.grossRowAmount(t);
+    }
+    return total;
+  }
+
+  get totalDiscount(): number {
+    let total = 0;
+    for (const t of this.invoice.transactions) {
+      total += this.rowDiscount(t);
+    }
+    return total;
+  }
+
+  get netTotal(): number {
+    return this.grossAmount - this.totalDiscount;
+  }
+
+  get colspan(): number {
+    if (this.showButtons()) {
+      return 5;
+    }
+    return 4;
+  }
 }

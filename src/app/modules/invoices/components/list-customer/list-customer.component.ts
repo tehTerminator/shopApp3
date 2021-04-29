@@ -13,7 +13,7 @@ import { InvoiceStoreService } from './../../services/invoice-store.service';
 })
 export class ListCustomerComponent implements OnInit {
   searchText = '';
-  
+
   constructor(
     private router: Router,
     private customerService: CustomerService,
@@ -30,6 +30,6 @@ export class ListCustomerComponent implements OnInit {
 
   onSelect(customer: Customer): void {
     this.store.customer = customer;
-    this.router.navigate(['/invoices', 'list-items']);
+    this.router.navigate(['/invoices', 'create', 'list-items']);
   }
 }

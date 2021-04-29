@@ -1,1 +1,10 @@
-<p>choose-payment-method works!</p>
+<button class="ui labeled icon fluid button" [routerLink]="['/invoices', 'create', 'list-items']">
+    <i class="left arrow icon"></i>
+    Go Back
+</button>
+<div class="ui raised segment">
+    <button class="ui fluid basic button" *ngFor="let ledger of ledgers | async" (click)="selectPaymentMethod(ledger)">
+        {{ ledger.title }}
+    </button>
+    <button class="ui fluid basic button" (click)="setUdhaar()">Udhaar</button>
+</div>

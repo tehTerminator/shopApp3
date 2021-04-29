@@ -37,7 +37,7 @@ export class CreateCustomerComponent implements OnInit {
     this.customerService.create(this.createCustomerForm.value)
       .subscribe(customer => {
         this.store.customer = customer;
-        this.router.navigate(['/invoices', 'list-items']);
+        this.router.navigate(['/invoices', 'create', 'list-items']);
       },
         error => {
           this.notification.showError('Error', error);

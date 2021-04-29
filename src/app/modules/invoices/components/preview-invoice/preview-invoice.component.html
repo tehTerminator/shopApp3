@@ -52,7 +52,7 @@
                         <th>Rate</th>
                         <th>Disc.</th>
                         <th>Amount</th>
-                        <th>
+                        <th *ngIf="showButtons()">
                             <i class="delete icon"></i>
                         </th>
                     </tr>
@@ -64,13 +64,27 @@
                         <td>{{ t.rate }}</td>
                         <td>{{ t.discount }}</td>
                         <td>{{ rowAmount(t) }}</td>
-                        <td>
+                        <td *ngIf="showButtons()">
                             <button class="ui mini circular icon button" (click)="deleteTransaction(i)">
                                 <i class="delete icon"></i>
                             </button>
                         </td>
                     </tr>
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td [attr.colspan]="colspan" class="right aligned">Gross Amount</td>
+                        <td>{{ grossAmount }}</td>
+                    </tr>
+                    <tr>
+                        <td [attr.colspan]="colspan" class="right aligned">Total Discount</td>
+                        <td>{{ totalDiscount }}</td>
+                    </tr>
+                    <tr>
+                        <td [attr.colspan]="colspan" class="right aligned">Net Amount</td>
+                        <td>{{ netTotal }}</td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </div>

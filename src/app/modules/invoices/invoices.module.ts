@@ -14,6 +14,8 @@ import { PreviewInvoiceComponent } from './components/preview-invoice/preview-in
 import { InvoiceStoreService } from './services/invoice-store.service';
 import { CustomerService } from './services/customer.service';
 import { FormsModule } from '@angular/forms';
+import { WaitPageComponent } from './pages/wait-page/wait-page.component';
+import { SearchInvoiceComponent } from './pages/search-invoice/search-invoice.component';
 
 
 @NgModule({
@@ -25,7 +27,9 @@ import { FormsModule } from '@angular/forms';
     ListItemsComponent,
     CreateTransactionComponent,
     ChoosePaymentMethodComponent,
-    PreviewInvoiceComponent
+    PreviewInvoiceComponent,
+    WaitPageComponent,
+    SearchInvoiceComponent
   ],
   imports: [
     CommonModule,

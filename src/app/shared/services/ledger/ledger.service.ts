@@ -56,6 +56,6 @@ export class LedgerService extends BaseService {
   }
 
   public isInstanceOfLedger(data: any): data is Ledger {
-    return 'group' in data;
+    return 'kind' in data;
   }
 }

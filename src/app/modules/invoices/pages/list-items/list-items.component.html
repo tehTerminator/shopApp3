@@ -1,3 +1,7 @@
+<a class="ui fluid labeled icon button" [routerLink]="['/invoices', 'create', 'customers']">
+    <i class="left arrow icon"></i>
+    Go Back
+</a>
 <div class="ui raised segment">
     <div class="ui search">
         <div class="ui fluid icon input">
@@ -7,7 +11,7 @@
     </div>
     <div class="ui divided relaxed list">
         <a class="item" *ngFor="let item of items|search:'title':searchText|slice:0:10" (click)="onSelect(item)">
-            <i class="icon" [ngClass]="item.type === 1 ? 'currency':'cart'"></i>
+            <i class="icon" [ngClass]="getIcon(item)"></i>
             {{ item.title }}
         </a>
         <div class="item" *ngIf="(items|search:'title':searchText|slice:0:10).length === 0">
