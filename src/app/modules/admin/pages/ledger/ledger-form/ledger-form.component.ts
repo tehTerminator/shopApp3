@@ -11,11 +11,11 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./ledger-form.component.css']
 })
 export class LedgerFormComponent implements OnInit {
-  readonly groups = ['BANK', 'CASH', 'PAYABLES', 'RECEIVABLES', 'EXPENSE', 'INCOME'];
+  readonly kinds = ['BANK', 'CASH', 'PAYABLES', 'RECEIVABLES', 'EXPENSE', 'INCOME'];
   ledgerForm: FormGroup = this.fb.group({
     id: [0, Validators.min(0)],
     title: ['', [Validators.required, Validators.pattern(STRING)]],
-    group: ['', Validators.required]
+    kind: ['', Validators.required]
   });
   sub = new Subscription();
 
@@ -33,7 +33,7 @@ export class LedgerFormComponent implements OnInit {
       const ledger = this.ledgerService.getElementById(this.id) as Ledger;
       this.ledgerForm.patchValue({
         title: ledger.title,
-        group: ledger.group
+        kind: ledger.kind
       });
     } catch (e) {
       this.ledgerForm.reset();
@@ -74,8 +74,8 @@ export class LedgerFormComponent implements OnInit {
     return this.titleField.value;
   }
 
-  get group(): string {
-    return this.groupField.value;
+  get kind(): string {
+    return this.kindField.value;
   }
 
   get idField(): FormControl {
@@ -86,8 +86,8 @@ export class LedgerFormComponent implements OnInit {
     return this.ledgerForm.get('title') as FormControl;
   }
 
-  get groupField(): FormControl{
-    return this.ledgerForm.get('group') as FormControl;
+  get kindField(): FormControl{
+    return this.ledgerForm.get('kind') as FormControl;
   }
 }
 

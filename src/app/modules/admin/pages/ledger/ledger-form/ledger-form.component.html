@@ -13,10 +13,10 @@
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="d-block">
-        <mat-label>Group</mat-label>
-        <mat-select formControlName="group">
-            <mat-option *ngFor="let group of groups" [value]="group">
-                {{ group }}
+        <mat-label>Kind</mat-label>
+        <mat-select formControlName="kind">
+            <mat-option *ngFor="let kind of kinds" [value]="kind">
+                {{ kind }}
             </mat-option>
         </mat-select>
     </mat-form-field>

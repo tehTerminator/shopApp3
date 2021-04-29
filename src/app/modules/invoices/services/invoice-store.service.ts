@@ -5,41 +5,9 @@ import { LedgerService } from '../../../shared/services/ledger/ledger.service';
 import { PosItemService } from '../../../shared/services/posItem/pos-item.service';
 import { ProductService } from '../../../shared/services/product/product.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class InvoiceStoreService {
-  readonly baseInvoice = {
-    id: 0,
-    customer_id: 1,
-    customer: {
-      id: 1,
-      title: 'Cash',
-      address: '',
-      created_at: '',
-      updated_at: ''
-    },
-    user_id: 0,
-    paid: false,
-    paymentMethod: 'CASH',
-    amount: 0,
-    transactions: [],
-    created_at: '',
-    updated_at: ''
-  };
 
-  private readonly baseTransaction = {
-    id: 0,
-    invoice_id: 0,
-    item_id: 0,
-    item_type: 'PRODUCT',
-    description: '',
-    quantity: 0,
-    rate: 0,
-    discount: 0,
-    created_at: '',
-    updated_at: ''
-  };
 
   selectedItem: Product | Ledger | PosItem  = {
     id: 0,
@@ -80,7 +48,7 @@ export class InvoiceStoreService {
       return;
     }
     const invoice = this.invoice.value;
-    const indexOfTransaction = this.transactionsIndex(transaction);
+    const indexOfTransaction = this.findTransactionIndex(transaction);
     if (indexOfTransaction >= 0) {
       transaction.quantity += invoice.transactions[indexOfTransaction].quantity;
       invoice.transactions.splice(indexOfTransaction, 1, transaction);
@@ -89,6 +57,7 @@ export class InvoiceStoreService {
     }
     invoice.amount = this.grandTotal(invoice);
     this.invoice.next(invoice);
+    console.log(this.baseInvoice);
   }
 
   private grandTotal(invoice: Invoice): number {
@@ -104,7 +73,7 @@ export class InvoiceStoreService {
   }
 
 
-  private transactionsIndex(transaction: Transaction): number {
+  private findTransactionIndex(transaction: Transaction): number {
     const invoice = this.invoice.value;
     return invoice.transactions.findIndex(
       x => {
@@ -171,5 +140,41 @@ export class InvoiceStoreService {
 
   reset(): void {
     this.invoice.next(this.baseInvoice);
+  }
+
+  get baseInvoice(): Invoice {
+    return {
+      id: 0,
+      customer_id: 1,
+      customer: {
+        id: 1,
+        title: 'Cash',
+        address: '',
+        created_at: '',
+        updated_at: ''
+      },
+      user_id: 0,
+      paid: false,
+      paymentMethod: 'CASH',
+      amount: 0,
+      transactions: [],
+      created_at: '',
+      updated_at: ''
+    };
+  }
+
+  get baseTransaction(): Transaction {
+    return {
+      id: 0,
+      invoice_id: 0,
+      item_id: 0,
+      item_type: 'PRODUCT',
+      description: '',
+      quantity: 0,
+      rate: 0,
+      discount: 0,
+      created_at: '',
+      updated_at: ''
+    };
   }
 }

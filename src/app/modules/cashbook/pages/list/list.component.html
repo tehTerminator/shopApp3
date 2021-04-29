@@ -16,7 +16,7 @@
                 <mat-label>Ledger</mat-label>
                 <mat-select [formControl]="ledger">
                     <mat-option *ngFor="let l of ledgers | async" [value]="l.id">
-                        {{ l.title }} - {{ l.group }}
+                        {{ l.title }} - {{ l.kind }}
                     </mat-option>
                 </mat-select>
             </mat-form-field>

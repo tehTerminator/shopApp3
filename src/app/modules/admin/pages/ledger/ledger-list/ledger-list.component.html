@@ -2,7 +2,7 @@
   <div class="ui relaxed divided list">
     <a href="" class="item" *ngFor="let ledger of ledgers | async">
       <div class="right floated content">
-        {{ ledger.group }}
+        {{ ledger.kind }}
       </div>
       <div class="content">{{ ledger.id }} - {{ ledger.title }}</div>
     </a>

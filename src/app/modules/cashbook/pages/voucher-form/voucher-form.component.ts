@@ -72,14 +72,14 @@ export class VoucherFormComponent implements OnInit {
       creditor: {
         id: 0,
         title: '',
-        group: '',
+        kind: '',
         created_at: '',
         updated_at: '',
       },
       debtor: {
         id: 0,
         title: '',
-        group: '',
+        kind: '',
         created_at: '',
         updated_at: '',
       }
