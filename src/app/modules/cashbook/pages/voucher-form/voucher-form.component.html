@@ -1,10 +1,10 @@
-<div class="ui centered grid mt-3">
-    <div class="eight wide column">
-        <form class="ui raised segment" [formGroup]="voucherForm" (ngSubmit)="onSubmit()">
-            <h1 class="ui header">
+<div class="row justify-content-center">
+    <div class="col-6">
+        <form class="card" [formGroup]="voucherForm" (ngSubmit)="onSubmit()">
+            <h1 class="card-header">
                 Create / Update Voucher
             </h1>
-            <div class="content">
+            <div class="card-body">
                 <mat-form-field appearance="outline" class="d-block">
                     <mat-label>#</mat-label>
                     <input type="number" matInput="" formControlName="id" (blur)="onIdFieldChange()">
@@ -29,12 +29,10 @@
                     <mat-label>Amount</mat-label>
                     <input type="number" matInput formControlName="amount">
                 </mat-form-field>
+                <button type="submit" class="btn m-1" mat-raised-button color="primary">Submit</button>
+                <button type="reset" class="btn m-1" mat-raised-button color="warn">Reset Form</button>
             </div>
 
-            <div class="action">
-                <button type="submit" class="ui green button">Submit</button>
-                <button type="reset" class="ui red button">Reset Form</button>
-            </div>
         </form>
     </div>
 </div>

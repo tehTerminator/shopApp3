@@ -20,13 +20,13 @@ export class NotificationComponent implements OnInit {
   getClass(state: MessageState): string {
     switch (state) {
       case MessageState.SUCCESS:
-        return 'green';
+        return 'bg-success text-light';
       case MessageState.ALERT:
-        return 'orange';
+        return 'bg-warning text-light';
       case MessageState.ERROR:
-        return 'red';
+        return 'bg-danger text-light';
       default:
-        return 'blue';
+        return 'bg-light text-dark';
     }
   }
 

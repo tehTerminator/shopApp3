@@ -1,20 +1,18 @@
-<a class="ui fluid labeled icon button" [routerLink]="['/invoices', 'create', 'customers']">
-    <i class="left arrow icon"></i>
+<button mat-stroked-button class="btn btn-outline w-100 mb-3" [routerLink]="['/invoices', 'create', 'customers']">
     Go Back
-</a>
-<div class="ui raised segment">
-    <div class="ui search">
-        <div class="ui fluid icon input">
-            <i class="search icon"></i>
-            <input class="prompt" type="text" [(ngModel)]="searchText" placeholder="Search Items ...">
-        </div>
+</button>
+
+<div class="card border-0">
+    <div class="form-group d-block">
+        <input class="form-control" type="text" [(ngModel)]="searchText" placeholder="Search Items ...">
+        
     </div>
-    <div class="ui divided relaxed list">
-        <a class="item" *ngFor="let item of items|search:'title':searchText|slice:0:10" (click)="onSelect(item)">
+    <div class="list-group">
+        <a class="list-group-item" *ngFor="let item of items|search:'title':searchText|slice:0:10" (click)="onSelect(item)">
             <i class="icon" [ngClass]="getIcon(item)"></i>
             {{ item.title }}
         </a>
-        <div class="item" *ngIf="(items|search:'title':searchText|slice:0:10).length === 0">
+        <div class="list-group-item" *ngIf="(items|search:'title':searchText|slice:0:10).length === 0">
             No Item Found ...
         </div>
     </div>

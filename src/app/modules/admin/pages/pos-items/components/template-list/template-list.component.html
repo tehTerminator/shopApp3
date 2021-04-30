@@ -1,4 +1,4 @@
-<table class="ui raised table center aligned segment">
+<table class="table">
     <thead>
         <tr>
             <th>#</th>
@@ -7,7 +7,7 @@
             <th>Rate</th>
             <th>Quantity</th>
             <th>
-                <i class="trash icon"></i>
+                Del
             </th>
         </tr>
     </thead>
@@ -19,9 +19,11 @@
             <td>{{ template.rate }}</td>
             <td>{{ template.quantity }}</td>
             <td>
-                <button class="ui icon red circular mini button" (click)="deleteItem(template)">
-                    <i class="trash icon"></i>
-                </button>
+                <a (click)="deleteItem(template)" style="cursor: pointer;">
+                    <mat-icon>
+                        delete
+                    </mat-icon>
+                </a>
             </td>
         </tr>
     </tbody>

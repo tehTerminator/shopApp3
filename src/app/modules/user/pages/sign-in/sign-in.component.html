@@ -12,11 +12,13 @@
         <input matInput type="password" name="password" formControlName="password" autocomplete="current-password" required>
 
     </mat-form-field>
-    <button type="submit" class="ui green submit button">
+    <button type="submit" class="btn m-1" mat-raised-button color="primary">
         Submit
     </button>
 
-    <button type="reset" class="ui red reset button">
+    <button type="reset" class="btn m-1" mat-raised-button color="warn">
         Reset
     </button>
 </form>
+
+<a [routerLink]="['/user', 'register']">Create An Account</a>

@@ -1,14 +1,9 @@
-<div class="ui search">
-    <div class="ui fluid icon input">
-        <i class="search icon"></i>
-        <input type="text" class="prompt" name="customer" placeholder="Search Customer..." [(ngModel)]="searchText">
-    </div>
+<div class="form-group">
+    <input type="text" class="form-control" name="customer" placeholder="Search Customer..." [(ngModel)]="searchText">
 </div>
-<div class="ui divided relaxed list">
-    <a class="item" *ngFor="let customer of customers | async | search:'title':searchText | slice:0:10" (click)="onSelect(customer)">
-        <div class="content">
-            <div class="header">{{ customer.title }}</div>
-            <div class="description">{{ customer.address }}</div>
-        </div>
+<div class="list-group">
+    <a class="list-group-item" *ngFor="let customer of customers | async | search:'title':searchText | slice:0:10" (click)="onSelect(customer)">
+        <div>{{ customer.title }}</div>
+        <small>{{ customer.address }}</small>
     </a>
 </div>

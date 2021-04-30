@@ -1,3 +1,77 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <div class="navbar-brand">
+      Maharaja Shop App
+    </div>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a routerLink="/home" routerLinkActive="active" class="nav-link">
+            Home
+          </a>
+        </li>
+        <li class="nav-item dropdown" appDropdown>
+          <a class="nav-link dropdown-toggle">
+            Cashbook
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" routerLink="/cashbook/voucher">Voucher</a></li>
+            <li><a class="dropdown-item" routerLink="/cashbook/list">List</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown" appDropdown>
+          <a class="nav-link dropdown-toggle">
+            Invoices
+          </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" routerLink="/invoices/create/select-customer">Create New</a></li>
+              <li><a class="dropdown-item" routerLink="/invoices/search">View</a></li>
+            </ul>
+        </li>
+        <li class="nav-item dropdown" appDropdown>
+          <a class="nav-link dropdown-toggle">
+            Admin
+          </a>
+            <ul class="dropdown-menu">
+              <li><a href="" class="dropdown-item" routerLink="/admin/ledger">Ledger</a></li>
+              <li><a href="" class="dropdown-item" routerLink="/admin/products">Products</a></li>
+              <li><a href="" class="dropdown-item" routerLink="/admin/pos-item">PosItems</a></li>
+            </ul>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" (click)="showCalculator()">Calculator</a></li>
+        <li class="nav-item"><a class="nav-link" (click)="showNotification()">Notifications</a></li>
+        <li class="nav-item dropdown" appDropdown>
+          <a class="nav-link dropdown-toggle" *ngIf="loggedIn; else signInMenu">
+            {{ displayName }}
+          </a>
+            <ul class="dropdown-menu">
+              <li>
+                <div class="dropdown-item">Profile</div>
+              </li>
+              <li><a (click)="signOut()" class="dropdown-item">Logout</a></li>
+            </ul>
+        </li>
+        <ng-template #signInMenu>
+          <li class="nav-item">
+            <a
+              [routerLink]="['/user', 'sign-in']"
+              routerLinkActive="active teal"
+              class="nav-link"
+            >
+              Sign In
+            </a>
+          </li>
+        </ng-template>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!--
 <nav class="ui top attached inverted blue large stackable menu">
   <div class="header item d-flex justify-content-between">
     Shop App
@@ -72,3 +146,4 @@
     </ng-template>
   </div>
 </nav>
+-->

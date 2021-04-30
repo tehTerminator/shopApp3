@@ -1,8 +1,8 @@
-<div class="ui raised segment">
-    <div class="ui two column grid">
-        <div class="ten wide column">
-            <div class="ui center aligned basic segment">
-                <h2 class="ui header">
+<div class="card">
+    <div class="row">
+        <div class="col-8">
+            <div class="card card-body border-0">
+                <h2 class="fs-3">
                     MAHARAJA COMPUTERS
                 </h2>
                 <p>
@@ -12,12 +12,12 @@
                 </p>
             </div>
         </div>
-        <div class="six wide column">
-            <div class="ui basic segment">
-                <h1 class="ui center aligned header blue">
+        <div class="col-4">
+            <div class="card card-body border-0">
+                <h1 class="bg-primary text-light">
                     INVOICE
                 </h1>
-                <table class="ui basic compact table segment">
+                <table class="table-sm">
                     <tbody>
                         <tr>
                             <td>Invoice #</td>
@@ -35,57 +35,59 @@
                 </table>
             </div>
         </div>
-        <div class="sixteen wide column">
-            <div class="ui header">
+        <div class="col-12">
+            <div class="card card-body border-0 fs-5">
                 Bill To : {{ invoice.customer.title }}
+                <p>
+                    Address : {{ invoice.customer.address }}
+                </p>
             </div>
-            <p>
-                Address : {{ invoice.customer.address }}
-            </p>
         </div>
-        <div class="sixteen wide column">
-            <table class="ui celled center aligned table segment">
-                <thead>
-                    <tr>
-                        <th>Description</th>
-                        <th>Qty</th>
-                        <th>Rate</th>
-                        <th>Disc.</th>
-                        <th>Amount</th>
-                        <th *ngIf="showButtons()">
-                            <i class="delete icon"></i>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let t of invoice.transactions;let i=index">
-                        <td>{{ t.description }}</td>
-                        <td>{{ t.quantity }}</td>
-                        <td>{{ t.rate }}</td>
-                        <td>{{ t.discount }}</td>
-                        <td>{{ rowAmount(t) }}</td>
-                        <td *ngIf="showButtons()">
-                            <button class="ui mini circular icon button" (click)="deleteTransaction(i)">
+        <div class="col-12">
+            <div class="card card-body border-0">
+                <table class="table border-1">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Qty</th>
+                            <th>Rate</th>
+                            <th>Disc.</th>
+                            <th>Amount</th>
+                            <th *ngIf="showButtons()">
                                 <i class="delete icon"></i>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td [attr.colspan]="colspan" class="right aligned">Gross Amount</td>
-                        <td>{{ grossAmount }}</td>
-                    </tr>
-                    <tr>
-                        <td [attr.colspan]="colspan" class="right aligned">Total Discount</td>
-                        <td>{{ totalDiscount }}</td>
-                    </tr>
-                    <tr>
-                        <td [attr.colspan]="colspan" class="right aligned">Net Amount</td>
-                        <td>{{ netTotal }}</td>
-                    </tr>
-                </tfoot>
-            </table>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let t of invoice.transactions;let i=index">
+                            <td>{{ t.description }}</td>
+                            <td>{{ t.quantity }}</td>
+                            <td>{{ t.rate }}</td>
+                            <td>{{ t.discount }}</td>
+                            <td>{{ rowAmount(t) }}</td>
+                            <td *ngIf="showButtons()">
+                                <button class="ui mini circular icon button" (click)="deleteTransaction(i)">
+                                    <mat-icon>trash</mat-icon>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td [attr.colspan]="colspan" class="text-end">Gross Amount</td>
+                            <td>{{ grossAmount }}</td>
+                        </tr>
+                        <tr>
+                            <td [attr.colspan]="colspan" class="text-end">Total Discount</td>
+                            <td>{{ totalDiscount }}</td>
+                        </tr>
+                        <tr>
+                            <td [attr.colspan]="colspan" class="text-end">Net Amount</td>
+                            <td>{{ netTotal }}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
         </div>
     </div>
 </div>

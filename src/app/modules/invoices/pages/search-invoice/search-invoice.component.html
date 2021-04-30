@@ -1,40 +1,42 @@
-<div class="ui two column grid mt-2">
-    <div class="five wide column">
-        <form class="ui raised segment" [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+<div class="row">
+    <div class="col-4">
+        <form class="card card-body" [formGroup]="searchForm" (ngSubmit)="onSubmit()">
             <mat-form-field appearance="outline" class="d-block">
                 <mat-label>Date</mat-label>
                 <input type="date" matInput formControlName="createdAt">
             </mat-form-field>
         
-            <button type="submit" class="ui green fluid button">Search</button>
+            <button type="submit" class="btn btn-primary d-block">Search</button>
         </form>
 
-        <table class="ui compact raised selection table segment"  *ngIf="invoices.length > 0;else noItem">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Customer</th>
-                    <th>Amount</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let invoice of invoices" (click)="selectInvoice(invoice)">
-                    <td>{{ invoice.id }}</td>
-                    <td>{{ invoice.customer.title }}</td>
-                    <td>{{ invoice.amount }}</td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="card mt-3">
+            <div class="card-body">
+                <table class="table table-sm"  *ngIf="invoices.length > 0;else noItem">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Customer</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let invoice of invoices" (click)="selectInvoice(invoice)">
+                            <td>{{ invoice.id }}</td>
+                            <td>{{ invoice.customer.title }}</td>
+                            <td>{{ invoice.amount }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
         <ng-template #noItem>
-            <div class="ui placeholder segment mt-1">
-                <div class="ui center aligned header">
-                    No Invoices For Selected Date
-                </div>
-            </div>
+
+                    <div class="text-center fs-3">No Invoices For Selected Date</div>
+
         </ng-template>
     </div>
-    <div class="eleven wide column">
+    <div class="col-8">
         <app-preview-invoice></app-preview-invoice>
     </div>
 </div>

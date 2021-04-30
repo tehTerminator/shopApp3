@@ -1,10 +1,8 @@
-<div class="ui paged segment">
-  <div class="ui relaxed divided list">
-    <a href="" class="item" *ngFor="let ledger of ledgers | async">
-      <div class="right floated content">
+  <div class="list-group">
+    <a class="list-group-item d-flex justify-content-between" *ngFor="let ledger of ledgers | async">
+      <div>{{ ledger.id }} - {{ ledger.title }}</div>
+      <small>
         {{ ledger.kind }}
-      </div>
-      <div class="content">{{ ledger.id }} - {{ ledger.title }}</div>
+      </small>
     </a>
   </div>
-</div>

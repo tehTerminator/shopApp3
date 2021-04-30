@@ -1,37 +1,40 @@
+<h2 mat-dialog-title>
+    Calculator
+</h2>
 <div mat-dialog-content>
-    <div class="ui grid">
-        <div class="column">
-            <form [formGroup]="calcForm" class="ui form" (ngSubmit)="addCurrency()">
-                <div class="field">
-                    <label for="command">Enter Your Command Here</label>
-                    <input type="text" formControlName="command" class="text-center" placeholder="Enter Math Equation Here">
-                </div>
+    <div class="row">
+        <div class="col">
+            <form [formGroup]="calcForm">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Equation</mat-label>
+                    <input matInput type="text" formControlName="command" class="text-center" placeholder="Enter Math Equation Here">
+                </mat-form-field>
 
-                <div class="two fields">
-                    <div class="field">
-                        <label for="denomination">Amount</label>
-                        <select name="denomination" formControlName="denomination" class="ui dropdown">
-                            <option *ngFor="let i of denominations" [value]="i">
+                <div class="row gt-1">
+                    <mat-form-field class="col-6" appearance="fill">
+                        <mat-label>Denomination</mat-label>
+                        <mat-select formControlName="denomination" class="text-center">
+                            <mat-option *ngFor="let i of denominations" [value]="i">
                                 {{ i }}
-                            </option>
-                        </select>
-                    </div>
-                    <div class="field">
-                        <label for="count">Count</label>
-                        <input formControlName="count" class="text-center" type="text" min="1" step="1">
-                    </div>
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="col-6" appearance="fill">
+                        <mat-label>
+                            Count
+                        </mat-label>
+                        <input matInput formControlName="count" class="text-center" type="text" min="1" step="1">
+                    </mat-form-field>
                 </div>
 
-                <button type="submit" class="ui fluid green labeled icon button">
-                    <i class="add icon"></i>
-                    Add Currency
-                </button>
+                <button mat-raised-button color="primary" type="button" class="btn w-100 mb-3" (click)="addCurrency()">Add Currency</button>
+
             </form>
         </div>
     </div>
-    <div class="ui grid" [hidden]="currencyTotal === 0">
-        <div class="column">
-            <table class="ui compact striped table">
+    <div class="row" [hidden]="currencyTotal === 0">
+        <div class="col">
+            <table class="table table-sm table-striped table-celled">
                 <thead>
                     <tr class="text-center">
                         <th>
@@ -47,23 +50,23 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let currency of CurrencyArray">
-                        <td>{{ currency.denomination | currency:'INR'}}</td>
-                        <td>x {{ currency.count }}</td>
-                        <td>{{ currency.amount | currency:'INR' }}</td>
+                        <td class="text-center">Rs. {{ currency.denomination }}</td>
+                        <td class="text-center">x {{ currency.count }}</td>
+                        <td class="text-center pr-5">{{ currency.amount | number:'1.2-2' }}</td>
                     </tr>
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th colspan="2">
+                        <th colspan="2" class="text-right">
                             Total
                         </th>
-                        <th>
-                            {{ currencyTotal | currency:'INR'}}
+                        <th class="text-center pr-5">
+                            {{ currencyTotal | number:'1.2-2'}}
                         </th>
                     </tr>
                 </tfoot>
             </table>
-            <button type="reset" class="ui fluid red button" (click)="resetCurrency()">Reset</button>
+            <button mat-raised-button color="warn" type="button" class="btn m-1" (click)="resetCurrency()">Reset</button>
         </div>
     </div>
 </div>

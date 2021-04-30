@@ -1,23 +1,23 @@
-<form class="ui paged segment" [formGroup]="posForm" (ngSubmit)="onSubmit()">
-    <div class="ui header">
+<form class="card" [formGroup]="posForm" (ngSubmit)="onSubmit()">
+    <h2 class="fs-2 card-header">
         {{ editMode ? 'Update POS Item' : 'Create New Pos Item' }}
-    </div>
-    <div class="content">
-        <mat-form-field class="d-block" appearance="fill">
+    </h2>
+    <div class="card-body">
+        <mat-form-field class="d-block" appearance="outline">
             <mat-label>id</mat-label>
             <input type="number" matInput formControlName="id">
         </mat-form-field>
-        <mat-form-field class="d-block" appearance="fill">
+        <mat-form-field class="d-block" appearance="outline">
             <mat-label>Title</mat-label>
             <input type="text" matInput formControlName="title" required>
         </mat-form-field>
-        <mat-form-field class="d-block" appearance="fill">
+        <mat-form-field class="d-block" appearance="outline">
             <mat-label>Rate</mat-label>
             <input type="number" matInput formControlName="rate" required>
         </mat-form-field>
 
 
-        <button type="submit" class="ui green button">Submit</button>
-        <button type="reset" class="ui red button">Reset Form</button>
+        <button type="submit" class="btn m-1" mat-raised-button color="primary">Submit</button>
+        <button type="reset" class="btn m-1" mat-raised-button color="warn">Reset Form</button>
     </div>
 </form>

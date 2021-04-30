@@ -1,12 +1,12 @@
-<a class="ui fluid labeled icon button" [routerLink]="['/invoices', 'create', 'list-items']">
-    <i class="left arrow icon"></i>
+<button  mat-stroked-button class="btn btn-outline w-100 mb-3" [routerLink]="['/invoices', 'create', 'list-items']">
     Go Back
-</a>
-<div class="ui raised segment">
-    <h2 class="ui header">
+</button>
+
+<div class="card">
+    <h2 class="card-header">
         {{ productName }}
     </h2>
-    <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()" class="card-body">
         <mat-form-field class="d-block" appearance="outline">
             <mat-label>Quantity</mat-label>
             <input type="number" name="quantity" matInput formControlName="quantity">
@@ -20,12 +20,12 @@
             <input type="number" name="discount" matInput formControlName="discount">
         </mat-form-field>
 
-        <button type="submit" class="ui green button">Submit</button>
-        <button type="reset" class="ui red button">Reset</button>
+        <button type="submit" class="btn m-1" mat-raised-button color="primary">Submit</button>
+        <button type="reset" class="btn m-1" mat-raised-button color="warn">Reset</button>
     </form>
 </div>
 
-<table class="ui raised center aligned table segment">
+<table class="table">
     <thead>
         <tr>
             <th>

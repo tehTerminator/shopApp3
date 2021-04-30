@@ -1,29 +1,25 @@
-<div class="ui grid" *ngIf="messages.value.length >= 1;else noNotification">
-    <div class="column">
-        <div class="ui header">
+<div class="row" *ngIf="messages.value.length >= 1;else noNotification">
+    <div class="col">
+        <div class="fs-1 mb-3">
             Notification
         </div>
-        <div class="ui paged segment" *ngFor="let message of messages | async" [ngClass]="getClass(message.state)">
-            <div class="ui header">
+        <div class="card mb-1" *ngFor="let message of messages | async" [ngClass]="getClass(message.state)">
+            <div class="card-header">
                 {{ message.title }}
             </div>
-            <p>
-                {{ message.text }}
+            <p class="card-body">
+                {{ message.text }} - {{ message.createdAt | date: 'hh:MM' }}
             </p>
-            <div class="ui bottom right attached label">
-                {{ message.createdAt | date: 'hh:MM' }}
-            </div>
         </div>
     </div>
 </div>
 
 <ng-template #noNotification>
-    <div class="ui icon negative message">
-        <i class="inbox icon"></i>
-        <div class="content">
-            <div class="header">
-                Notifications Empty
-            </div>
+    <div class="card bg-danger text-light">
+        <div class="card-header">
+            Notifications Empty
+        </div>
+        <div class="card-body">
             <ul>
                 <li>It seems there are no Notification.</li>
             </ul>

@@ -1,32 +1,29 @@
-<form [formGroup]="ledgerForm" (ngSubmit)="onSubmit()" class="ui stacked segment">
-    <h2 class="ui header">
+<form [formGroup]="ledgerForm" (ngSubmit)="onSubmit()" class="card">
+    <h2 class="card-header fs-2">
         {{ editMode ? 'Update Ledger' : 'Create New Ledger' }}
     </h2>
-    <mat-form-field appearance="fill" class="d-block">
-        <mat-label>#</mat-label>
-        <input type="number" min="0" step="1" matInput formControlName="id" (blur)="onIdFieldChange()">
-    </mat-form-field>
-
-    <mat-form-field appearance="fill" class="d-block">
-        <mat-label>Ledger Name</mat-label>
-        <input matInput type="text" required formControlName="title">
-    </mat-form-field>
-
-    <mat-form-field appearance="fill" class="d-block">
-        <mat-label>Kind</mat-label>
-        <mat-select formControlName="kind">
-            <mat-option *ngFor="let kind of kinds" [value]="kind">
-                {{ kind }}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-
-    <button type="submit" class="ui labelled icon green button">
-        <i class="save icon"></i>
-        Save Data
-    </button>
-    <button type="reset" class="ui labelled icon red button">
-        <i class="trash icon"></i>
-        Reset Form
-    </button>
+    <div class="card-body">
+        <mat-form-field appearance="outline" class="d-block">
+            <mat-label>#</mat-label>
+            <input type="number" min="0" step="1" matInput formControlName="id" (blur)="onIdFieldChange()">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="d-block">
+            <mat-label>Ledger Name</mat-label>
+            <input matInput type="text" required formControlName="title">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="d-block">
+            <mat-label>Kind</mat-label>
+            <mat-select formControlName="kind">
+                <mat-option *ngFor="let kind of kinds" [value]="kind">
+                    {{ kind }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <button type="submit" class="btn m-1" mat-raised-button color="primary">
+            Save Data
+        </button>
+        <button type="reset" class="btn m-1" mat-raised-button color="warn">
+            Reset Form
+        </button>
+    </div>
 </form>

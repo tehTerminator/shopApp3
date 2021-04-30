@@ -1,9 +1,9 @@
-<div class="ui stackabled grid mt-3">
-    <div class="sixteen wide column" *ngIf="posItemBeingEdited">
-        <div class="ui raised segment">
-            <div class="ui header">Currently Editing</div>
-            <div class="content">
-                <table class="ui table">
+<div class="row g-3">
+    <div class="col-12" *ngIf="posItemBeingEdited">
+        <div class="card">
+            <div class="card-header">Currently Editing</div>
+            <div class="card-body">
+                <table class="table">
                     <tbody>
                         <tr>
                             <td>#{{ posItemBeingEdited.id }}</td>
@@ -15,10 +15,10 @@
             </div>
         </div>
     </div>
-    <div class="eight wide column">
+    <div class="col-6">
         <app-template-form [pos]="posItemBeingEdited.id"></app-template-form>
     </div>
-    <div class="eight wide column">
+    <div class="col-6">
         <app-template-list [pos]="posItemBeingEdited.id"></app-template-list>
     </div>
 </div>

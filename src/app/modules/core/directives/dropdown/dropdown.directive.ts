@@ -10,9 +10,9 @@ export class DropdownDirective {
     const target = this.element.nativeElement.children[1];
     this.isOpen = this.element.nativeElement.contains(event.target) ? !this.isOpen : false;
     if (this.isOpen) {
-      this.rendered.addClass(target, 'd-block');
+      this.rendered.addClass(target, 'show');
     } else {
-      this.rendered.removeClass(target, 'd-block');
+      this.rendered.removeClass(target, 'show');
     }
   }
 

@@ -1,7 +1,6 @@
-<div class="ui paged segment">
-    <div class="ui relaxed divided list">
-        <div class="item" *ngFor="let product of products | async">
-            {{ product.id }} - {{ product.title }}
-        </div>
-    </div>
+<div class="list-group">
+  <div class="list-group-item d-flex justify-content-between" *ngFor="let product of products | async">
+    {{ product.id }} - {{ product.title }}
+    <small>{{ product.rate | currency:'INR'}}</small>
+  </div>
 </div>

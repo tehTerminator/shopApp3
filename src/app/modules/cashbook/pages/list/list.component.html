@@ -1,18 +1,18 @@
-<form class="ui raised segment mt-2" [formGroup]="myForm" (ngSubmit)="onSubmit()">
-    <div class="ui grid">
-        <div class="sixteen wide column">
-            <div class="ui header">
+<form class="card card-body" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="col-12">
+            <div class="fs-3 mb-3">
                 View Cashbook
             </div>
         </div>
-        <div class="four wide column">
-            <mat-form-field class="d-block">
+        <div class="col-3">
+            <mat-form-field class="d-block w-100" appearance="outline">
                 <mat-label>Date</mat-label>
                 <input matInput type="date" [formControl]="date">
             </mat-form-field>
         </div>
-        <div class="eight wide column">
-            <mat-form-field class="d-block">
+        <div class="col-6">
+            <mat-form-field class="d-block w-100" appearance="outline">
                 <mat-label>Ledger</mat-label>
                 <mat-select [formControl]="ledger">
                     <mat-option *ngFor="let l of ledgers | async" [value]="l.id">
@@ -21,13 +21,13 @@
                 </mat-select>
             </mat-form-field>
         </div>
-        <div class="four wide column">
-            <button type="submit" class="ui fluid submit button">Get Data</button>
+        <div class="col-3">
+            <button type="submit" class="btn d-block w-100 h-75" mat-raised-button color="primary">Get Data</button>
         </div>
     </div>
 </form>
 
-<table class="ui raised table segment" *ngIf="vouchers.length > 0;else noDataMessage">
+<table class="table mt-3" *ngIf="vouchers.length > 0;else noDataMessage">
     <thead>
         <tr>
             <th>#</th>
@@ -49,9 +49,8 @@
 </table>
 
 <ng-template #noDataMessage>
-    <div class="ui placeholder segment">
-        <div class="ui icon header">
-            <i class="info icon"></i>
+    <div class="card mt-3 bg-light text-center">
+        <div class="card-body">
             There is No Data to Display for Selected Date or Account
         </div>
     </div>
