@@ -57,7 +57,6 @@ export class InvoiceStoreService {
     }
     invoice.amount = this.grandTotal(invoice);
     this.invoice.next(invoice);
-    console.log(this.baseInvoice);
   }
 
   private grandTotal(invoice: Invoice): number {

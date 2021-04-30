@@ -67,7 +67,7 @@ export class AuthStateService {
         return this.user.value.id;
     }
 
-    get token(): string|null {
+    get token(): string {
         return this.user.value.token;
     }
 

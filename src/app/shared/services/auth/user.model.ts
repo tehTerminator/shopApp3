@@ -29,10 +29,10 @@ export class User {
         return this.pUserName;
     }
 
-    get token(): string | null {
+    get token(): string {
         const currentTime = (new Date()).getTime();
         if (this.expirationTime < currentTime) {
-            return null;
+            return '';
         }
         return this.pToken;
     }
