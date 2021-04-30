@@ -1,3 +1,35 @@
-<div class="ui grid mt-3">
-    
+<div class="ui three column grid mt-3" *ngIf="dataLoaded">
+  <div class="column">
+    <div class="ui top attached header">Invoice Count</div>
+    <div class="ui bottom attached raised segment" style="min-height: 300px">
+      <ngx-charts-pie-chart
+        [legend]="showLegend"
+        [legendPosition]="legendPosition"
+        [results]="data.invoiceCount"
+      ></ngx-charts-pie-chart>
+    </div>
+  </div>
+  <div class="column">
+    <div class="ui top attached header">Bank Payments</div>
+    <div class="ui bottom attached raised segment" style="min-height: 300px">
+      <ngx-charts-pie-chart
+        [legend]="showLegend"
+        [legendPosition]="legendPosition"
+        [results]="data.bankPayment"
+      >
+      </ngx-charts-pie-chart>
+    </div>
+  </div>
+  <div class="column">
+      <div class="ui top attached header">
+          Total Sales
+      </div>
+      <div class="ui bottom attached raised segment" style="min-height: 300px">
+          <ngx-charts-pie-chart
+            [legend]="showLegend"
+            [legendPosition]="legendPosition"
+            [results]="data.sales"
+          ></ngx-charts-pie-chart>
+      </div>
+  </div>
 </div>
