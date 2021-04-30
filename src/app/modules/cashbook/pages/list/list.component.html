@@ -5,13 +5,13 @@
                 View Cashbook
             </div>
         </div>
-        <div class="col-3">
+        <div class="col-md-3">
             <mat-form-field class="d-block w-100" appearance="outline">
                 <mat-label>Date</mat-label>
                 <input matInput type="date" [formControl]="date">
             </mat-form-field>
         </div>
-        <div class="col-6">
+        <div class="col-md-6">
             <mat-form-field class="d-block w-100" appearance="outline">
                 <mat-label>Ledger</mat-label>
                 <mat-select [formControl]="ledger">
@@ -21,8 +21,8 @@
                 </mat-select>
             </mat-form-field>
         </div>
-        <div class="col-3">
-            <button type="submit" class="btn d-block w-100 h-75" mat-raised-button color="primary">Get Data</button>
+        <div class="col-md-3">
+            <button type="submit" class="btn d-block w-100" mat-raised-button color="primary">Get Data</button>
         </div>
     </div>
 </form>

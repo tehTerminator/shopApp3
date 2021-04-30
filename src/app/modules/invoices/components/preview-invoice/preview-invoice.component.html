@@ -54,7 +54,7 @@
                             <th>Disc.</th>
                             <th>Amount</th>
                             <th *ngIf="showButtons()">
-                                <i class="delete icon"></i>
+                                Delete Row
                             </th>
                         </tr>
                     </thead>
@@ -66,8 +66,8 @@
                             <td>{{ t.discount }}</td>
                             <td>{{ rowAmount(t) }}</td>
                             <td *ngIf="showButtons()">
-                                <button class="ui mini circular icon button" (click)="deleteTransaction(i)">
-                                    <mat-icon>trash</mat-icon>
+                                <button class="btn" (click)="deleteTransaction(i)">
+                                    <mat-icon>delete</mat-icon>
                                 </button>
                             </td>
                         </tr>

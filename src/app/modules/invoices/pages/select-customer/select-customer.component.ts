@@ -8,10 +8,9 @@ import { InvoiceStoreService } from '../../services/invoice-store.service';
 })
 export class SelectCustomerComponent implements OnInit {
 
-  constructor(private store: InvoiceStoreService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.store.reset();
   }
 
 }
