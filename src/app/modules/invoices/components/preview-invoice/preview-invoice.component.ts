@@ -14,6 +14,7 @@ export class PreviewInvoiceComponent implements OnInit, OnDestroy {
   constructor(private store: InvoiceStoreService) { }
 
   ngOnInit(): void {
+    this.store.reset();
     this.sub = this.store.invoice
     .subscribe(val => this.invoice = val);
   }
