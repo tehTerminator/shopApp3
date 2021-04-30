@@ -1,19 +1,26 @@
-<form [formGroup]="userRegistrationForm" (ngSubmit)="onSubmit()">
-    <mat-form-field appearance="outline" class="d-block">
-        <mat-label>Full Name</mat-label>
-        <input matInput type="text" formControlName="displayName" autocomplete="name">
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="d-block">
-        <mat-label>Username</mat-label>
-        <input type="text" matInput formControlName="username" autocomplete="username">
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="d-block">
-        <mat-label>Password</mat-label>
-        <input type="password" matInput formControlName="password" autocomplete="current-password">
-    </mat-form-field>
-
-    <button type="submit" class="btn m-1" mat-raised-button color="primary">Register</button>
-    <button type="reset" class="btn m-1" mat-raised-button color="warn">
-        Reset Form
-    </button>
-</form>
+<div class="card mt-5">
+    <div class="card-header">
+        Register New User
+    </div>
+    <div class="card-body">
+        <form [formGroup]="userRegistrationForm" (ngSubmit)="onSubmit()">
+            <mat-form-field appearance="outline" class="d-block">
+                <mat-label>Full Name</mat-label>
+                <input matInput type="text" formControlName="displayName" autocomplete="name">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="d-block">
+                <mat-label>Username</mat-label>
+                <input type="text" matInput formControlName="username" autocomplete="username">
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="d-block">
+                <mat-label>Password</mat-label>
+                <input type="password" matInput formControlName="password" autocomplete="current-password">
+            </mat-form-field>
+        
+            <button type="submit" class="btn m-1" mat-raised-button color="primary">Register</button>
+            <button type="reset" class="btn m-1" mat-raised-button color="warn">
+                Reset Form
+            </button>
+        </form>
+    </div>
+</div>

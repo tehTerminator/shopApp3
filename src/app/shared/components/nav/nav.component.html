@@ -45,8 +45,8 @@
       <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
         <li class="nav-item"><a class="nav-link" (click)="showCalculator()">Calculator</a></li>
         <li class="nav-item"><a class="nav-link" (click)="showNotification()">Notifications</a></li>
-        <li class="nav-item dropdown" appDropdown>
-          <a class="nav-link dropdown-toggle" *ngIf="loggedIn; else signInMenu">
+        <li class="nav-item dropdown" appDropdown *ngIf="loggedIn; else signInMenu">
+          <a class="nav-link dropdown-toggle">
             {{ displayName }}
           </a>
             <ul class="dropdown-menu">
