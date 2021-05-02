@@ -3,6 +3,8 @@ export const MINUTE = 60000;
 export const HOUR = 3600000;
 
 export const STRING = '^[0-9a-zA-Z ]+$';
+export const ALPHA_NUM = '^[0-9a-zA-Z]+$';
+export const ALPHA = '^[a-zA-Z]+$';
 
 export interface TableRow{
     id: number;

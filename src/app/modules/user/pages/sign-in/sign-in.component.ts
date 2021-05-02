@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthStateService } from './../../../../shared/services/auth/auth-state.service';
 import { AuthService } from './../../../../shared/services/auth/auth.service';
 import { NotificationService } from './../../../../shared/services/notification/notification.service';
-import { AuthState } from './../../../../shared/collection';
+import { ALPHA, AuthState } from './../../../../shared/collection';
 import {
   trigger,
   state,
@@ -38,14 +38,13 @@ export class SignInComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private authState: AuthStateService,
     private router: Router,
     private ns: NotificationService
   ) { }
 
   ngOnInit(): void {
     this.signInForm = this.fb.group({
-      username: ['', [Validators.required, Validators.minLength(3)]],
+      username: ['', [Validators.required, Validators.minLength(3), Validators.pattern(ALPHA)]],
       password: ['', [Validators.required, Validators.minLength(3)]]
     });
   }

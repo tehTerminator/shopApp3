@@ -5,6 +5,17 @@
             <mat-form-field appearance="outline" class="d-block w-100">
                 <mat-label>Username</mat-label>
                 <input matInput type="text" name="username" formControlName="username" autocomplete="username" required>
+                <mat-error *ngIf="usernameField.invalid && (usernameField.dirty || usernameField.touched)">
+                    <span *ngIf="usernameField.hasError('required')">
+                        Username Field Is Required
+                    </span>
+                    <span *ngIf="usernameField.hasError('minlength')">
+                        Username must have atleast 3 Characters
+                    </span>
+                    <span *ngIf="usernameField.hasError('pattern')">
+                        Only Alphabets are allowed
+                    </span>
+                </mat-error>
             </mat-form-field>
         
             <mat-form-field appearance="outline" class="d-block w-100">
@@ -12,9 +23,14 @@
                     Password
                 </mat-label>
                 <input matInput type="password" name="password" formControlName="password" autocomplete="current-password" required>
-        
+                <mat-error *ngIf="passwordField.invalid && (passwordField.dirty || passwordField.touched)">
+                    <span *ngIf="passwordField.hasError('required')">Password is Required</span>
+                    <span *ngIf="passwordField.hasError('minlength')">
+                        Password must have more than 3 Characters
+                    </span>
+                </mat-error>
             </mat-form-field>
-            <button type="submit" class="btn m-1" mat-raised-button color="primary">
+            <button type="submit" class="btn m-1" mat-raised-button color="primary" [disabled]="signInForm.invalid">
                 Submit
             </button>
         
