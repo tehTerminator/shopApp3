@@ -6,18 +6,26 @@ import { CashbookRoutingModule } from './cashbook-routing.module';
 import { CashbookComponent } from './cashbook.component';
 import { VoucherFormComponent } from './pages/voucher-form/voucher-form.component';
 import { ListComponent } from './pages/list/list.component';
+import { LedgerBalanceComponent } from './pages/ledger-balance/ledger-balance.component';
+import { LedgerBalanceFormComponent } from './components/ledger-balance-form/ledger-balance-form.component';
+import { ListLedgerBalanceComponent } from './components/list-ledger-balance/list-ledger-balance.component';
+import { LedgerBalanceService } from './services/ledger-balance.service';
 
 
 @NgModule({
   declarations: [
     CashbookComponent,
     VoucherFormComponent,
-    ListComponent
+    ListComponent,
+    LedgerBalanceComponent,
+    LedgerBalanceFormComponent,
+    ListLedgerBalanceComponent
   ],
   imports: [
     CommonModule,
     CashbookRoutingModule,
     CoreModule
-  ]
+  ],
+  providers: [LedgerBalanceService]
 })
 export class CashbookModule { }

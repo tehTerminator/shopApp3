@@ -14,6 +14,7 @@ export class NavComponent implements OnInit, OnDestroy {
   @Output() showDialog = new EventEmitter<AppDialog>();
   displayName = 'Anonymous';
   notifier = new Subject();
+  isExpanded = false;
 
   constructor(private authState: AuthStateService, private authService: AuthService) { }
 

@@ -1,6 +1,6 @@
 <div class="row justify-content-center">
     <div class="col-md-6">
-        <form class="card" [formGroup]="voucherForm" (ngSubmit)="onSubmit()">
+        <form [@initialize] class="card" [formGroup]="voucherForm" (ngSubmit)="onSubmit()" [ngClass]="isLoading ? 'loading' : ''">
             <h1 class="card-header">
                 Create / Update Voucher
             </h1>

@@ -34,11 +34,13 @@ export class ChoosePaymentMethodComponent implements OnInit {
 
   selectPaymentMethod(ledger: Ledger): void {
     this.store.paymentMethod = `${ledger.title}#${ledger.id}`;
+    this.store.paid = true;
     this.router.navigate(['/invoices', 'wait']);
   }
 
   setUdhaar(): void {
     this.store.paymentMethod = 'UDHAAR';
+    this.store.paid = false;
     this.router.navigate(['/invoices', 'wait']);
   }
 

@@ -5,14 +5,35 @@ import { ApiService } from './../../../../shared/services/api/api.service';
 import { NotificationService } from '../../../../shared/services/notification/notification.service';
 import { Ledger, Voucher } from '../../../../shared/collection';
 import { EMPTY, Observable } from 'rxjs';
+import {
+  trigger,
+  state,
+  transition,
+  animate,
+  style
+} from '@angular/animations';
 
 @Component({
   selector: 'app-voucher-form',
   templateUrl: './voucher-form.component.html',
-  styleUrls: ['./voucher-form.component.css']
+  styleUrls: ['./voucher-form.component.css'],
+  animations: [
+    trigger('initialize', [
+      state('in', style({
+        opacity: 1,
+        left: 0,
+      })),
+      state('void', style({
+        opacity: 0,
+        left: -1000,
+      })),
+      transition('void => *', animate(500))
+    ])
+  ]
 })
 export class VoucherFormComponent implements OnInit {
   voucherForm: FormGroup = new FormGroup({});
+  isLoading = false;
 
   constructor(
     private ns: NotificationService,
@@ -33,11 +54,13 @@ export class VoucherFormComponent implements OnInit {
   }
 
   onIdFieldChange(): void {
+    this.isLoading = true;
     if (this.id.value > 0) {
       this.api.select<Voucher>('vouchers', {
         id: this.id.value,
       }).subscribe(
         voucher => {
+          this.isLoading = false;
           this.voucherForm.patchValue({
             cr: voucher.cr,
             dr: voucher.dr,
@@ -46,6 +69,7 @@ export class VoucherFormComponent implements OnInit {
           });
         },
         () => {
+          this.isLoading = false;
           this.ns.showError('Error', 'Given Voucher Not Found');
           this.voucherForm.reset();
         }
@@ -64,27 +88,7 @@ export class VoucherFormComponent implements OnInit {
       return;
     }
 
-    const payload: Voucher = {
-      ...this.voucherForm.value,
-      created_at: '',
-      updated_at: '',
-      user_id: 0,
-      creditor: {
-        id: 0,
-        title: '',
-        kind: '',
-        created_at: '',
-        updated_at: '',
-      },
-      debtor: {
-        id: 0,
-        title: '',
-        kind: '',
-        created_at: '',
-        updated_at: '',
-      }
-    };
-
+    const payload = this.voucherForm.value;
     let response = EMPTY;
 
     if (this.editMode) {

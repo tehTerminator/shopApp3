@@ -1,4 +1,4 @@
-<div class="card mt-5">
+<div class="card mt-5" [@openClose] [ngClass]="isLoading ? 'loading': ''">
     <div class="card-header">Registered User Sign In</div>
     <div class="card-body">
         <form [ngClass]="isLoading ? 'loading' : ''" [formGroup]="signInForm" (ngSubmit)="onSubmit()">

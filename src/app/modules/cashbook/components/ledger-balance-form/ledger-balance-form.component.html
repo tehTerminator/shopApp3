@@ -1,0 +1,32 @@
+<div class="card">
+  <div class="card-title">Save Opening / Closing Balance</div>
+  <div class="card-body">
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+      <mat-form-field>
+        <mat-label>Ledger Name</mat-label>
+        <mat-select formControlName="ledger">
+          <mat-option *ngFor="let l of ledgers | async" [value]="l">
+            {{ l.title }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Opening Balance</mat-label>
+        <input type="number" matInput formControlName="opening" />
+      </mat-form-field>
+
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Closing Balance</mat-label>
+        <input type="number" matInput formControlName="closing" />
+      </mat-form-field>
+
+      <button mat-flat-button color="primary" type="submit" class="btn m-1">
+        Submit
+      </button>
+      <button mat-flat-button color="warn" type="reset" class="btn m-1">
+        Reset Form
+      </button>
+    </form>
+  </div>
+</div>
