@@ -74,6 +74,8 @@ export class VoucherFormComponent implements OnInit {
           this.voucherForm.reset();
         }
       );
+    } else {
+      this.isLoading = false;
     }
   }
 
