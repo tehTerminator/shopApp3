@@ -1,26 +1,114 @@
-<div class="card mt-5">
-    <div class="card-header">
-        Register New User
-    </div>
-    <div class="card-body">
-        <form [formGroup]="userRegistrationForm" (ngSubmit)="onSubmit()">
-            <mat-form-field appearance="outline" class="d-block">
-                <mat-label>Full Name</mat-label>
-                <input matInput type="text" formControlName="displayName" autocomplete="name">
-            </mat-form-field>
-            <mat-form-field appearance="outline" class="d-block">
-                <mat-label>Username</mat-label>
-                <input type="text" matInput formControlName="username" autocomplete="username">
-            </mat-form-field>
-            <mat-form-field appearance="outline" class="d-block">
-                <mat-label>Password</mat-label>
-                <input type="password" matInput formControlName="password" autocomplete="current-password">
-            </mat-form-field>
-        
-            <button type="submit" class="btn m-1" mat-raised-button color="primary">Register</button>
-            <button type="reset" class="btn m-1" mat-raised-button color="warn">
-                Reset Form
-            </button>
-        </form>
-    </div>
+<div class="card mt-5" [ngClass]="isLoading ? 'loading' : ''">
+  <div class="card-header">Register New User</div>
+  <div class="card-body">
+    <form [formGroup]="userRegistrationForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline" class="d-block">
+        <mat-label>Full Name</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="displayName"
+          autocomplete="name"
+        />
+        <span matSuffix>
+            <mat-icon>face</mat-icon>
+        </span>
+        <mat-error
+          *ngIf="
+            displayName.invalid && (displayName.dirty || displayName.touched)
+          "
+        >
+          <span *ngIf="displayName.hasError('required')"
+            >Please Enter Your Full Name</span
+          >
+          <span *ngIf="displayName.hasError('minlength')"
+            >Atleast 5 Characters Are Required</span
+          >
+          <span *ngIf="displayName.hasError('maxlength')"
+            >Maximum 60 Characters Are Allowed</span
+          >
+          <span *ngIf="displayName.hasError('pattern')"
+            >Special Characters Are Not Allowed</span
+          >
+          <span *ngIf="displayName.hasError('displayNameExists')"
+            >Display Name Already Exists</span
+          >
+        </mat-error>
+        <mat-hint align="end"
+          >{{ displayName.value?.length || 0 }} / 60</mat-hint
+        >
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="d-block">
+        <mat-label>Username</mat-label>
+        <input
+          type="text"
+          matInput
+          formControlName="username"
+          autocomplete="username"
+        />
+        <span matSuffix>
+            <mat-icon>person</mat-icon>
+        </span>
+        <mat-hint align="end">{{ username.value?.length || 0 }} / 50</mat-hint>
+        <mat-error
+          *ngIf="username.invalid && (username.dirty || username.touched)"
+        >
+          <span *ngIf="username.hasError('required')"
+            >Please Enter Your Full Name</span
+          >
+          <span *ngIf="username.hasError('minlength')"
+            >Atleast 5 Characters Are Required</span
+          >
+          <span *ngIf="username.hasError('pattern')"
+            >Special Characters Are Not Allowed</span
+          >
+          <span *ngIf="username.hasError('usernameExist')"
+            >Username is Already Registered.</span
+          >
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="d-block">
+        <mat-label>Password</mat-label>
+        <input
+          [type]="hide ? 'password' : 'text'"
+          matInput
+          formControlName="password"
+          autocomplete="current-password"
+        />
+        <button
+        type="button"
+          mat-icon-button
+          matSuffix
+          (click)="hide = !hide"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide"
+        >
+          <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+        </button>
+        <mat-error
+          *ngIf="password.invalid && (password.dirty || password.touched)"
+        >
+          <span *ngIf="password.hasError('required')"
+            >Please Enter A Password.</span
+          >
+          <span *ngIf="password.hasError('minlength')"
+            >Password must have atleast 3 Characters</span
+          >
+        </mat-error>
+      </mat-form-field>
+
+      <button
+        type="submit"
+        class="btn m-1"
+        mat-raised-button
+        color="primary"
+        [disabled]="userRegistrationForm.invalid"
+      >
+        Register
+      </button>
+      <button type="reset" class="btn m-1" mat-raised-button color="warn">
+        Reset Form
+      </button>
+    </form>
+  </div>
 </div>

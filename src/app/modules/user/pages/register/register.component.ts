@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NotificationService } from './../../../../shared/services/notification/notification.service';
 import { ApiService } from './../../../../shared/services/api/api.service';
+import { ALPHA, STRING } from './../../../../shared/collection';
 
 @Component({
   selector: 'app-register',
@@ -11,6 +12,8 @@ import { ApiService } from './../../../../shared/services/api/api.service';
 })
 export class RegisterComponent implements OnInit {
   userRegistrationForm: FormGroup = new FormGroup({});
+  isLoading = false;
+  hide = true;
 
   constructor(
     private fb: FormBuilder,
@@ -21,9 +24,20 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.userRegistrationForm = this.fb.group({
-      displayName: ['', Validators.required],
-      username: ['', Validators.required],
-      password: ['', Validators.required]
+      displayName: ['', [
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(60),
+        Validators.pattern(STRING)
+      ], [this.displayNameValidator.bind(this)]],
+      username: ['', [
+        Validators.required,
+        Validators.minLength(5),
+        Validators.maxLength(50),
+        Validators.pattern(ALPHA)],
+        [this.usernameValidator.bind(this)]
+      ],
+      password: ['', [Validators.required, Validators.minLength(3)]]
     });
   }
 
@@ -33,18 +47,22 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
+    this.isLoading = true;
+
     this.api.create('users', {
       displayName: this.displayName.value,
       username: this.username.value,
       password: this.password.value
     })
-    .subscribe((response) => {
-      this.notice.showSuccess('Success', 'User Created Successfully');
-      this.router.navigate(['/user', 'sign-in']);
-    }, error => {
-      console.log(error);
-      this.notice.showError('Error', 'An Unknown Error Was Encountered');
-    });
+      .subscribe((response) => {
+        this.isLoading = false;
+        this.notice.showSuccess('Success', 'User Created Successfully');
+        this.router.navigate(['/user', 'sign-in']);
+      }, error => {
+        this.isLoading = false;
+        console.log(error);
+        this.notice.showError('Error', 'An Unknown Error Was Encountered');
+      });
   }
 
   get displayName(): FormControl {
@@ -59,5 +77,43 @@ export class RegisterComponent implements OnInit {
     return this.userRegistrationForm.get('password') as FormControl;
   }
 
+  usernameValidator(control: FormControl): Promise<ValidationErrors | null> {
+    const promise = new Promise<ValidationErrors | null>((resolve, reject) => {
+      const username = control.value;
+      this.api.select<{ count: number }>('username', { username })
+        .subscribe(
+          (response) => {
+            if (response.count > 0) {
+              const error: ValidationErrors = { usernameExist: true };
+              resolve(error);
+            }
+            resolve(null);
+          },
+          (error) => {
+            resolve(null);
+          }
+        );
+    });
+    return promise;
+  }
 
+  displayNameValidator(control: FormControl): Promise<ValidationErrors | null> {
+    const promise = new Promise<ValidationErrors | null>((resolve, reject) => {
+      const displayName = control.value;
+      this.api.select<{ count: number }>('displayName', { displayName })
+        .subscribe(
+          (response) => {
+            if (response.count > 0) {
+              const error: ValidationErrors = { displayNameExists: true };
+              resolve(error);
+            }
+            resolve(null);
+          },
+          (error) => {
+            resolve(null);
+          }
+        );
+    });
+    return promise;
+  }
 }
