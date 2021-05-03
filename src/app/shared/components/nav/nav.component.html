@@ -6,7 +6,8 @@
     <button class="navbar-toggler" type="button" (click)="isExpanded = !isExpanded">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="navbar-collapse" [ngClass]="isExpanded ? 'collapse': ''">
+    <div class="navbar-collapse" [ngClass]="isExpanded ? '': 'collapse'">
+    <!-- <div class="navbar-collapse"> -->
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item" >
           <a routerLink="/home" class="nav-link" routerLinkActive="active">

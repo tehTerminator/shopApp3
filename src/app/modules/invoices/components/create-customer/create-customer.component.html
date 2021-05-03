@@ -4,14 +4,25 @@
         <mat-form-field appearance="outline" class="d-block">
             <mat-label>Customer Name</mat-label>
             <input matInput formControlName="title" type="text">
+            <mat-error *ngIf="nameFormControl.invalid && (nameFormControl.dirty || nameFormControl.touched)">
+                <span *ngIf="nameFormControl.hasError('required')">Please Enter Customer Name</span>
+                <span *ngIf="nameFormControl.hasError('minlength')">Customer Name Must Have 3 Characters</span>
+                <span *ngIf="nameFormControl.hasError('maxlength')">Only 100 Characters Are Allowed</span>
+                <span *ngIf="nameFormControl.hasError('pattern')">Invalid Character in Name Found</span>
+                <span *ngIf="nameFormControl.hasError('customerExists')">Customer Already Exists</span>
+            </mat-error>
         </mat-form-field>
     
         <mat-form-field appearance="outline" class="d-block">
             <mat-label>Address</mat-label>
             <input matInput formControlName="address" type="text">
+            <mat-error *ngIf="addressFormControl.invalid && (addressFormControl.dirty || addressFormControl.touched)">
+                <span *ngIf="addressFormControl.hasError('required')">Please Enter Customer Address</span>
+                <span *ngIf="addressFormControl.hasError('minlength')">Address Must Have atleast 5 Characters</span>
+            </mat-error>
         </mat-form-field>
     
-        <button mat-raised-button color="primary" type="submit" class="btn m-1">Submit</button>
+        <button mat-raised-button color="primary" type="submit" class="btn m-1" [disabled]="createCustomerForm.invalid">Submit</button>
         <button mat-raised-button color="warn" type="reset" class="btn m-1">Reset</button>
     </form>
 </div>

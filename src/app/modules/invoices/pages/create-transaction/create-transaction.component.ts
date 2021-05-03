@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { NotificationService } from '../../../../shared/services/notification/notification.service';
 import { InvoiceStoreService } from '../../services/invoice-store.service';
 import { LedgerService } from './../../../../shared/services/ledger/ledger.service';
-import { PosItemService } from './../../../../shared/services/posItem/pos-item.service';
 
 @Component({
   selector: 'app-create-transaction',
@@ -23,6 +22,17 @@ export class CreateTransactionComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
+    if (this.store.customer.id === 0) {
+      this.router.navigate(['/invoices', 'create', 'select-customer']);
+      return;
+    }
+
+    if (this.store.selectedItem.id === 0) {
+      this.router.navigate(['/invoices', 'create', 'list-items']);
+      return;
+    }
+
     this.transactionForm = this.fb.group({
       quantity: [0, [Validators.min(1), Validators.required]],
       rate: [0, [Validators.required, Validators.min(1)]],
@@ -45,7 +55,7 @@ export class CreateTransactionComponent implements OnInit {
     this.store.createTransaction(this.quantity.value, this.rate.value, this.discount.value);
     this.router.navigate(['/invoices', 'create', 'paymentMethod']);
   }
-  
+
   get productName(): string {
     return this.store.selectedItem.title;
   }

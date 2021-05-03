@@ -28,6 +28,10 @@ export class ListItemsComponent implements OnInit {
     this.ledgerService.init();
     this.productService.init();
     this.posItemService.init();
+
+    if (this.store.customer.id === 0) {
+      this.router.navigate(['/invoices', 'create', 'select-customer']);
+    }
   }
 
   get products(): GeneralItem[] {

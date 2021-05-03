@@ -11,16 +11,19 @@ export class HomeComponent implements OnInit {
   data: ChartDataObject = {
     invoiceCount: [],
     bankPayment: [],
-    sales: []
+    sales: [],
+    monthlyData: []
   };
   dataLoaded = false;
   legendPosition = 'below';
-  showLegend = true;
+  xAxisLabel = 'Date';
+  yAxisLabel = 'Amount';
+  booleanTrue = true;
 
   constructor(private api: ApiService, private authState: AuthStateService) { }
 
   ngOnInit(): void {
-    this.api.select<StatsResponse>('stats')
+    this.api.select<StatsResponse>('dailyStats')
     .subscribe(
       (response) => {
         this.data.invoiceCount.push({name: this.name, value: response.invoiceCount.mine});
@@ -32,12 +35,24 @@ export class HomeComponent implements OnInit {
         this.dataLoaded = true;
       }
     );
+
+    this.api.select<ChartData[]>('monthlyStats')
+    .subscribe(
+      (response) => {
+        console.log(response);
+        this.data.monthlyData = [
+          {
+            name: 'Daily Invoice Amount',
+            series: response
+          }
+        ]
+      }
+    );
   }
 
   get name(): string {
     return this.authState.displayName;
   }
-
 }
 
 interface ChartDataObject {
@@ -46,7 +61,8 @@ interface ChartDataObject {
 
 interface ChartData {
   name: string;
-  value: number;
+  value?: number;
+  series?: ChartData[];
 }
 
 interface StatsResponse {

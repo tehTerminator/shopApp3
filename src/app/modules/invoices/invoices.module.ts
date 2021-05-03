@@ -37,6 +37,6 @@ import { SearchInvoiceComponent } from './pages/search-invoice/search-invoice.co
     CoreModule,
     FormsModule
   ],
-  providers: [InvoiceStoreService, CustomerService]
+  providers: []
 })
 export class InvoicesModule { }

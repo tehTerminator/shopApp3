@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { STRING } from '../../../../shared/collection';
+import { Customer, STRING } from '../../../../shared/collection';
 import { NotificationService } from '../../../../shared/services/notification/notification.service';
 import { CustomerService } from '../../services/customer.service';
 import { InvoiceStoreService } from '../../services/invoice-store.service';
@@ -26,6 +26,14 @@ export class CreateCustomerComponent implements OnInit {
   ngOnInit(): void {
     this.createCustomerForm.addControl('title', this.nameFormControl);
     this.createCustomerForm.addControl('address', this.addressFormControl);
+    this.nameFormControl.setValidators([
+      Validators.required,
+      Validators.min(3),
+      Validators.maxLength(100),
+      Validators.pattern('^[a-zA-Z ]+$')
+    ]);
+    this.nameFormControl.setAsyncValidators(this.customerNameValidator.bind(this));
+    this.addressFormControl.setValidators([Validators.required, Validators.minLength(5)]);
   }
 
   onSubmit(): void {
@@ -43,6 +51,20 @@ export class CreateCustomerComponent implements OnInit {
           this.notification.showError('Error', error);
         }
       );
+  }
+
+  customerNameValidator(control: AbstractControl): Promise<ValidationErrors|null> {
+    const promise = new Promise<ValidationErrors|null>((resolve, reject) => {
+      const name = control.value;
+      const customer = (this.customerService.getAsList() as Customer[]).find( x => x.title.toLowerCase() === name.toLowerCase());
+      if (customer === undefined) {
+        resolve(null);
+      } else {
+        const error: ValidationErrors = {customerExists: true};
+        resolve(error);
+      }
+    });
+    return promise;
   }
 
 }

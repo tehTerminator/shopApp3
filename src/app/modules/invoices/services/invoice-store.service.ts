@@ -5,9 +5,10 @@ import { LedgerService } from '../../../shared/services/ledger/ledger.service';
 import { PosItemService } from '../../../shared/services/posItem/pos-item.service';
 import { ProductService } from '../../../shared/services/product/product.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class InvoiceStoreService {
-
 
   selectedItem: Product | Ledger | PosItem  = {
     id: 0,
@@ -27,6 +28,10 @@ export class InvoiceStoreService {
 
   set customer(customer: Customer) {
     this.invoice.next({ ...this.invoice.value, customer, customer_id: customer.id });
+  }
+
+  get customer(): Customer {
+    return this.invoice.value.customer;
   }
 
   set paid(paid: boolean) {
@@ -144,11 +149,11 @@ export class InvoiceStoreService {
   get baseInvoice(): Invoice {
     return {
       id: 0,
-      customer_id: 1,
+      customer_id: 0,
       customer: {
-        id: 1,
-        title: 'Cash',
-        address: '',
+        id: 0,
+        title: 'NOT SELECTED',
+        address: 'NOT SELECTED',
         created_at: '',
         updated_at: ''
       },

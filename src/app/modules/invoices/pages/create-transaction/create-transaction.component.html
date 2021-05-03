@@ -1,4 +1,4 @@
-<button  mat-stroked-button class="btn btn-outline w-100 mb-3" [routerLink]="['/invoices', 'create', 'list-items']">
+<button  mat-stroked-button class="btn w-100 mb-3 bg-light" [routerLink]="['/invoices', 'create', 'list-items']">
     Go Back
 </button>
 
@@ -10,22 +10,34 @@
         <mat-form-field class="d-block" appearance="outline">
             <mat-label>Quantity</mat-label>
             <input type="number" name="quantity" matInput formControlName="quantity">
+            <mat-error *ngIf="quantity.invalid && (quantity.touched || quantity.dirty)">
+                <span *ngIf="quantity.hasError('required')">Please Provide Quantity.</span>
+                <span *ngIf="quantity.hasError('min')">Quantity Must Not Be Zero.</span>
+            </mat-error>
         </mat-form-field>
         <mat-form-field class="d-block" appearance="outline">
             <mat-label>Rate</mat-label>
             <input type="number" name="rate" matInput formControlName="rate">
+            <mat-error *ngIf="rate.invalid && (rate.touched || rate.dirty)">
+                <span *ngIf="rate.hasError('required')">Please Provide Rate.</span>
+                <span *ngIf="rate.hasError('min')">Rate Must Not Be Zero.</span>
+            </mat-error>
         </mat-form-field>
         <mat-form-field class="d-block" appearance="outline">
             <mat-label>Discount</mat-label>
             <input type="number" name="discount" matInput formControlName="discount">
+            <mat-error *ngIf="discount.invalid && (discount.touched || discount.dirty)">
+                <span *ngIf="discount.hasError('min')">Discount Must Be Greater than Zero.</span>
+                <span *ngIf="discount.hasError('max')">Discount Cannot be more than 100.</span>
+            </mat-error>
         </mat-form-field>
 
-        <button type="submit" class="btn m-1" mat-raised-button color="primary">Submit</button>
+        <button type="submit" class="btn m-1" mat-raised-button color="primary" [disabled]="transactionForm.invalid">Add Item</button>
         <button type="reset" class="btn m-1" mat-raised-button color="warn">Reset</button>
     </form>
 </div>
 
-<table class="table">
+<table class="table bg-light mt-3 text-center">
     <thead>
         <tr>
             <th>

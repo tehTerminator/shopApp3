@@ -4,17 +4,24 @@ import { AuthStateService } from './../../services/auth/auth-state.service';
 import { AppDialog, AuthState, UserData } from './../../collection';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import {
+  transition,
+  trigger,
+  state,
+  style,
+  animate
+} from '@angular/animations';
 
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
-  styleUrls: ['./nav.component.css']
+  styleUrls: ['./nav.component.css'],
 })
 export class NavComponent implements OnInit, OnDestroy {
   @Output() showDialog = new EventEmitter<AppDialog>();
   displayName = 'Anonymous';
   notifier = new Subject();
-  isExpanded = true;
+  isExpanded = false;
 
   constructor(private authState: AuthStateService, private authService: AuthService) { }
 

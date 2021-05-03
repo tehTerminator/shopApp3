@@ -19,6 +19,20 @@ export class ChoosePaymentMethodComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
+    if (this.store.customer.id === 0) {
+      this.router.navigate(['/invoices', 'create', 'select-customer']);
+      return;
+    }
+
+    if (this.store.selectedItem.id === 0) {
+      this.router.navigate(['/invoices', 'create', 'list-items']);
+      return;
+    }
+
+    if (this.store.invoice.value.transactions.length === 0) {
+      this.router.navigate(['/invoices', 'create', 'list-items']);
+      return;
+    }
   }
 
   get ledgers(): Observable<Ledger[]> {
