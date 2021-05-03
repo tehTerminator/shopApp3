@@ -1,4 +1,4 @@
-<form [formGroup]="ledgerForm" (ngSubmit)="onSubmit()" class="card">
+<form [formGroup]="ledgerForm" (ngSubmit)="onSubmit()" class="card" [ngClass]="isLoading ? 'loading':''">
     <h2 class="card-header fs-2">
         {{ editMode ? 'Update Ledger' : 'Create New Ledger' }}
     </h2>
@@ -10,6 +10,10 @@
         <mat-form-field appearance="outline" class="d-block">
             <mat-label>Ledger Name</mat-label>
             <input matInput type="text" required formControlName="title">
+            <mat-error *ngIf="titleField.invalid && (titleField.dirty || titleField.touched)">
+                <span *ngIf="titleField.hasError('required')">Please Enter Ledger Title</span>
+                <span *ngIf="titleField.hasError('pattern')">Invalid Characters in Title Field</span>
+            </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline" class="d-block">
             <mat-label>Kind</mat-label>
@@ -18,8 +22,11 @@
                     {{ kind }}
                 </mat-option>
             </mat-select>
+            <mat-error *ngIf="kindField.invalid && (kindField.dirty || kindField.touched)">
+                <span *ngIf="kindField.hasError('required')">Please Enter Ledger Group</span>
+            </mat-error>
         </mat-form-field>
-        <button type="submit" class="btn m-1" mat-raised-button color="primary">
+        <button type="submit" class="btn m-1" mat-raised-button color="primary" [disabled]="ledgerForm.invalid">
             Save Data
         </button>
         <button type="reset" class="btn m-1" mat-raised-button color="warn">

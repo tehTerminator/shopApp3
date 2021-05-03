@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { LedgerService } from '../../../../../shared/services/ledger/ledger.service';
 import { NotificationService } from '../../../../../shared/services/notification/notification.service';
 import { STRING, Ledger } from '../../../../../shared/collection';
-import { Subscription } from 'rxjs';
+import { EMPTY, Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-ledger-form',
@@ -12,12 +12,9 @@ import { Subscription } from 'rxjs';
 })
 export class LedgerFormComponent implements OnInit {
   readonly kinds = ['BANK', 'CASH', 'PAYABLES', 'RECEIVABLES', 'EXPENSE', 'INCOME'];
-  ledgerForm: FormGroup = this.fb.group({
-    id: [0, Validators.min(0)],
-    title: ['', [Validators.required, Validators.pattern(STRING)]],
-    kind: ['', Validators.required]
-  });
+  ledgerForm: FormGroup = new FormGroup({});
   sub = new Subscription();
+  isLoading = false;
 
   constructor(
     private fb: FormBuilder,
@@ -26,18 +23,29 @@ export class LedgerFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.ledgerForm = this.fb.group({
+      id: [0, Validators.min(0)],
+      title: ['', [Validators.required, Validators.pattern(STRING)]],
+      kind: ['', Validators.required]
+    });
   }
 
   onIdFieldChange(): void {
-    try{
-      const ledger = this.ledgerService.getElementById(this.id) as Ledger;
-      this.ledgerForm.patchValue({
-        title: ledger.title,
-        kind: ledger.kind
-      });
-    } catch (e) {
-      this.ledgerForm.reset();
-      this.notification.showError('Error', e);
+    this.isLoading = true;
+    if (this.id > 0) {
+      try{
+        const ledger = this.ledgerService.getElementById(this.id) as Ledger;
+        this.ledgerForm.patchValue({
+          title: ledger.title,
+          kind: ledger.kind
+        });
+        this.isLoading = false;
+      } catch (e) {
+        this.ledgerForm.reset();
+        this.isLoading = false;
+      }
+    } else {
+      this.isLoading = false;
     }
   }
 
@@ -47,19 +55,37 @@ export class LedgerFormComponent implements OnInit {
       return;
     }
 
+    this.isLoading = true;
+    let response:Observable<Ledger> = EMPTY;
+
     if (this.editMode) {
-      this.ledgerService.update(this.ledgerForm.value)
-      .subscribe(() => {
-        this.ledgerForm.reset();
-        this.notification.showSuccess('Success', 'Ledger Updated Success');
-      });
+      response = this.ledgerService.update(this.ledgerForm.value);
     } else {
-      this.ledgerService.create(this.ledgerForm.value)
-      .subscribe((ledger) => {
-        this.ledgerForm.reset();
-        this.notification.showSuccess('Ledger Created', `New Ledger Created ${ledger.title} - #${ledger.id}`);
-      });
+      response = this.ledgerService.create(this.ledgerForm.value);
     }
+
+    this.handleResponse(response);
+  }
+
+  private handleResponse(ledger: Observable<any>): void {
+    let message = '';
+    if (this.editMode) {
+      message = 'Updated Successfully';
+    } else {
+      message = 'Created Successfully';
+    }
+
+    ledger.subscribe(
+      () => {
+        this.isLoading = false;
+        this.notification.showSuccess('Success', message);
+        this.ledgerForm.reset();
+      },
+      error => {
+        this.notification.showError('Error', error);
+        this.isLoading = false;
+      }
+    );
   }
 
   get editMode(): boolean {

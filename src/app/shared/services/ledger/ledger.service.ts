@@ -3,8 +3,8 @@ import { BaseService } from '../../class/BaseService';
 import { Ledger, MINUTE } from '../../collection';
 import { ApiService } from './../api/api.service';
 import { NotificationService } from './../notification/notification.service';
-import { tap } from 'rxjs/operators';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -30,25 +30,31 @@ export class LedgerService extends BaseService {
 
   create(ledger: Ledger): Observable<Ledger> {
     return this.api.create<Ledger>(this.tableName, ledger)
-    .pipe(tap(insertedLedger => {
-      this.insert(insertedLedger);
-    }));
+      .pipe(
+        tap(insertedLedger => {
+          this.insert(insertedLedger);
+        }),
+        catchError(error => {
+          console.log(error);
+          throw new Error('Unable to Create New Ledger');
+        })
+      );
   }
 
   update(ledger: Ledger): Observable<Ledger> {
     return this.api.update<Ledger>(this.tableName, ledger)
-    .pipe(tap(updatedLedger => {
-      this.updateItem(updatedLedger);
-    }));
+      .pipe(tap(updatedLedger => {
+        this.updateItem(updatedLedger);
+      }));
   }
 
   delete(index: number): Observable<string> {
-    try{
+    try {
       const item = this.get(index);
       return this.api.delete<string>(this.tableName, item.id)
-      .pipe(tap(() => {
-        this.deleteItem(index);
-      }));
+        .pipe(tap(() => {
+          this.deleteItem(index);
+        }));
     } catch (e) {
       this.notification.showError('Can\'t Delete', 'Item Does Not Exist');
       throw new Error('Item Not Found Error');
