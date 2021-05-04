@@ -9,7 +9,6 @@ import { ListComponent } from './pages/list/list.component';
 import { LedgerBalanceComponent } from './pages/ledger-balance/ledger-balance.component';
 import { LedgerBalanceFormComponent } from './components/ledger-balance-form/ledger-balance-form.component';
 import { ListLedgerBalanceComponent } from './components/list-ledger-balance/list-ledger-balance.component';
-import { LedgerBalanceService } from './services/ledger-balance.service';
 
 
 @NgModule({
@@ -26,6 +25,6 @@ import { LedgerBalanceService } from './services/ledger-balance.service';
     CashbookRoutingModule,
     CoreModule
   ],
-  providers: [LedgerBalanceService]
+  providers: []
 })
 export class CashbookModule { }
