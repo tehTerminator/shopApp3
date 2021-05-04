@@ -26,6 +26,13 @@ export enum AuthState {
 export interface Ledger extends TableRow {
     title: string;
     kind: string;
+    balance: Balance[];
+}
+
+export interface Balance extends TableRow {
+    ledger_id: number;
+    opening: number;
+    closing: number;
 }
 
 export interface UserData extends TableRow {

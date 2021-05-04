@@ -15,7 +15,7 @@
             <mat-form-field class="d-block w-100" appearance="outline">
                 <mat-label>Ledger</mat-label>
                 <mat-select [formControl]="ledger">
-                    <mat-option *ngFor="let l of ledgers | async" [value]="l.id">
+                    <mat-option *ngFor="let l of ledgers | async" [value]="l">
                         {{ l.title }} - {{ l.kind }}
                     </mat-option>
                 </mat-select>
@@ -27,7 +27,7 @@
     </div>
 </form>
 
-<table class="table bg-light mt-3" *ngIf="vouchers.length > 0;else noDataMessage">
+<table class="table bg-light mt-3" *ngIf="rows.length > 0;else noDataMessage">
     <thead>
         <tr>
             <th>#</th>
@@ -35,15 +35,17 @@
             <th>DR</th>
             <th>Description</th>
             <th>Amount</th>
+            <th>Balance</th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let v of vouchers">
+        <tr *ngFor="let v of rows">
             <td>{{ v.id }}</td>
-            <td>{{ v.creditor.title }}</td>
-            <td>{{ v.debtor.title }}</td>
+            <td>{{ v.cr }}</td>
+            <td>{{ v.dr }}</td>
             <td>{{ v.narration }}</td>
             <td>{{ v.amount | currency:'INR' }}</td>
+            <td>{{ v.balance | currency:'INR' }}</td>
         </tr>
     </tbody>
 </table>

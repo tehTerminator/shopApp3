@@ -1,1 +1,16 @@
-<p>list-ledger-balance works!</p>
+<table class="table bg-light">
+    <thead>
+        <tr>
+            <th>Ledger Name</th>
+            <th>Opening Balance</th>
+            <th>Closing Balance</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let ledger of ledgers | async">
+            <td>{{ ledger.title }}</td>
+            <td>{{ printOpening(ledger) }}</td>
+            <td>{{ printClosing(ledger) }}</td>
+        </tr>
+    </tbody>
+</table>

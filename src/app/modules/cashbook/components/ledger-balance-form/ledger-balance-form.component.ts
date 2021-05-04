@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { LedgerBalanceService } from '../../services/ledger-balance.service';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { LedgerService } from './../../../../shared/services/ledger/ledger.service';
 import { Ledger } from '../../../../shared/collection';
@@ -18,10 +17,10 @@ export class LedgerBalanceFormComponent implements OnInit {
     private fb: FormBuilder,
     private ns: NotificationService,
     private ledgerService: LedgerService,
-    private service: LedgerBalanceService
   ) { }
 
   ngOnInit(): void {
+    this.ledgerService.init();
     this.myForm = this.fb.group({
       ledger: [null, Validators.required],
       opening: [0, Validators.required],
@@ -47,15 +46,14 @@ export class LedgerBalanceFormComponent implements OnInit {
     const opening = this.opening.value;
     const closing = this.closing.value;
 
-    this.service.saveBalance(ledger, opening, closing)
+    this.ledgerService.updateBalance(ledger.id, opening, closing)
     .subscribe(
       () => {
         this.ns.showSuccess('Success', 'Opening and Closing Balance Saved Success');
         this.myForm.reset();
       },
       error => {
-        this.ns.showError('Error', 'Unable to Set Opening or Closing Balance');
-        return;
+        this.ns.showError('Error', error);
       }
     );
   }

@@ -4,7 +4,8 @@ import { Observable } from 'rxjs';
 import { Ledger, Voucher } from '../../../../shared/collection';
 import { ApiService } from '../../../../shared/services/api/api.service';
 import { NotificationService } from './../../../../shared/services/notification/notification.service';
-import { LedgerService } from './../../../../shared/services/ledger/ledger.service'; 
+import { LedgerService } from './../../../../shared/services/ledger/ledger.service';
+import { Cashbook, CashbookRow } from './../../../../shared/class/Cashbook-Transaction.model';
 
 @Component({
   selector: 'app-list',
@@ -12,14 +13,22 @@ import { LedgerService } from './../../../../shared/services/ledger/ledger.servi
   styleUrls: ['./list.component.css']
 })
 export class ListComponent implements OnInit {
-  vouchers: Voucher[] = [];
   ledger = new FormControl(0, [Validators.min(1), Validators.required]);
   date = new FormControl('', [Validators.required]);
   myForm = new FormGroup({});
+  cashbook = new Cashbook({
+    id: 0,
+    title: '',
+    kind: '',
+    balance: [],
+    created_at: '',
+    updated_at: '',
+  }, []);
+
 
   constructor(
     private ledgerService: LedgerService,
-    private api: ApiService, 
+    private api: ApiService,
     private ns: NotificationService) { }
 
   ngOnInit(): void {
@@ -35,7 +44,7 @@ export class ListComponent implements OnInit {
     }
 
     const response = this.api.select<Voucher[]>('vouchers', {
-      ledger: this.ledger.value,
+    ledger: this.ledger.value.id,
       date: this.date.value
     });
 
@@ -48,13 +57,19 @@ export class ListComponent implements OnInit {
 
   private handleResponse(response: Observable<Voucher[]>): void {
     response.subscribe(
-      data => this.vouchers = data,
+      data => {
+        this.cashbook = new Cashbook(this.ledger.value, data);
+      },
       error => {
         this.ns.showError('Error', 'Unable to Fetch Data');
         console.log(error);
-        this.vouchers = [];
+        this.cashbook = new Cashbook(this.ledger.value, []);
       }
     );
+  }
+
+  get rows(): CashbookRow[] {
+    return this.cashbook.rows;
   }
 
 }

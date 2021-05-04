@@ -61,6 +61,21 @@ export class LedgerService extends BaseService {
     }
   }
 
+  updateBalance(id: number, opening: number, closing: number): Observable<any> {
+    return this.api.create<Ledger>('balance', {id, opening, closing})
+    .pipe(
+      tap(ledger => {
+        this.updateItem(ledger);
+      }),
+      catchError(
+        error => {
+          console.error(error);
+          throw new Error('Unable to Update Balance');
+        }
+      )
+    );
+  }
+
   public isInstanceOfLedger(data: any): data is Ledger {
     return 'kind' in data;
   }
