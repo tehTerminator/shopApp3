@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { from, Observable, Subscription } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-calculator',
@@ -17,6 +18,8 @@ export class CalculatorComponent implements OnInit, OnDestroy {
   readonly denominations = [1, 2, 5, 10, 20, 50, 100, 200, 500, 2000];
   result = 0;
   sub: Subscription = new Subscription();
+  previousCalculatorCommand = 'Enter Expression to Calculate';
+  filteredOptions: Observable<number[]> = from([]);
   // @ViewChild('denominatorField') denominatorField: ElementRef;
 
   constructor(private fb: FormBuilder) { }
@@ -30,6 +33,7 @@ export class CalculatorComponent implements OnInit, OnDestroy {
       if (lastChar === '=') {
         const command = value.substr(0, value.length - 1);
         if (regex.test(command)) {
+          this.previousCalculatorCommand = `Evaluating : ${command}`;
           this.calcForm.patchValue({command: eval(command)});
         } else {
           this.calcForm.patchValue({command: 'Invalid Expression'});
