@@ -19,6 +19,13 @@ export class WaitPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
+    if (this.store.invoice.value.transactions.length === 0) {
+      this.router.navigate(['/invoices', 'create', 'select-customer']);
+      this.notificaitonService.showError('Error', 'There are no Transactions');
+      return;
+    }
+
     const invoice = this.store.invoice.value;
     this.apiService.create('invoices', invoice)
     .subscribe(
