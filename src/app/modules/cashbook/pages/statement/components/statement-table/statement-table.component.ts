@@ -19,7 +19,6 @@ export class StatementTableComponent implements OnInit, OnDestroy {
         this.sub = this.statementService.cashbook
             .subscribe(
                 data => {
-                    console.log('Cashbook', data);
                     if (!!data) {
                         this.rowCount = data.rows.length;
                     } else {
@@ -35,6 +34,8 @@ export class StatementTableComponent implements OnInit, OnDestroy {
 
     get rows(): Observable<CashbookRow[]> {
         return this.statementService.cashbook
-            .pipe(map(cashbook => cashbook.rows));
+            .pipe(map(cashbook => {
+                return cashbook.rows;
+            }));
     }
 }

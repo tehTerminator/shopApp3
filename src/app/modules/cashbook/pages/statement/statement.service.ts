@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Cashbook } from '../../../../shared/class/Cashbook-Transaction.model';
 import { Ledger, Voucher } from '../../../../shared/collection';
 import { ApiService } from '../../../../shared/services/api/api.service';
 
 @Injectable()
 export class StatementService {
-    cashbook: Subject<Cashbook> = new Subject();
+    cashbook: BehaviorSubject<Cashbook> = new BehaviorSubject( new Cashbook(emptyLedger, []));
 
     constructor(private api: ApiService) { }
 
@@ -26,3 +26,12 @@ export class StatementService {
         );
     }
 }
+
+const emptyLedger: Ledger = {
+    id: 0,
+    title: '',
+    kind: '',
+    balance: [],
+    created_at: '',
+    updated_at: ''
+};
