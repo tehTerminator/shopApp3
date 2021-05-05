@@ -1,8 +1,6 @@
+<h2 mat-dialog-title>Notifications</h2>
 <div class="row" *ngIf="messages.value.length >= 1;else noNotification">
     <div class="col">
-        <div class="fs-1 mb-3">
-            Notification
-        </div>
         <div class="card mb-1" *ngFor="let message of messages | async" [ngClass]="getClass(message.state)">
             <div class="card-header">
                 {{ message.title }}
