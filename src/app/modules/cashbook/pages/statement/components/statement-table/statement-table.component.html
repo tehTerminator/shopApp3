@@ -1,0 +1,30 @@
+<table class="table bg-light mt-3" *ngIf="rowCount > 0;else noDataMessage">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>CR</th>
+            <th>DR</th>
+            <th>Description</th>
+            <th>Amount</th>
+            <th>Balance</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let v of rows | async">
+            <td>{{ v.id }}</td>
+            <td>{{ v.cr }}</td>
+            <td>{{ v.dr }}</td>
+            <td>{{ v.narration }}</td>
+            <td>{{ v.amount | currency:'INR' }}</td>
+            <td>{{ v.balance | currency:'INR' }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<ng-template #noDataMessage>
+    <div class="card mt-3 bg-light text-center">
+        <div class="card-body">
+            There is No Data to Display for Selected Date or Account
+        </div>
+    </div>
+</ng-template>
