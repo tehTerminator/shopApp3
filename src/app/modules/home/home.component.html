@@ -1,74 +1,19 @@
-  <div class="row" *ngIf="dataLoaded; else noData">
+  <div class="row justify-content-center g-3">
     <div class="col-md-4">
-      <div class="card" style="min-height: 300px">
-        <div class="card-header">Invoice Count</div>
-        <div class="card-body">
-          <ngx-charts-pie-chart
-            [legend]="booleanTrue"
-            [legendPosition]="legendPosition"
-            [results]="data.invoiceCount"
-          ></ngx-charts-pie-chart>
-        </div>
-      </div>
+      <app-pie-chart header="User Wise Invoice Count" dataUrl="userWiseInvoiceCount"></app-pie-chart>
     </div>
     <div class="col-md-4">
-      <div class="card">
-        <div class="card-header">Bank Payments</div>
-        <div class="card-body" style="min-height: 300px">
-          <ngx-charts-pie-chart
-            [legend]="booleanTrue"
-            [legendPosition]="legendPosition"
-            [results]="data.bankPayment"
-          >
-          </ngx-charts-pie-chart>
-        </div>
-      </div>
+      <app-pie-chart header="Bank Payments" dataUrl="userWisePaymentCount"></app-pie-chart>
     </div>
     <div class="col-md-4">
-        <div class="card">
-          <div class="card-header">
-              Total Sales
-          </div>
-          <div class="card-body" style="min-height: 300px">
-              <ngx-charts-pie-chart
-                [legend]="booleanTrue"
-                [legendPosition]="legendPosition"
-                [results]="data.sales"
-              ></ngx-charts-pie-chart>
-          </div>
-        </div>
+        <app-pie-chart header="User Wise Sales" dataUrl="userWiseSalesCount"></app-pie-chart>
     </div>
-    <div class="col-12 mt-3">
-      <div class="card">
-        <div class="card-header">
-            Monthly Transaction Information
-        </div>
-        <div class="card-body" style="min-height: 300px">
-            <ngx-charts-line-chart
-              [legend]="booleanTrue"
-              [legendPosition]="legendPosition"
-              [results]="data.monthlyData"
-              [xAxisLabel]="xAxisLabel"
-              [yAxisLabel]="yAxisLabel"
-              [timeline]="booleanTrue"
-              [showXAxisLabel]="booleanTrue"
-              [showYAxisLabel]="booleanTrue"
-              [xAxis]="booleanTrue"
-              [yAxis]="booleanTrue"
-            ></ngx-charts-line-chart>
-        </div>
-      </div>
+    <div class="col-md-12">
+      <app-bar-chart
+        header="Daywise Invoice Comparison"
+        dataUrl="monthlyStats"
+        xAxisLabel = "Date Invoices were Created"
+        yAxisLabel = "Total Amount of Invoices"
+      ></app-bar-chart>
+    </div>
   </div>
-  </div>
-
-  <ng-template #noData>
-    <div class="row">
-      <div class="col">
-        <div class="card">
-          <div class="card-body p-5">
-            <h1 class="fs-1 text-center">No Data to Display</h1>
-          </div>
-        </div>
-      </div>
-    </div>
-  </ng-template>
