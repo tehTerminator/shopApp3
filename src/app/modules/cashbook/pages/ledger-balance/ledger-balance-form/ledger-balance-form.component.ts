@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { LedgerService } from './../../../../shared/services/ledger/ledger.service';
-import { Ledger } from '../../../../shared/collection';
+import { LedgerService } from './../../../../../shared/services/ledger/ledger.service';
+import { Ledger } from './../../../../../shared/collection';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { NotificationService } from '../../../../shared/services/notification/notification.service';
+import { NotificationService } from './../../../../../shared/services/notification/notification.service';
 
 @Component({
   selector: 'app-ledger-balance-form',

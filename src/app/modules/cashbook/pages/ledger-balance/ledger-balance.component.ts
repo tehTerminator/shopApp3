@@ -2,14 +2,16 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-ledger-balance',
-  templateUrl: './ledger-balance.component.html',
-  styleUrls: ['./ledger-balance.component.css']
+  template: `
+    <div class="row">
+        <div class="col-md-4">
+            <app-ledger-balance-form></app-ledger-balance-form>
+        </div>
+        <div class="col-md-8">
+            <app-ledger-balance-list></app-ledger-balance-list>
+        </div>
+    </div>
+  `,
+  styles: ['']
 })
-export class LedgerBalanceComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-}
+export class LedgerBalanceComponent { }
