@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ApiService } from './../../../../shared/services/api/api.service';
 import { ChartData } from './../../../../shared/collection';
+import { retry } from 'rxjs/operators';
 
 @Component({
     selector: 'app-pie-chart',
@@ -25,7 +26,7 @@ import { ChartData } from './../../../../shared/collection';
 export class PieChartComponent implements OnChanges {
     @Input() dataUrl = '';
     @Input() header = '';
-    readonly legendPosition = 'below';
+    readonly legendPosition = 'left';
     dataSet: ChartData[] = [];
     readonly TRUE = true;
 
@@ -41,6 +42,9 @@ export class PieChartComponent implements OnChanges {
 
     private fetchData(): void {
         this.api.select<ChartData[]>(this.dataUrl)
+        .pipe(
+            retry(5)
+        )
         .subscribe(
             response => this.dataSet = response,
             error => this.dataSet = []
