@@ -15,6 +15,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatOptionModule } from '@angular/material/core';
 import { AuthInterceptor } from './shared/interceptor/auth.interceptor';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { AuthInterceptor } from './shared/interceptor/auth.interceptor';
     MatInputModule,
     ReactiveFormsModule,
     MatOptionModule,
+    MatAutocompleteModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
