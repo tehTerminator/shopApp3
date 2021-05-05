@@ -96,3 +96,8 @@ export interface Invoice extends TableRow {
     transactions: Transaction[];
 }
 
+export interface ChartData {
+    name: string;
+    value: number;
+}
+
