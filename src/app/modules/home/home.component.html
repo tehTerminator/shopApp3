@@ -1,19 +1,34 @@
-  <div class="row justify-content-center g-3">
-    <div class="col-md-4">
-      <app-pie-chart header="User Wise Invoice Count" dataUrl="userWiseInvoiceCount"></app-pie-chart>
-    </div>
-    <div class="col-md-4">
-      <app-pie-chart header="Bank Payments" dataUrl="userWisePaymentCount"></app-pie-chart>
-    </div>
-    <div class="col-md-4">
-        <app-pie-chart header="User Wise Sales" dataUrl="userWiseSalesCount"></app-pie-chart>
-    </div>
-    <div class="col-md-12">
-      <app-bar-chart
-        header="Daywise Invoice Comparison"
-        dataUrl="monthlyStats"
-        xAxisLabel = "Date Invoices were Created"
-        yAxisLabel = "Total Amount of Invoices"
-      ></app-bar-chart>
-    </div>
+<div class="row justify-content-center g-3">
+  <div class="col-lg-3 col-md-6 col-sm-12">
+    <app-pie-chart
+      header="User Wise Invoice Count"
+      dataUrl="userWiseInvoiceCount"
+    ></app-pie-chart>
   </div>
+  <div class="col-lg-3 col-md-6 col-sm-12">
+    <app-pie-chart
+      header="Bank Payments"
+      dataUrl="userWisePaymentCount"
+    ></app-pie-chart>
+  </div>
+  <div class="col-lg-3 col-md-6 col-sm-12">
+    <app-pie-chart
+      header="User Wise Sales"
+      dataUrl="userWiseSalesCount"
+    ></app-pie-chart>
+  </div>
+  <div class="col-lg-3 col-md-6 col-sm-12">
+    <app-pie-chart
+      header="Product Wise Sale"
+      dataUrl="productWiseSaleCount"
+    ></app-pie-chart>
+  </div>
+  <div class="col-12">
+    <app-bar-chart
+      header="Daywise Invoice Comparison"
+      dataUrl="monthlyStats"
+      xAxisLabel="Date Invoices were Created"
+      yAxisLabel="Total Amount of Invoices"
+    ></app-bar-chart>
+  </div>
+</div>
