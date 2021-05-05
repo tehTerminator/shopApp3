@@ -4,24 +4,37 @@
     <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
       <mat-form-field class="w-100" appearance="outline">
         <mat-label>Ledger Name</mat-label>
-        <mat-select formControlName="ledger">
+        <mat-select formControlName="ledger" required>
           <mat-option *ngFor="let l of ledgers | async" [value]="l">
             {{ l.title }}
           </mat-option>
         </mat-select>
+        <mat-error *ngIf="ledger.invalid && (ledger.touched || ledger.dirty)">
+          <span *ngIf="ledger.hasError('required')">Please Select a Ledger</span>
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field class="w-100" appearance="outline">
         <mat-label>Opening Balance</mat-label>
-        <input type="number" matInput formControlName="opening" />
+        <input type="number" matInput formControlName="opening" min="0" required />
+        <mat-error *ngIf="opening.invalid && (opening.dirty || opening.touched)">
+          <span *ngIf="opening.hasError('required')">Please Enter Opening Balance</span>
+          <span *ngIf="closing.hasError('min')">Opening Balance must be more than 0.</span>
+          <span *ngIf="closing.hasError('pattern')">Invalid Characters</span>
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field class="w-100" appearance="outline">
         <mat-label>Closing Balance</mat-label>
-        <input type="number" matInput formControlName="closing" />
+        <input type="number" matInput formControlName="closing" required />
+        <mat-error *ngIf="closing.invalid && (closing.dirty || closing.touched)">
+          <span *ngIf="closing.hasError('required')">Please Enter Closing Balance</span>
+          <span *ngIf="closing.hasError('min')">Closing Balance must be more than 0.</span>
+          <span *ngIf="closing.hasError('pattern')">Invalid Characters</span>
+        </mat-error>
       </mat-form-field>
 
-      <button mat-flat-button color="primary" type="submit" class="btn m-1">
+      <button mat-flat-button color="primary" type="submit" class="btn m-1" [disabled]="myForm.invalid">
         Submit
       </button>
       <button mat-flat-button color="warn" type="reset" class="btn m-1">

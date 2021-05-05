@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { LedgerService } from './../../../../shared/services/ledger/ledger.service';
 import { Ledger } from '../../../../shared/collection';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { NotificationService } from '../../../../shared/services/notification/notification.service';
 
@@ -11,8 +11,9 @@ import { NotificationService } from '../../../../shared/services/notification/no
   templateUrl: './ledger-balance-form.component.html',
   styleUrls: ['./ledger-balance-form.component.css']
 })
-export class LedgerBalanceFormComponent implements OnInit {
+export class LedgerBalanceFormComponent implements OnInit, OnDestroy {
   myForm: FormGroup = new FormGroup({});
+  private sub: Subscription = new Subscription();
   constructor(
     private fb: FormBuilder,
     private ns: NotificationService,
@@ -23,9 +24,31 @@ export class LedgerBalanceFormComponent implements OnInit {
     this.ledgerService.init();
     this.myForm = this.fb.group({
       ledger: [null, Validators.required],
-      opening: [0, Validators.required],
-      closing: [0, Validators.required]
+      opening: [0, [Validators.required, Validators.min(0), Validators.pattern('^[0-9]+$')]],
+      closing: [0, [Validators.required, Validators.min(0), Validators.pattern('^[0-9]+$')]]
     });
+
+    this.sub = this.ledger.valueChanges
+    .subscribe(
+      (selectedLedger: Ledger) => {
+        if (!!!selectedLedger) {
+          return;
+        }
+        const ledger = this.ledgerService.getElementById(selectedLedger.id) as Ledger;
+        if (ledger.balance.length === 0) {
+          return;
+        } else {
+          this.myForm.patchValue({
+            opening: ledger.balance[0].opening,
+            closing: ledger.balance[0].closing
+          });
+        }
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 
 
