@@ -50,5 +50,4 @@ export class PieChartComponent implements OnChanges {
     get empty(): boolean {
         return this.dataSet.length === 0;
     }
-
 }
