@@ -24,7 +24,7 @@ export class Cashbook {
         if (this.pRows.length === 0) {
             this.generateInitialRow();
         }
-        prevBalance = this.pRows[this.pRows.length - 1].amount;
+        prevBalance = this.pRows[this.pRows.length - 1].balance;
         if (this.pLedger.id === voucher.creditor.id) {
             row.balance = prevBalance - voucher.amount;
             row.amount = (-voucher.amount);
