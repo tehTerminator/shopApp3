@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PosItem } from '../../../../../../shared/collection';
 import { NotificationService } from '../../../../../../shared/services/notification/notification.service';
@@ -20,6 +21,7 @@ export class CreateTemplateComponent implements OnInit {
   };
 
   constructor(
+    private titleService: Title,
     private posItemService: PosItemService,
     private notificationService: NotificationService,
     private route: ActivatedRoute,
@@ -29,6 +31,7 @@ export class CreateTemplateComponent implements OnInit {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     try{
       this.posItemBeingEdited = this.posItemService.getElementById(id) as PosItem;
+      this.titleService.setTitle('Create / Update Template | ShopApp');
     } catch (e) {
       this.router.navigate(['/admin', 'pos-item']);
       this.notificationService.showError('Invalid Pos ID', e);

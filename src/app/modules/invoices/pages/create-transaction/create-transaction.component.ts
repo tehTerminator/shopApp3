@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NotificationService } from '../../../../shared/services/notification/notification.service';
 import { InvoiceStoreService } from '../../services/invoice-store.service';
@@ -19,6 +20,7 @@ export class CreateTransactionComponent implements OnInit {
     private store: InvoiceStoreService,
     private fb: FormBuilder,
     private ledgerService: LedgerService,
+    private titleService: Title
   ) { }
 
   ngOnInit(): void {
@@ -44,6 +46,8 @@ export class CreateTransactionComponent implements OnInit {
         rate: this.store.selectedItem.rate
       });
     }
+
+    this.titleService.setTitle('Set Quantity And Rate | ShopApp');
   }
 
   onSubmit(): void {

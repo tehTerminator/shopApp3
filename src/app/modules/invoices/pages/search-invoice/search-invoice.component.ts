@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { InvoiceStoreService } from '../../services/invoice-store.service';
 import { Invoice } from './../../../../shared/collection';
 import { ApiService } from './../../../../shared/services/api/api.service';
@@ -14,6 +15,7 @@ export class SearchInvoiceComponent implements OnInit {
   invoices: Invoice[] = [];
 
   constructor(
+    private titleService: Title,
     private store: InvoiceStoreService,
     private formBuilder: FormBuilder, 
     private api: ApiService) { }
@@ -22,6 +24,7 @@ export class SearchInvoiceComponent implements OnInit {
     this.searchForm = this.formBuilder.group({
       createdAt: [0, Validators.required]
     });
+    this.titleService.setTitle('Search Invoices | ShopApp');
   }
 
   onSubmit(): void {

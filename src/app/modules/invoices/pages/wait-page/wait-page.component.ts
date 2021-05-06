@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { ApiService } from '../../../../shared/services/api/api.service';
 import { NotificationService } from '../../../../shared/services/notification/notification.service';
@@ -15,6 +16,7 @@ export class WaitPageComponent implements OnInit {
     private router: Router,
     private apiService: ApiService,
     private store: InvoiceStoreService,
+    private titleService: Title,
     private notificaitonService: NotificationService,
   ) { }
 
@@ -25,6 +27,8 @@ export class WaitPageComponent implements OnInit {
       this.notificaitonService.showError('Error', 'There are no Transactions');
       return;
     }
+
+    this.titleService.setTitle('Saving Invoice | ShopApp');
 
     const invoice = this.store.invoice.value;
     this.apiService.create('invoices', invoice)

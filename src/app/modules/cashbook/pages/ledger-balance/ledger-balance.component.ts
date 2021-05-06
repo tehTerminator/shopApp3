@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-ledger-balance',
@@ -14,4 +15,8 @@ import { Component, OnInit } from '@angular/core';
   `,
   styles: ['']
 })
-export class LedgerBalanceComponent { }
+export class LedgerBalanceComponent {
+  constructor(private titleService: Title) {
+    this.titleService.setTitle('Ledger Balance | ShopApp');
+  }
+}

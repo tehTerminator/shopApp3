@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -9,4 +10,8 @@ import { Component } from '@angular/core';
   `,
   styles: ['']
 })
-export class StatementComponent { }
+export class StatementComponent {
+  constructor(private titleService: Title) {
+    this.titleService.setTitle('View Statement | ShopApp');
+  }
+}

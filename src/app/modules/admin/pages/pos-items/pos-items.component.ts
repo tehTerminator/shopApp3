@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-pos-items',
   template: `<router-outlet></router-outlet>`,
-  styleUrls: ['./pos-items.component.css']
+  styles: ['']
 })
 export class PosItemsComponent implements OnInit {
 

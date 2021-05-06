@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { InvoiceStoreService } from '../../services/invoice-store.service';
 
 @Component({
@@ -8,9 +9,10 @@ import { InvoiceStoreService } from '../../services/invoice-store.service';
 })
 export class SelectCustomerComponent implements OnInit {
 
-  constructor() { }
+  constructor(private titleService: Title) { }
 
   ngOnInit(): void {
+    this.titleService.setTitle('Select Customer | ShopApp');
   }
 
 }

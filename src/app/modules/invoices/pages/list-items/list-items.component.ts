@@ -7,6 +7,7 @@ import { Ledger, PosItem, Product } from '../../../../shared/collection';
 import { InvoiceStoreService } from '../../services/invoice-store.service';
 import { NotificationService } from '../../../../shared/services/notification/notification.service';
 import { BoundText } from '@angular/compiler/src/render3/r3_ast';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-list-items',
@@ -21,7 +22,8 @@ export class ListItemsComponent implements OnInit {
     private productService: ProductService,
     private posItemService: PosItemService,
     private store: InvoiceStoreService,
-    private notification: NotificationService
+    private notification: NotificationService,
+    private titleService: Title
   ) { }
 
   ngOnInit(): void {
@@ -32,6 +34,8 @@ export class ListItemsComponent implements OnInit {
     if (this.store.customer.id === 0) {
       this.router.navigate(['/invoices', 'create', 'select-customer']);
     }
+
+    this.titleService.setTitle('Select Invoice Item | ShopApp');
   }
 
   get products(): GeneralItem[] {

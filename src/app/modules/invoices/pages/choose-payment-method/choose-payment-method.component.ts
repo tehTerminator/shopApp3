@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -14,6 +15,7 @@ import { InvoiceStoreService } from '../../services/invoice-store.service';
 export class ChoosePaymentMethodComponent implements OnInit {
 
   constructor(
+    private titleService: Title,
     private ledgerService: LedgerService,
     private store: InvoiceStoreService,
     private router: Router) { }
@@ -33,6 +35,8 @@ export class ChoosePaymentMethodComponent implements OnInit {
       this.router.navigate(['/invoices', 'create', 'list-items']);
       return;
     }
+
+    this.titleService.setTitle('Select Payment Method | ShopApp');
   }
 
   get ledgers(): Observable<Ledger[]> {
