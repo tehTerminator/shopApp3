@@ -12,7 +12,7 @@
                 <mat-form-field appearance="outline" class="d-block">
                     <mat-label>Giver</mat-label>
                     <mat-select formControlName="cr">
-                    <mat-option *ngFor="let l of ledgers | async" [value]="l.id">{{ l.title }} - {{ l.kind }}</mat-option>
+                    <mat-option *ngFor="let l of creditors | async" [value]="l.id">{{ l.title }} - {{ l.kind }}</mat-option>
                     </mat-select>
                     <mat-hint>Account From Which Money is Deducted</mat-hint>
                     <mat-error *ngIf="cr.hasError('required')">
@@ -22,7 +22,7 @@
                 <mat-form-field appearance="outline" class="d-block">
                     <mat-label>Receiver</mat-label>
                     <mat-select formControlName="dr">
-                        <mat-option *ngFor="let l of ledgers | async" [value]="l.id">{{ l.title }} - {{ l.kind }}</mat-option>
+                        <mat-option *ngFor="let l of debtors | async" [value]="l.id">{{ l.title }} - {{ l.kind }}</mat-option>
                     </mat-select>
                     <mat-error *ngIf="dr.hasError('required')">
                         Please Enter Debtor Account

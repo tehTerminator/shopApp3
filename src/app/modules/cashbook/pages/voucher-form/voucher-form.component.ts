@@ -12,6 +12,8 @@ import {
   animate,
   style
 } from '@angular/animations';
+import { Title } from '@angular/platform-browser';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-voucher-form',
@@ -36,10 +38,12 @@ export class VoucherFormComponent implements OnInit {
   isLoading = false;
 
   constructor(
-    private ns: NotificationService,
+    private fb: FormBuilder,
     private api: ApiService,
+    private titleService: Title,
+    private ns: NotificationService,
     private ledgerService: LedgerService,
-    private fb: FormBuilder) { }
+  ) { }
 
   ngOnInit(): void {
     this.voucherForm = this.fb.group({
@@ -51,6 +55,7 @@ export class VoucherFormComponent implements OnInit {
     });
 
     this.ledgerService.init();
+    this.titleService.setTitle('Create / Update Vouchers | ShopApp');
   }
 
   onIdFieldChange(): void {
@@ -120,6 +125,24 @@ export class VoucherFormComponent implements OnInit {
   get ledgers(): Observable<Ledger[]> {
     return this.ledgerService.getAsObservable() as Observable<Ledger[]>;
   }
+
+  get creditors(): Observable<Ledger[]> {
+    return this.ledgers.pipe(
+      map(
+        (ledgers: Ledger[]) => ledgers.filter(x => x.kind !== 'EXPENSE')
+      )
+    );
+  }
+
+  get debtors(): Observable<Ledger[]> {
+    return this.ledgers.pipe(
+      map(
+        (ledgers: Ledger[]) => ledgers.filter(x => x.kind !== 'INCOME')
+      )
+    );
+  }
+
+
 
   get editMode(): boolean {
     return this.id.value > 0;
