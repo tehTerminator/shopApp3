@@ -24,8 +24,8 @@ export class LedgerBalanceFormComponent implements OnInit, OnDestroy {
     this.ledgerService.init();
     this.myForm = this.fb.group({
       ledger: [null, Validators.required],
-      opening: [0, [Validators.required, Validators.min(0), Validators.pattern('^[0-9]+$')]],
-      closing: [0, [Validators.required, Validators.min(0), Validators.pattern('^[0-9]+$')]]
+      opening: [0, [Validators.required, Validators.min(0)]],
+      closing: [0, [Validators.required, Validators.min(0)]]
     });
 
     this.sub = this.ledger.valueChanges

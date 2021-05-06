@@ -20,7 +20,6 @@
         <mat-error *ngIf="opening.invalid && (opening.dirty || opening.touched)">
           <span *ngIf="opening.hasError('required')">Please Enter Opening Balance</span>
           <span *ngIf="closing.hasError('min')">Opening Balance must be more than 0.</span>
-          <span *ngIf="closing.hasError('pattern')">Invalid Characters</span>
         </mat-error>
       </mat-form-field>
 
@@ -30,7 +29,6 @@
         <mat-error *ngIf="closing.invalid && (closing.dirty || closing.touched)">
           <span *ngIf="closing.hasError('required')">Please Enter Closing Balance</span>
           <span *ngIf="closing.hasError('min')">Closing Balance must be more than 0.</span>
-          <span *ngIf="closing.hasError('pattern')">Invalid Characters</span>
         </mat-error>
       </mat-form-field>
 
