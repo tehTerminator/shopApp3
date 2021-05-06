@@ -9,7 +9,7 @@ import { NotificationService } from './../../../../../shared/services/notificati
 @Component({
   selector: 'app-ledger-balance-form',
   templateUrl: './ledger-balance-form.component.html',
-  styleUrls: ['./ledger-balance-form.component.css']
+  styles: ['']
 })
 export class LedgerBalanceFormComponent implements OnInit, OnDestroy {
   myForm: FormGroup = new FormGroup({});
