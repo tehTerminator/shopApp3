@@ -11,9 +11,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NotificationComponent } from './shared/components/notification/notification.component';
 import { CalculatorComponent } from './shared/components/calculator/calculator.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatInputModule } from '@angular/material/input';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatOptionModule } from '@angular/material/core';
 import { AuthInterceptor } from './shared/interceptor/auth.interceptor';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
@@ -32,9 +29,6 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     BrowserAnimationsModule,
     MatSnackBarModule,
     MatDialogModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    MatOptionModule,
     MatAutocompleteModule
   ],
   providers: [{
