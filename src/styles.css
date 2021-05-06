@@ -1,15 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-@font-face {
-    font-family: 'Icons';
-    src: url("./assets/fonts/icons.eot");
-    src: url("./assets/fonts/icons.eot?#iefix") format('embedded-opentype'), url("./assets/fonts/icons.woff2") format('woff2'), url("./assets/fonts/icons.woff") format('woff'), url("./assets/fonts/icons.ttf") format('truetype'), url("./assets/fonts/icons.svg#icons") format('svg');
-    font-style: normal;
-    font-weight: normal;
-    font-variant: normal;
-    text-decoration: inherit;
-    text-transform: none;
-  }
-
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
