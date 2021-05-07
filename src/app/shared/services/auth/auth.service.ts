@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { AuthStateService } from './auth-state.service';
 import { environment } from '../../../../environments/environment';
 import { HOUR, UserData } from './../../collection';
@@ -10,10 +10,11 @@ import { Router } from '@angular/router';
 @Injectable({
     providedIn: 'root'
 })
-export class AuthService {
+export class AuthService implements OnDestroy {
+    private timer: any = null;
     constructor(
         private http: HttpClient,
-        private auth: AuthStateService,
+        private store: AuthStateService,
         private router: Router
     ) {}
 
@@ -23,18 +24,19 @@ export class AuthService {
         const currentTime = (new Date()).getTime();
 
         if (expirationTime > currentTime && userData.id > 0) {
-            this.auth.signIn(userData, expirationTime);
+            this.setAutoSignOut(expirationTime);
+            this.store.signIn(userData, expirationTime);
         }
     }
 
     login(username: string, password: string): Observable<any> {
-        this.auth.authStarted();
+        this.store.authStarted();
         const signInUrl = environment.baseUrl + 'users/login';
         return this.http.post<UserData>(signInUrl, {username, password})
         .pipe(
             tap(userData => {
                 const expirationTime = (new Date(userData.updated_at)).getTime() + HOUR;
-                this.auth.signIn(userData, expirationTime);
+                this.store.signIn(userData, expirationTime);
                 this.storeLocal(userData, expirationTime);
             }),
             catchError(error => {
@@ -45,7 +47,7 @@ export class AuthService {
     }
 
     signOut(): void {
-        this.auth.signOut();
+        this.store.signOut();
         localStorage.removeItem('userData');
         localStorage.removeItem('expirationTime');
         this.router.navigate(['/user', 'sign-in']);
@@ -79,5 +81,18 @@ export class AuthService {
             expirationTime = +et;
         }
         return expirationTime;
+    }
+
+    private setAutoSignOut(expirationTime: number): void {
+        const currentTime = (new Date()).getTime();
+        const diff = expirationTime - currentTime;
+        clearTimeout(this.timer);
+        this.timer = setTimeout(() => {
+            this.store.signOut();
+        }, diff);
+    }
+
+    ngOnDestroy(): void {
+        clearTimeout(this.timer);
     }
 }
