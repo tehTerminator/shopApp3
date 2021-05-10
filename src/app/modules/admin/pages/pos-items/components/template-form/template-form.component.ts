@@ -4,8 +4,9 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { LedgerService } from './../../../../../../shared/services/ledger/ledger.service';
 import { ProductService } from './../../../../../../shared/services/product/product.service';
 import { Ledger, PosItemTemplate, Product } from '../../../../../../shared/collection';
-import { EMPTY, Observable, Subscriber, Subscription } from 'rxjs';
+import { EMPTY, Observable, Subject, Subscriber, Subscription } from 'rxjs';
 import { NotificationService } from '../../../../../../shared/services/notification/notification.service';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-template-form',
@@ -17,6 +18,7 @@ export class TemplateFormComponent implements OnInit, OnChanges, OnDestroy {
   templateForm: FormGroup = new FormGroup({});
   sub: Subscription = new Subscription();
   isProduct = true;
+  private notifier = new Subject();
 
   constructor(
     private ns: NotificationService,
@@ -39,13 +41,28 @@ export class TemplateFormComponent implements OnInit, OnChanges, OnDestroy {
       quantity: [0, [Validators.required, Validators.min(1)]]
     });
 
-    this.kind.valueChanges.subscribe(
+    this.kind.valueChanges
+    .pipe(
+      takeUntil(this.notifier)
+    )
+    .subscribe(
       value => {
         if (value === 'PRODUCT') {
           this.isProduct = true;
           return;
         }
         this.isProduct = false;
+      }
+    );
+
+    this.item_id.valueChanges
+    .pipe(
+      takeUntil(this.notifier)
+    ).subscribe(
+      value => {
+        if (this.kind.value === 'PRODUCT') {
+          this.onProductSelect(value);
+        }
       }
     );
   }
@@ -63,7 +80,8 @@ export class TemplateFormComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.sub.unsubscribe();
+    this.notifier.next();
+    this.notifier.complete();
   }
 
   private onReset(): void {
@@ -104,6 +122,17 @@ export class TemplateFormComponent implements OnInit, OnChanges, OnDestroy {
         this.ns.showError('Error', error);
       }
     );
+  }
+
+  onProductSelect(id: number): void {
+    try{
+      const product = this.productService.getElementById(id) as Product;
+      this.templateForm.patchValue({
+        rate: product.rate
+      });
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   get editMode(): boolean {

@@ -18,7 +18,10 @@
             <mat-label>Product</mat-label>
             <mat-select formControlName="item_id">
                 <mat-option *ngFor="let p of products | async" [value]="p.id">
-                    {{ p.title }}
+                    <div class="d-flex justify-content-between">
+                        <span>{{ p.title }}</span>
+                        <span>{{ p.rate | currency:'INR' }}</span>
+                    </div>
                 </mat-option>
             </mat-select>
         </mat-form-field>
