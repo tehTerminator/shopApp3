@@ -1,4 +1,4 @@
-<table class="table bg-light">
+<table class="table bg-light text-center">
     <thead>
         <tr>
             <th>#</th>
@@ -16,7 +16,7 @@
             <td>{{ template.id }}</td>
             <td>{{ template.kind }}</td>
             <td>{{ getTitle(template) }}</td>
-            <td>{{ template.rate }}</td>
+            <td>{{ template.rate | currency:'INR' }}</td>
             <td>{{ template.quantity }}</td>
             <td>
                 <a (click)="deleteItem(template)" style="cursor: pointer;">
@@ -27,6 +27,12 @@
             </td>
         </tr>
     </tbody>
+    <tfoot>
+        <tr>
+            <th colspan="4" class="text-end">Total</th>
+            <th>{{ totalAmount | async | currency:'INR'}}</th>
+        </tr>
+    </tfoot>
 </table>
 
 <ng-template #noItemBanner>

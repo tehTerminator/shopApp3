@@ -4,6 +4,7 @@ import { ProductService } from './../../../../../../shared/services/product/prod
 import { LedgerService } from './../../../../../../shared/services/ledger/ledger.service';
 import { Ledger, PosItem, PosItemTemplate, Product } from '../../../../../../shared/collection';
 import { Observable, Subscription } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-template-list',
@@ -53,6 +54,20 @@ export class TemplateListComponent implements OnInit, OnChanges {
     return this.posItemService.getAsObservable() as Observable<PosItem[]>;
   }
 
+  get totalAmount(): Observable<number> {
+    return this.getTemplatesAsObservable().pipe(
+      map(
+        items => {
+          let total = 0;
+          items.forEach(item => {
+            total += this.calcAmount(item);
+          });
+          return total;
+        }
+      )
+    );
+  }
+
   getTitle(template: PosItemTemplate): string {
     if (template.kind === 'PRODUCT') {
       return this.getProductName(template.item_id);
@@ -78,6 +93,10 @@ export class TemplateListComponent implements OnInit, OnChanges {
       ledgerName = 'NOT FOUND';
     }
     return ledgerName;
+  }
+
+  private calcAmount(template: PosItemTemplate): number {
+    return (template.quantity * template.rate);
   }
 
 }
