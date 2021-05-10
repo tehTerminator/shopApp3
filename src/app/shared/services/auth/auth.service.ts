@@ -14,7 +14,7 @@ export class AuthService implements OnDestroy {
     private timer: any = null;
     constructor(
         private http: HttpClient,
-        private store: AuthStateService,
+        private userStore: AuthStateService,
         private router: Router
     ) {}
 
@@ -24,20 +24,17 @@ export class AuthService implements OnDestroy {
         const currentTime = (new Date()).getTime();
 
         if (expirationTime > currentTime && userData.id > 0) {
-            this.setAutoSignOut(expirationTime);
-            this.store.signIn(userData, expirationTime);
+            this.handleAuthentication(userData);
         }
     }
 
     login(username: string, password: string): Observable<any> {
-        this.store.authStarted();
+        this.userStore.authStarted();
         const signInUrl = environment.baseUrl + 'users/login';
         return this.http.post<UserData>(signInUrl, {username, password})
         .pipe(
             tap(userData => {
-                const expirationTime = (new Date(userData.updated_at)).getTime() + HOUR;
-                this.store.signIn(userData, expirationTime);
-                this.storeLocal(userData, expirationTime);
+                this.handleAuthentication(userData);
             }),
             catchError(error => {
                 console.log(error);
@@ -47,13 +44,20 @@ export class AuthService implements OnDestroy {
     }
 
     signOut(): void {
-        this.store.signOut();
+        this.userStore.signOut();
         localStorage.removeItem('userData');
         localStorage.removeItem('expirationTime');
         this.router.navigate(['/user', 'sign-in']);
     }
 
-    private storeLocal(userData: UserData, expirationTime: number): void {
+    private handleAuthentication(userData: UserData): void {
+        const expirationTime = (new Date(userData.updated_at)).getTime() + HOUR;
+        this.setAutoSignOut(expirationTime);
+        this.userStore.signIn(userData, expirationTime);
+        this.storeInLocalStorage(userData, expirationTime);
+    }
+
+    private storeInLocalStorage(userData: UserData, expirationTime: number): void {
         localStorage.setItem('userData', JSON.stringify(userData));
         localStorage.setItem('expirationTime', expirationTime.toString());
     }
@@ -76,20 +80,22 @@ export class AuthService implements OnDestroy {
 
     private getStoredExpirationTime(): number {
         let expirationTime = 0;
-        const et = localStorage.getItem('expirationTime');
-        if (!!et) {
-            expirationTime = +et;
+        const storedExpirationTime = localStorage.getItem('expirationTime');
+        if (!!storedExpirationTime) {
+            expirationTime = +storedExpirationTime;
         }
         return expirationTime;
     }
 
     private setAutoSignOut(expirationTime: number): void {
         const currentTime = (new Date()).getTime();
-        const diff = expirationTime - currentTime;
-        clearTimeout(this.timer);
-        this.timer = setTimeout(() => {
-            this.store.signOut();
-        }, diff);
+        const timeDiff = expirationTime - currentTime;
+        if (timeDiff > 0) {
+            clearTimeout(this.timer);
+            this.timer = setTimeout(() => {
+                this.signOut();
+            }, timeDiff);
+        }
     }
 
     ngOnDestroy(): void {
