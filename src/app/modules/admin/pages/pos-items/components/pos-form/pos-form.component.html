@@ -5,7 +5,7 @@
     <div class="card-body">
         <mat-form-field class="d-block" appearance="outline">
             <mat-label>id</mat-label>
-            <input type="number" matInput formControlName="id">
+            <input type="number" matInput formControlName="id" (blur)="onIdChange()">
         </mat-form-field>
         <mat-form-field class="d-block" appearance="outline">
             <mat-label>Title</mat-label>

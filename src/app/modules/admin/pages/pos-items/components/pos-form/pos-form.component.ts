@@ -41,6 +41,24 @@ export class PosFormComponent implements OnInit {
     }
   }
 
+  onIdChange(): void {
+    const id: number = this.id.value;
+
+    if (id > 0) {
+      try{
+        const posItem: PosItem = this.posService.getElementById(id) as PosItem;
+        this.posForm.patchValue({
+          title: posItem.title,
+          rate: posItem.rate
+        });
+      } catch (e) {
+        this.posForm.patchValue({
+          id: 0
+        });
+      }
+    }
+  }
+
   private handleResponse(response: Observable<PosItem>): void {
     const successMessage = this.editMode ? 'PosItem Updated Successfully' : 'PosItem Created Successfully';
 
