@@ -1,57 +1,117 @@
-<button  mat-stroked-button class="btn w-100 mb-3 bg-light" [routerLink]="['/invoices', 'create', 'list-items']">
-    Go Back
+<button
+  mat-stroked-button
+  class="btn w-100 mb-3 bg-light"
+  [routerLink]="['/invoices', 'create', 'list-items']"
+>
+  Go Back
 </button>
 
 <div class="card">
-    <h2 class="card-header">
-        {{ productName }}
-    </h2>
-    <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()" class="card-body">
+  <h2 class="card-header">
+    {{ productName }}
+  </h2>
+  <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()" class="card-body">
+    <div class="row">
+      <div class="col-md-4">
         <mat-form-field class="d-block" appearance="outline">
-            <mat-label>Quantity</mat-label>
-            <input type="number" name="quantity" matInput formControlName="quantity">
-            <mat-error *ngIf="quantity.invalid && (quantity.touched || quantity.dirty)">
-                <span *ngIf="quantity.hasError('required')">Please Provide Quantity.</span>
-                <span *ngIf="quantity.hasError('min')">Quantity Must Not Be Zero.</span>
-            </mat-error>
+          <mat-label>Quantity</mat-label>
+          <input
+            type="number"
+            name="quantity"
+            matInput
+            formControlName="quantity"
+          />
+          <mat-error
+            *ngIf="quantity.invalid && (quantity.touched || quantity.dirty)"
+          >
+            <span *ngIf="quantity.hasError('required')"
+              >Please Provide Quantity.</span
+            >
+            <span *ngIf="quantity.hasError('min')"
+              >Quantity Must Not Be Zero.</span
+            >
+          </mat-error>
         </mat-form-field>
+      </div>
+      <div class="col-md-4">
         <mat-form-field class="d-block" appearance="outline">
-            <mat-label>Rate</mat-label>
-            <input type="number" name="rate" matInput formControlName="rate">
-            <mat-error *ngIf="rate.invalid && (rate.touched || rate.dirty)">
-                <span *ngIf="rate.hasError('required')">Please Provide Rate.</span>
-                <span *ngIf="rate.hasError('min')">Rate Must Not Be Zero.</span>
-            </mat-error>
+          <mat-label>Rate</mat-label>
+          <input type="number" name="rate" matInput formControlName="rate" />
+          <mat-error *ngIf="rate.invalid && (rate.touched || rate.dirty)">
+            <span *ngIf="rate.hasError('required')">Please Provide Rate.</span>
+            <span *ngIf="rate.hasError('min')">Rate Must Not Be Zero.</span>
+          </mat-error>
         </mat-form-field>
+      </div>
+      <div class="col-md-4">
         <mat-form-field class="d-block" appearance="outline">
-            <mat-label>Discount</mat-label>
-            <input type="number" name="discount" matInput formControlName="discount">
-            <mat-error *ngIf="discount.invalid && (discount.touched || discount.dirty)">
-                <span *ngIf="discount.hasError('min')">Discount Must Be Greater than Zero.</span>
-                <span *ngIf="discount.hasError('max')">Discount Cannot be more than 100.</span>
-            </mat-error>
+          <mat-label>Discount</mat-label>
+          <input
+            type="number"
+            name="discount"
+            matInput
+            formControlName="discount"
+          />
+          <mat-error
+            *ngIf="discount.invalid && (discount.touched || discount.dirty)"
+          >
+            <span *ngIf="discount.hasError('toohigh')">
+              Discount is Very High.
+              </span>
+          </mat-error>
         </mat-form-field>
+      </div>
+    </div>
 
-        <button type="submit" class="btn m-1" mat-raised-button color="primary" [disabled]="transactionForm.invalid">Add Item</button>
-        <button type="reset" class="btn m-1" mat-raised-button color="warn">Reset</button>
-    </form>
+    <button
+      type="submit"
+      class="btn m-1"
+      mat-raised-button
+      color="primary"
+      [disabled]="transactionForm.invalid"
+    >
+      Add Item
+    </button>
+    <button type="reset" class="btn m-1" mat-raised-button color="warn">
+      Reset
+    </button>
+  </form>
 </div>
 
 <table class="table bg-light mt-3 text-center">
-    <thead>
-        <tr>
-            <th>
-                Net Amount
-            </th>
-            <th>Total Discount</th>
-            <th>Gross Amount</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>{{ netPrice | currency:'INR'}}</td>
-            <td>{{ discountedAmount | currency:'INR'}}</td>
-            <td>{{ grossPrice | currency:'INR'}}</td>
-        </tr>
-    </tbody>
+  <thead>
+    <tr>
+      <th>
+        <span class="d-block">Gross Amount</span>
+        <span class="d-block text-center">A</span>
+      </th>
+      <th>
+        <span class="d-block">Total Discount</span>
+        <span class="d-block text-center">B</span>
+      </th>
+      <th>
+        <span class="d-block">Net Amount</span>
+        <span class="d-block text-center">A - B</span>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <span class="d-block">
+          {{ grossPrice | currency: 'INR' }}
+        </span>
+        <span class="d-block">
+          {{ this.quantity.value }}@{{ this.rate.value }}
+        </span>
+      </td>
+      <td>
+        <span class="d-block">{{ discount.value | currency: 'INR'}}</span>
+        <span class="d-block">{{ discountPercent | number:'1.2-2' }} %</span>
+      </td>
+      <td>
+        {{ netPrice | currency: 'INR' }}
+      </td>
+    </tr>
+  </tbody>
 </table>

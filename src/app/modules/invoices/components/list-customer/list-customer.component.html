@@ -1,9 +1,26 @@
-<div class="form-group">
-    <input type="text" class="form-control" name="customer" placeholder="Search Customer..." [(ngModel)]="searchText">
-</div>
 <div class="list-group">
-    <a class="list-group-item" *ngFor="let customer of customers | async | search:'title':searchText | slice:0:10" (click)="onSelect(customer)">
-        <div>{{ customer.title }}</div>
-        <small>{{ customer.address }}</small>
-    </a>
+  <div class="list-group-item">
+    <div class="form-group border-0">
+      <input
+        type="text"
+        class="form-control border-0"
+        name="customer"
+        placeholder="Search Customer..."
+        [(ngModel)]="searchText"
+      />
+    </div>
+  </div>
+  <a
+    class="list-group-item"
+    *ngFor="
+      let customer of customers
+        | async
+        | search: 'title':searchText
+        | slice: 0:5
+    "
+    (click)="onSelect(customer)"
+  >
+    <div>{{ customer.title }}</div>
+    <small>{{ customer.address }}</small>
+  </a>
 </div>

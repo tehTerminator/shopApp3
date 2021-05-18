@@ -1,30 +1,32 @@
 <div class="card border-0">
     <div class="card-body">
-        <table class="table table-bordered table-striped table-sm">
+        <table class="table table-bordered table-striped table-sm border-dark">
             <thead>
                 <tr class="bg-dark text-light">
+                    <th *ngIf="showButtons()">
+                        Del
+                    </th>
                     <th class="w-50">Description</th>
                     <th class="text-center">Qty</th>
                     <th class="text-center">Rate</th>
                     <th class="text-center">Disc.</th>
                     <th class="text-center">Amount</th>
-                    <th *ngIf="showButtons()">
-                        Delete
-                    </th>
+                    
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let t of transactions;let i=index">
+                    <td *ngIf="showButtons()" class="text-center">
+                        <button type="button" class="btn icon-only" (click)="deleteTransaction(i)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
                     <td>{{ t.description }}</td>
                     <td class="text-center">{{ t.quantity }}</td>
                     <td class="text-center">{{ t.rate | currency:'INR' }}</td>
                     <td class="text-center text-danger">{{ t.discount | number:'1.2-2' }} %</td>
                     <td class="text-center text-primary">{{ rowAmount(t) | currency:'INR'}}</td>
-                    <td *ngIf="showButtons()">
-                        <button type="button" class="btn icon-only" (click)="deleteTransaction(i)">
-                            <mat-icon>delete</mat-icon>
-                        </button>
-                    </td>
+                    
                 </tr>
             </tbody>
             <tfoot>
