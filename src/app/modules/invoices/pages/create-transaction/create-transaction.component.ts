@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NotificationService } from '../../../../shared/services/notification/notification.service';
@@ -38,7 +38,7 @@ export class CreateTransactionComponent implements OnInit {
     this.transactionForm = this.fb.group({
       quantity: [0, [Validators.min(1), Validators.required]],
       rate: [0, [Validators.required, Validators.min(1)]],
-      discount: [0, [Validators.min(0), Validators.max(100)]]
+      discount: [0, [Validators.min(0)], this.validateDiscount.bind(this)]
     });
 
     if (!this.ledgerService.isInstanceOfLedger(this.store.selectedItem)) {
@@ -56,8 +56,22 @@ export class CreateTransactionComponent implements OnInit {
       return;
     }
 
-    this.store.createTransaction(this.quantity.value, this.rate.value, this.discount.value);
+    this.store.createTransaction(this.quantity.value, this.rate.value, this.discountPercent);
     this.router.navigate(['/invoices', 'create', 'paymentMethod']);
+  }
+
+  validateDiscount(control: AbstractControl): Promise<ValidationErrors|null> {
+    const promise = new Promise<ValidationErrors|null>((resolve) => {
+      const val = control.value as number;
+      const totalAmount = this.grossPrice;
+      if (val >= totalAmount) {
+        const error: ValidationErrors = {toohigh: true};
+        resolve(error);
+      }
+      resolve(null);
+    });
+
+    return promise;
   }
 
   get productName(): string {
@@ -65,15 +79,20 @@ export class CreateTransactionComponent implements OnInit {
   }
 
   get grossPrice(): number {
-    return this.netPrice - this.discountedAmount;
+    return this.quantity.value * this.rate.value;
+
   }
 
-  get discountedAmount(): number {
-    return this.netPrice * this.discount.value / 100;
+  get discountPercent(): number {
+    const val = (this.discount.value / this.grossPrice) * 100;
+    if (isNaN(val)) {
+      return 0;
+    }
+    return val;
   }
 
   get netPrice(): number {
-    return this.quantity.value * this.rate.value;
+    return this.grossPrice - this.discount.value;
   }
 
   get quantity(): FormControl {
