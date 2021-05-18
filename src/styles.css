@@ -54,3 +54,8 @@ mat-form-field{
     z-index: 101;
   }
   
+
+  .btn.icon-only {
+    margin: 0px;
+    padding: 0px;
+  }

@@ -1,0 +1,21 @@
+<div class="card card-body border-0">
+    <h1 class="bg-primary text-light text-center">
+        INVOICE
+    </h1>
+    <table class="table-sm table-bordered table-striped">
+        <tbody>
+            <tr>
+                <th>Invoice #</th>
+                <td class="text-center">{{ invoiceId }}</td>
+            </tr>
+            <tr>
+                <th>Customer #</th>
+                <td class="text-center">{{ customerId }}</td>
+            </tr>
+            <tr>
+                <th>Posted On</th>
+                <td class="text-center">{{ createdAt | date:'dd MMM y' }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

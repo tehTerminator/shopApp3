@@ -2,92 +2,27 @@
     <div class="row">
         <div class="col-8">
             <div class="card card-body border-0">
-                <h2 class="fs-3">
+                <h2 class="fs-3 text-center">
                     MAHARAJA COMPUTERS
                 </h2>
-                <p>
+                <p class="text-center lh-0">
                     Kher Complex, Opp Civil Hospital, Ashoknagar (M.P.)
-                    PIN 473331 Ph. 9144268770; email: maharajac@gmail.com
+                    PIN 473331 Ph. 9144268770; 
+                </p>
+                <p class="text-center lh-0">
+                    email: maharajac@gmail.com
                     website: http://www.maharajac.in
                 </p>
             </div>
         </div>
         <div class="col-4">
-            <div class="card card-body border-0">
-                <h1 class="bg-primary text-light">
-                    INVOICE
-                </h1>
-                <table class="table-sm">
-                    <tbody>
-                        <tr>
-                            <td>Invoice #</td>
-                            <td>{{ invoice.id }}</td>
-                        </tr>
-                        <tr>
-                            <td>Customer #</td>
-                            <td>{{ invoice.customer.id }}</td>
-                        </tr>
-                        <tr>
-                            <td>Posted On</td>
-                            <td>{{ invoice.created_at | date:'dd MM y' }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            <app-invoice-info></app-invoice-info>
         </div>
         <div class="col-12">
-            <div class="card card-body border-0 fs-5">
-                Bill To : {{ invoice.customer.title }}
-                <p>
-                    Address : {{ invoice.customer.address }}
-                </p>
-            </div>
+            <app-customer-table></app-customer-table>
         </div>
         <div class="col-12">
-            <div class="card card-body border-0">
-                <table class="table table-bordered table-sm">
-                    <thead>
-                        <tr>
-                            <th>Description</th>
-                            <th>Qty</th>
-                            <th>Rate</th>
-                            <th>Disc.</th>
-                            <th>Amount</th>
-                            <th *ngIf="showButtons()">
-                                Delete Row
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let t of invoice.transactions;let i=index">
-                            <td>{{ t.description }}</td>
-                            <td>{{ t.quantity }}</td>
-                            <td>{{ t.rate }}</td>
-                            <td>{{ t.discount }}</td>
-                            <td>{{ rowAmount(t) }}</td>
-                            <td *ngIf="showButtons()">
-                                <button type="button" class="w-100" (click)="deleteTransaction(i)">
-                                    Remove
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td [attr.colspan]="colspan" class="text-end">Gross Amount</td>
-                            <td>{{ grossAmount }}</td>
-                        </tr>
-                        <tr>
-                            <td [attr.colspan]="colspan" class="text-end">Total Discount</td>
-                            <td>{{ totalDiscount }}</td>
-                        </tr>
-                        <tr>
-                            <td [attr.colspan]="colspan" class="text-end">Net Amount</td>
-                            <td>{{ netTotal }}</td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
+            <app-transactions-table></app-transactions-table>
         </div>
     </div>
 </div>

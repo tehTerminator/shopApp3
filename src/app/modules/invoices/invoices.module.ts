@@ -11,11 +11,12 @@ import { ListItemsComponent } from './pages/list-items/list-items.component';
 import { CreateTransactionComponent } from './pages/create-transaction/create-transaction.component';
 import { ChoosePaymentMethodComponent } from './pages/choose-payment-method/choose-payment-method.component';
 import { PreviewInvoiceComponent } from './components/preview-invoice/preview-invoice.component';
-import { InvoiceStoreService } from './services/invoice-store.service';
-import { CustomerService } from './services/customer.service';
 import { FormsModule } from '@angular/forms';
 import { WaitPageComponent } from './pages/wait-page/wait-page.component';
 import { SearchInvoiceComponent } from './pages/search-invoice/search-invoice.component';
+import { CustomerTableComponent } from './components/customer-table/customer-table.component';
+import { TransactionsTableComponent } from './components/transactions-table/transactions-table.component';
+import { InvoiceInfoComponent } from './components/invoice-info/invoice-info.component';
 
 
 @NgModule({
@@ -29,7 +30,10 @@ import { SearchInvoiceComponent } from './pages/search-invoice/search-invoice.co
     ChoosePaymentMethodComponent,
     PreviewInvoiceComponent,
     WaitPageComponent,
-    SearchInvoiceComponent
+    SearchInvoiceComponent,
+    CustomerTableComponent,
+    TransactionsTableComponent,
+    InvoiceInfoComponent
   ],
   imports: [
     CommonModule,

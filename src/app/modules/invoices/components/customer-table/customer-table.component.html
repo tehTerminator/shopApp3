@@ -1,0 +1,21 @@
+<div class="w-50 mr-auto me-auto d-block p-2">
+  <table
+    class="table sm table-bordered"
+    *ngIf="customer"
+  >
+    <tbody>
+      <tr>
+        <th class="w-25">Bill To :</th>
+        <td>
+          {{ customer.title }}
+        </td>
+      </tr>
+      <tr>
+        <th class="w-25">Address</th>
+        <td>
+          {{ customer.address }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
