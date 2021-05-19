@@ -1,0 +1,11 @@
+<div class="list-group">
+  <a
+    class="list-group-item list-group-item-action"
+    *ngFor="let item of menuItems;let i = index"
+    [routerLink]="['/home', item.chartType, item.url]"
+    routerLinkActive="active"
+    [queryParams]="getQueryParams(i)"
+  >
+    {{ item.title }}
+  </a>
+</div>

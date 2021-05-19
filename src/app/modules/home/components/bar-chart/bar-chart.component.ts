@@ -1,7 +1,9 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { ApiService } from '../../../../shared/services/api/api.service';
 import { ChartData } from '../../../../shared/collection';
-import { retry } from 'rxjs/operators';
+import { retry, takeUntil } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
 
 @Component({
     selector: 'app-bar-chart',
@@ -18,6 +20,7 @@ import { retry } from 'rxjs/operators';
                     [showYAxisLabel]="TRUE"
                     [xAxisLabel]="xAxisLabel"
                     [yAxisLabel]="yAxisLabel"
+                    [scheme]="colorScheme"
                     [results]="dataSet"
                     *ngIf="!empty; else noData"
                 ></ngx-charts-bar-vertical>
@@ -29,23 +32,67 @@ import { retry } from 'rxjs/operators';
     `,
     styles: ['']
 })
-export class BarChartComponent implements OnChanges  {
-    @Input() dataUrl = '';
-    @Input() header = '';
-    @Input() xAxisLabel = '';
-    @Input() yAxisLabel = '';
-    readonly legendPosition = 'left';
+export class BarChartComponent implements OnInit, OnDestroy {
+    dataUrl = '';
+    header = '';
+    xAxisLabel = '';
+    yAxisLabel = '';
     dataSet: ChartData[] = [];
+    readonly legendPosition = 'right';
     readonly TRUE = true;
+    private $notify = new Subject();
+    readonly colorScheme = {
+        domain: [
+            '#5AA454',
+            '#E44D25',
+            '#CFC0BB',
+            '#7aa3e5',
+            '#a8385d',
+            '#aae3f5',
+            '#FF00FF',
+            '#FF0000',
+            '#0000FF',
+            '#003f5c',
+            '#2f4b7c',
+            '#665191',
+            '#a05195',
+            '#d45087',
+            '#f95d6a',
+            '#ff7c43',
+            '#ffa600',
+        ]
+    };
 
-    constructor(private api: ApiService) {}
+    constructor(private api: ApiService, private route: ActivatedRoute) {}
 
-    ngOnChanges(changes: SimpleChanges): void {
-        const urlChange = changes.dataUrl;
+    ngOnInit(): void {
+        this.route.params
+            .pipe(
+                takeUntil(this.$notify)
+            )
+            .subscribe(
+                (value => {
+                    this.dataUrl = value.url;
+                    this.fetchData();
+                })
+            );
 
-        if (urlChange.isFirstChange()) {
-            this.fetchData();
-        }
+        this.route.queryParamMap
+            .pipe(
+                takeUntil(this.$notify)
+            )
+            .subscribe(
+                (value => {
+                    this.header = value.get('header') || 'Default Header';
+                    this.xAxisLabel = value.get('xaxislabel') || '';
+                    this.yAxisLabel = value.get('xaxislabel') || '';
+                })
+            );
+    }
+
+    ngOnDestroy(): void {
+        this.$notify.next();
+        this.$notify.complete();
     }
 
     private fetchData(): void {
@@ -55,7 +102,7 @@ export class BarChartComponent implements OnChanges  {
         )
         .subscribe(
             response => this.dataSet = response,
-            error => this.dataSet = []
+            () => this.dataSet = []
         );
     }
 

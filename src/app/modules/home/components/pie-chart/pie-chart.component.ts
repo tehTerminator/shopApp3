@@ -1,57 +1,106 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ApiService } from './../../../../shared/services/api/api.service';
 import { ChartData } from './../../../../shared/collection';
-import { retry } from 'rxjs/operators';
+import { retry, takeUntil } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
+import { Subject, Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-pie-chart',
-    template: `
-        <div class="card">
-            <div class="card-header">{{ header }} </div>
-            <div class="card-body">
-                <ngx-charts-pie-chart
-                [legend]="TRUE"
-                [legendPosition]="legendPosition"
-                [results]="dataSet"
-                *ngIf="!empty; else noData"
-                ></ngx-charts-pie-chart>
-            </div>
-        </div>
-        <ng-template #noData>
-            <h1 class="fs-3">Sorry No Data to Display</h1>
-        </ng-template>
-    `,
+    templateUrl: './pie-chart.component.html',
     styles: ['']
 })
-export class PieChartComponent implements OnChanges {
-    @Input() dataUrl = '';
-    @Input() header = '';
-    readonly legendPosition = 'left';
+export class PieChartComponent implements OnInit, OnDestroy {
+    dataUrl: string | null = 'userWiseInvoice';
+    header = 'Default Header';
     dataSet: ChartData[] = [];
+    hasData = false;
+    readonly legendPosition = 'right';
     readonly TRUE = true;
+    readonly view: [number, number] = [800, 300];
+    readonly colorScheme = {
+        domain: [
+            '#5AA454',
+            '#E44D25',
+            '#CFC0BB',
+            '#7aa3e5',
+            '#a8385d',
+            '#aae3f5',
+            '#FF00FF',
+            '#FF0000',
+            '#0000FF',
+            '#003f5c',
+            '#2f4b7c',
+            '#665191',
+            '#a05195',
+            '#d45087',
+            '#f95d6a',
+            '#ff7c43',
+            '#ffa600',
+        ]
+    };
 
-    constructor(private api: ApiService) {}
 
-    ngOnChanges(changes: SimpleChanges): void {
-        const urlChange = changes.dataUrl;
 
-        if (urlChange.isFirstChange()) {
-            this.fetchData();
-        }
+
+
+
+
+
+
+    private $notify = new Subject();
+
+    ngOnInit(): void {
+        this.route.params
+            .pipe(
+                takeUntil(this.$notify)
+            )
+            .subscribe(
+                (value => {
+                    this.dataUrl = value.url;
+                    this.fetchData();
+                })
+            );
+
+        this.route.queryParamMap
+            .pipe(
+                takeUntil(this.$notify)
+            )
+            .subscribe(
+                (value => {
+                    this.header = value.get('header') || 'Default Header';
+                })
+            );
+    }
+
+    ngOnDestroy(): void {
+        this.$notify.next();
+        this.$notify.complete();
     }
 
     private fetchData(): void {
+        if (this.dataUrl === null) {
+            return;
+        }
         this.api.select<ChartData[]>(this.dataUrl)
-        .pipe(
-            retry(5)
-        )
-        .subscribe(
-            response => this.dataSet = response,
-            error => this.dataSet = []
-        );
+            .pipe(
+                retry(5)
+            )
+            .subscribe(
+                response => {
+                    console.log(response);
+                    this.dataSet = response;
+                },
+                () => this.dataSet = []
+            );
     }
 
     get empty(): boolean {
         return this.dataSet.length === 0;
     }
+
+    constructor(
+        private api: ApiService,
+        private route: ActivatedRoute
+    ) { }
 }
