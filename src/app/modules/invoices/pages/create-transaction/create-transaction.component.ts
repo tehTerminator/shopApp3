@@ -36,7 +36,7 @@ export class CreateTransactionComponent implements OnInit {
     }
 
     this.transactionForm = this.fb.group({
-      quantity: [0, [Validators.min(1), Validators.required]],
+      quantity: [1, [Validators.min(1), Validators.required]],
       rate: [0, [Validators.required, Validators.min(1)]],
       discount: [0, [Validators.min(0)], this.validateDiscount.bind(this)]
     });
