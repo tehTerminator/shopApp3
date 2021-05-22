@@ -38,7 +38,17 @@ export class SideMenuComponent implements OnInit {
                     xaxislabel: 'Date Invoices were Created',
                     yaxislabel: 'Total Amount of Invoices'
                 }
-            }
+            },
+            {
+                chartType: 'line',
+                url: 'incomeExpense',
+                title: 'Income Vs Expense',
+                queryParams: {
+                    xaxislabel: 'Date',
+                    yaxislabel: 'Amount'
+                }
+            },
+
         ];
     }
 

@@ -3,7 +3,8 @@ import { ApiService } from './../../../../shared/services/api/api.service';
 import { ChartData } from './../../../../shared/collection';
 import { retry, takeUntil } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
-import { Subject, Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
+import { FormControl } from '@angular/forms';
 
 @Component({
     selector: 'app-pie-chart',
@@ -11,6 +12,7 @@ import { Subject, Subscription } from 'rxjs';
     styles: ['']
 })
 export class PieChartComponent implements OnInit, OnDestroy {
+    dateField = new FormControl(this.getCurrentDate());
     dataUrl: string | null = 'userWiseInvoice';
     header = 'Default Header';
     dataSet: ChartData[] = [];
@@ -19,58 +21,22 @@ export class PieChartComponent implements OnInit, OnDestroy {
     readonly TRUE = true;
     readonly view: [number, number] = [800, 300];
     readonly colorScheme = {
-        domain: [
-            '#5AA454',
-            '#E44D25',
-            '#CFC0BB',
-            '#7aa3e5',
-            '#a8385d',
-            '#aae3f5',
-            '#FF00FF',
-            '#FF0000',
-            '#0000FF',
-            '#003f5c',
-            '#2f4b7c',
-            '#665191',
-            '#a05195',
-            '#d45087',
-            '#f95d6a',
-            '#ff7c43',
-            '#ffa600',
-        ]
+        domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5', '#FF00FF', '#FF0000', '#0000FF', '#003f5c', '#2f4b7c', '#665191', '#a05195', '#d45087', '#f95d6a', '#ff7c43', '#ffa600']
     };
-
-
-
-
-
-
-
-
 
     private $notify = new Subject();
 
     ngOnInit(): void {
-        this.route.params
-            .pipe(
-                takeUntil(this.$notify)
-            )
-            .subscribe(
-                (value => {
-                    this.dataUrl = value.url;
-                    this.fetchData();
-                })
-            );
+        this.route.params.pipe(takeUntil(this.$notify))
+            .subscribe((value => {
+                this.dataUrl = value.url;
+                this.fetchData();
+            }));
 
-        this.route.queryParamMap
-            .pipe(
-                takeUntil(this.$notify)
-            )
-            .subscribe(
-                (value => {
-                    this.header = value.get('header') || 'Default Header';
-                })
-            );
+        this.route.queryParamMap.pipe(takeUntil(this.$notify))
+            .subscribe((value => {
+                this.header = value.get('header') || 'Default Header';
+            }));
     }
 
     ngOnDestroy(): void {
@@ -78,14 +44,12 @@ export class PieChartComponent implements OnInit, OnDestroy {
         this.$notify.complete();
     }
 
-    private fetchData(): void {
+    fetchData(): void {
         if (this.dataUrl === null) {
             return;
         }
-        this.api.select<ChartData[]>(this.dataUrl)
-            .pipe(
-                retry(5)
-            )
+        this.api.select<ChartData[]>(this.dataUrl, {date: this.dateField.value})
+            .pipe(retry(5))
             .subscribe(
                 response => {
                     console.log(response);
@@ -97,6 +61,14 @@ export class PieChartComponent implements OnInit, OnDestroy {
 
     get empty(): boolean {
         return this.dataSet.length === 0;
+    }
+
+    private getCurrentDate(): string {
+        const currentDate = (new Date());
+        const year = currentDate.getFullYear();
+        const month = currentDate.getMonth() + 1;
+        const date = currentDate.getDate();
+        return [year, month, date].join('-');
     }
 
     constructor(

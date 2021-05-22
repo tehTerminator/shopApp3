@@ -1,16 +1,28 @@
 <div class="card">
-    <div class="card-header">{{ header }} </div>
-    <div class="card-body">
-        <ngx-charts-pie-chart
-            [legend]="TRUE"
-            [legendPosition]="legendPosition"
-            [results]="dataSet"
-            [view]="view"
-            [scheme]="colorScheme"
-            *ngIf="!empty; else noData"
-        ></ngx-charts-pie-chart>
+  <div class="card-header d-flex justify-content-between">
+    <span class="fs-4 p-2">{{ header }}</span>
+
+    <div>
+        <input
+          type="date"
+          name="date"
+          class="form-control"
+          [formControl]="dateField"
+          (change)="fetchData()"
+        />
     </div>
+  </div>
+  <div class="card-body">
+    <ngx-charts-pie-chart
+      [legend]="TRUE"
+      [legendPosition]="legendPosition"
+      [results]="dataSet"
+      [view]="view"
+      [scheme]="colorScheme"
+      *ngIf="!empty; else noData"
+    ></ngx-charts-pie-chart>
+  </div>
 </div>
 <ng-template #noData>
-    <h1 class="fs-3 text-center">Sorry No Data to Display</h1>
+  <h1 class="fs-3 text-center">Sorry No Data to Display</h1>
 </ng-template>

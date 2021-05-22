@@ -1,0 +1,23 @@
+<div class="card">
+    <div class="card-header">
+        <h1 class="fs-3 mb-0">{{ header }}</h1>
+    </div>
+    <div class="card-body">
+        <ngx-charts-bar-vertical
+            [legend]="TRUE"
+            [legendPosition]="legendPosition"
+            [xAxis]="TRUE"
+            [yAxis]="TRUE"
+            [showXAxisLabel]="TRUE"
+            [showYAxisLabel]="TRUE"
+            [xAxisLabel]="xAxisLabel"
+            [yAxisLabel]="yAxisLabel"
+            [scheme]="colorScheme"
+            [results]="dataSet"
+            *ngIf="!empty; else noData"
+        ></ngx-charts-bar-vertical>
+    </div>
+</div>
+<ng-template #noData>
+    <h1 class="fs-3 text-center m-5 p-5">Sorry No Data to Display</h1>
+</ng-template>

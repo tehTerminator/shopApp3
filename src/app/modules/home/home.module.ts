@@ -9,6 +9,7 @@ import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 import { SideMenuComponent } from './components/side-menu/side-menu.component';
 import { LineChartComponent } from './components/line-chart/line-chart.component';
 import { DefaultComponent } from './components/default/default.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { DefaultComponent } from './components/default/default.component';
     CommonModule,
     HomeRoutingModule,
     NgxChartsModule,
+    ReactiveFormsModule
   ]
 })
 export class HomeModule { }
