@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -12,7 +12,7 @@ import { LedgerService } from './../../../../shared/services/ledger/ledger.servi
   styleUrls: ['./create-transaction.component.css']
 })
 export class CreateTransactionComponent implements OnInit {
-  transactionForm: FormGroup = new FormGroup({})
+  transactionForm: FormGroup = new FormGroup({});
 
   constructor(
     private router: Router,
