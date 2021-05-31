@@ -50,14 +50,19 @@ export class CreateTransactionComponent implements OnInit {
     this.titleService.setTitle('Set Quantity And Rate | ShopApp');
   }
 
-  onSubmit(): void {
+  onSubmit(addMore = false): void {
     if (this.transactionForm.invalid) {
       this.notification.showError('Error', 'Invalid Form Data');
       return;
     }
 
     this.store.createTransaction(this.quantity.value, this.rate.value, this.discountPercent);
-    this.router.navigate(['/invoices', 'create', 'paymentMethod']);
+
+    if (addMore) {
+      this.router.navigate(['/invoices', 'create', 'list-items']);
+    } else {
+      this.router.navigate(['/invoices', 'create', 'paymentMethod']);
+    }
   }
 
   validateDiscount(control: AbstractControl): Promise<ValidationErrors|null> {

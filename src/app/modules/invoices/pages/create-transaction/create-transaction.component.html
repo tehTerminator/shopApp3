@@ -1,16 +1,8 @@
-<button
-  mat-stroked-button
-  class="btn w-100 mb-3 bg-light"
-  [routerLink]="['/invoices', 'create', 'list-items']"
->
-  Go Back
-</button>
-
 <div class="card">
   <h2 class="card-header">
     {{ productName }}
   </h2>
-  <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()" class="card-body">
+  <form [formGroup]="transactionForm" class="card-body">
     <div class="row">
       <div class="col-md-4">
         <mat-form-field class="d-block" appearance="outline">
@@ -63,18 +55,32 @@
       </div>
     </div>
 
-    <button
-      type="submit"
-      class="btn m-1"
-      mat-raised-button
-      color="primary"
-      [disabled]="transactionForm.invalid"
-    >
-      Add Item
-    </button>
-    <button type="reset" class="btn m-1" mat-raised-button color="warn">
-      Reset
-    </button>
+
+    <div class="d-flex">
+      <div class="p-1 flex-fill order-2">
+        <button
+          type="button"
+          class="btn btn-success w-100"
+          [disabled]="transactionForm.invalid"
+          (click)="onSubmit()"
+        >
+          Add Item
+        </button>
+      </div>
+
+      <div class="p-1 flex-fill order-1">
+        <button
+          type="button"
+          class="btn btn-primary w-100"
+          [disabled]="transactionForm.invalid"
+          (click)="onSubmit(true)"
+        >
+          Add More
+        </button>
+      </div>
+      
+    </div>
+
   </form>
 </div>
 
