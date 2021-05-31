@@ -1,16 +1,16 @@
-<table class="table bg-light">
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>Title</th>
-            <th>Rate</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let p of posItems | async" (click)="onSelect(p)">
-            <td>{{ p.id }}</td>
-            <td>{{ p.title }}</td>
-            <td>{{ p.rate | currency:'INR' }}</td>
-        </tr>
-    </tbody>
-</table>
+<ul class="list-group-item">
+  <li
+    class="
+      list-group-item list-group-item-action
+      d-flex
+      justify-content-between
+    "
+    *ngFor="let p of posItems | async"
+    (click)="onSelect(p)"
+  >
+    <span> {{ p.id }} - {{ p.title }} </span
+    ><span>
+      {{ p.rate | currency: "INR" }}
+    </span>
+  </li>
+</ul>
