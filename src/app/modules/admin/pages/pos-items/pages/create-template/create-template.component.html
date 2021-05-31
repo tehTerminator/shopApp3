@@ -3,15 +3,12 @@
         <div class="card">
             <div class="card-header">Currently Editing</div>
             <div class="card-body">
-                <table class="table">
-                    <tbody>
-                        <tr>
-                            <td>#{{ posItemBeingEdited.id }}</td>
-                            <td>Title: {{ posItemBeingEdited.title }}</td>
-                            <td>Rate :{{ posItemBeingEdited.rate | currency:'INR' }}</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="w-100 d-flex justify-content-between">
+                    <span>{{ posItemBeingEdited.title }} @ {{ posItemBeingEdited.rate | currency:'INR' }}</span>
+                    <button class="btn btn-danger">
+                        Delete
+                    </button>
+                </div>
             </div>
         </div>
     </div>
