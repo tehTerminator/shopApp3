@@ -2,9 +2,9 @@
   <h2 class="card-header">
     {{ productName }}
   </h2>
-  <form [formGroup]="transactionForm" class="card-body">
+  <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()" class="card-body">
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-6">
         <mat-form-field class="d-block" appearance="outline">
           <mat-label>Quantity</mat-label>
           <input
@@ -12,6 +12,7 @@
             name="quantity"
             matInput
             formControlName="quantity"
+            required
           />
           <mat-error
             *ngIf="quantity.invalid && (quantity.touched || quantity.dirty)"
@@ -25,17 +26,17 @@
           </mat-error>
         </mat-form-field>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-6">
         <mat-form-field class="d-block" appearance="outline">
           <mat-label>Rate</mat-label>
-          <input type="number" name="rate" matInput formControlName="rate" />
+          <input type="number" name="rate" matInput formControlName="rate" required />
           <mat-error *ngIf="rate.invalid && (rate.touched || rate.dirty)">
             <span *ngIf="rate.hasError('required')">Please Provide Rate.</span>
             <span *ngIf="rate.hasError('min')">Rate Must Not Be Zero.</span>
           </mat-error>
         </mat-form-field>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-12">
         <mat-form-field class="d-block" appearance="outline">
           <mat-label>Discount</mat-label>
           <input
@@ -57,18 +58,18 @@
 
 
     <div class="d-flex">
-      <div class="p-1 flex-fill order-2">
+      <div class="p-1 flex-fill">
         <button
-          type="button"
+          type="submit"
           class="btn btn-success w-100"
           [disabled]="transactionForm.invalid"
           (click)="onSubmit()"
         >
-          Add Item
+          Select Payment
         </button>
       </div>
 
-      <div class="p-1 flex-fill order-1">
+      <div class="p-1 flex-fill">
         <button
           type="button"
           class="btn btn-primary w-100"
