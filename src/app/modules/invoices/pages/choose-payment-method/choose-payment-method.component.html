@@ -1,6 +1,3 @@
-<button mat-stroked-button class="btn bg-light w-100 mb-3" [routerLink]="['/invoices', 'create', 'list-items']">
-    Go Back
-</button>
 <div class="card">
     <div class="card-body">
         <button mat-stroked-button class="btn w-100 mb-1" *ngFor="let ledger of ledgers | async" (click)="selectPaymentMethod(ledger)">

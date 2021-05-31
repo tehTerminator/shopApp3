@@ -17,6 +17,7 @@ import { SearchInvoiceComponent } from './pages/search-invoice/search-invoice.co
 import { CustomerTableComponent } from './components/customer-table/customer-table.component';
 import { TransactionsTableComponent } from './components/transactions-table/transactions-table.component';
 import { InvoiceInfoComponent } from './components/invoice-info/invoice-info.component';
+import { GoBackBtnComponent } from './components/go-back-btn/go-back-btn.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { InvoiceInfoComponent } from './components/invoice-info/invoice-info.com
     SearchInvoiceComponent,
     CustomerTableComponent,
     TransactionsTableComponent,
-    InvoiceInfoComponent
+    InvoiceInfoComponent,
+    GoBackBtnComponent
   ],
   imports: [
     CommonModule,
