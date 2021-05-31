@@ -1,8 +1,8 @@
-<div class="card mt-5" [@openClose] [ngClass]="isLoading ? 'loading': ''">
+<div class="card" [@openClose] [ngClass]="isLoading ? 'loading': ''">
     <div class="card-header">Registered User Sign In</div>
     <div class="card-body">
         <form [ngClass]="isLoading ? 'loading' : ''" [formGroup]="signInForm" (ngSubmit)="onSubmit()">
-            <mat-form-field appearance="outline" class="d-block w-100">
+            <mat-form-field class="d-block w-100">
                 <mat-label>Username</mat-label>
                 <input matInput type="text" name="username" formControlName="username" autocomplete="username" required>
                 <mat-error *ngIf="usernameField.invalid && (usernameField.dirty || usernameField.touched)">
@@ -18,7 +18,7 @@
                 </mat-error>
             </mat-form-field>
         
-            <mat-form-field appearance="outline" class="d-block w-100">
+            <mat-form-field class="d-block w-100">
                 <mat-label>
                     Password
                 </mat-label>
@@ -30,13 +30,10 @@
                     </span>
                 </mat-error>
             </mat-form-field>
-            <button type="submit" class="btn m-1" mat-raised-button color="primary" [disabled]="signInForm.invalid">
+            <button type="submit" class="btn w-100" mat-flat-button color="primary" [disabled]="signInForm.invalid">
                 Submit
             </button>
-        
-            <button type="reset" class="btn m-1" mat-raised-button color="warn">
-                Reset
-            </button>
+    
         </form>
         
         <a [routerLink]="['/user', 'register']" class="text-center d-block w-100 mt-3">Create An Account</a>

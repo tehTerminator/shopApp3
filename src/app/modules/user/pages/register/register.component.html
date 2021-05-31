@@ -1,4 +1,4 @@
-<div class="card mt-5" [ngClass]="isLoading ? 'loading' : ''">
+<div class="card" [ngClass]="isLoading ? 'loading' : ''">
   <div class="card-header">Register New User</div>
   <div class="card-body">
     <form [formGroup]="userRegistrationForm" (ngSubmit)="onSubmit()">
@@ -99,15 +99,12 @@
 
       <button
         type="submit"
-        class="btn m-1"
+        class="btn w-100 p-1"
         mat-raised-button
         color="primary"
         [disabled]="userRegistrationForm.invalid"
       >
         Register
-      </button>
-      <button type="reset" class="btn m-1" mat-raised-button color="warn">
-        Reset Form
       </button>
     </form>
   </div>
