@@ -1,0 +1,30 @@
+<div class="card mt-3">
+    <div class="card-body">
+      <table class="table table-sm" *ngIf="dataLength > 0; else noItem">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Customer</th>
+            <th>Amount</th>
+            <th>Counter</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let invoice of invoices | async"
+            (click)="selectInvoice(invoice.id)"
+            style="cursor: pointer;"
+          >
+            <td>{{ invoice.id }}</td>
+            <td>{{ invoice.customer.title }}</td>
+            <td>{{ invoice.amount | currency:'INR' }}</td>
+            <td>{{ invoice.paymentMethod | slice:0:3 }} .. </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <ng-template #noItem>
+    <div class="text-center fs-3">No Invoices For Selected Date</div>
+  </ng-template>
