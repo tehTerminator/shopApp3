@@ -33,7 +33,7 @@ export class SideMenuComponent implements OnInit {
             {
                 chartType: 'bar',
                 url: 'monthlyStats',
-                title: 'Montly Invoice Amount',
+                title: 'Monthly Invoice Amount',
                 queryParams: {
                     xaxislabel: 'Date Invoices were Created',
                     yaxislabel: 'Total Amount of Invoices'
