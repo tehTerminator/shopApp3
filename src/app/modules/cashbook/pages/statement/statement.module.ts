@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CoreModule } from '../../../core/core.module';
 import { StatementFormComponent } from './components/statement-form/statement-form.component';
 import { StatementTableComponent } from './components/statement-table/statement-table.component';
-import { StatementComponent } from './components/statement.component';
+import { StatementComponent } from './statement.component';
 import { StatementService } from './statement.service';
 
 const routes: Routes = [{ path: '', component: StatementComponent }];

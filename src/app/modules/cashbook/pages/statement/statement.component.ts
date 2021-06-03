@@ -4,10 +4,7 @@ import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-statement',
-  template: `
-    <app-statement-form></app-statement-form>
-    <app-statement-table><app-statement-table>
-  `,
+  templateUrl: './statement.component.html',
   styles: ['']
 })
 export class StatementComponent {

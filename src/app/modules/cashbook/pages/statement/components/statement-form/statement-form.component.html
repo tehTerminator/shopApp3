@@ -1,33 +1,26 @@
 <form class="card card-body" [formGroup]="myForm" (ngSubmit)="onSubmit()">
-  <div class="row">
-    <div class="col-12">
-      <div class="fs-3 mb-3">View Cashbook</div>
-    </div>
-    <div class="col-md-3">
-      <mat-form-field class="d-block w-100" appearance="outline">
-        <mat-label>Date</mat-label>
-        <input matInput type="date" [formControl]="date" />
-      </mat-form-field>
-    </div>
-    <div class="col-md-6">
-      <mat-form-field class="d-block w-100" appearance="outline">
-        <mat-label>Ledger</mat-label>
-        <mat-select [formControl]="ledger">
-          <mat-option *ngFor="let l of ledgers | async" [value]="l">
-            {{ l.title }} - {{ l.kind }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div class="col-md-3">
-      <button
-        type="submit"
-        class="btn d-block w-100"
-        mat-raised-button
-        color="primary"
-      >
-        Get Data
-      </button>
-    </div>
-  </div>
+  <h4 class="fs-4 mb-3 card-title">View Cashbook</h4>
+
+  <mat-form-field class="d-block w-100" appearance="outline">
+    <mat-label>Date</mat-label>
+    <input matInput type="date" [formControl]="date" />
+  </mat-form-field>
+
+  <mat-form-field class="d-block w-100" appearance="outline">
+    <mat-label>Ledger</mat-label>
+    <mat-select [formControl]="ledger">
+      <mat-option *ngFor="let l of ledgers | async" [value]="l">
+        {{ l.title }} - {{ l.kind }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button
+    type="submit"
+    class="btn d-block w-100"
+    mat-raised-button
+    color="primary"
+  >
+    Get Data
+  </button>
 </form>
