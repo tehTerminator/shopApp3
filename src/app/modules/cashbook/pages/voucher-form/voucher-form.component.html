@@ -1,54 +1,76 @@
 <div class="row justify-content-center">
-    <div class="col-md-6">
-        <form [@initialize] class="card" [formGroup]="voucherForm" (ngSubmit)="onSubmit()" [ngClass]="isLoading ? 'loading' : ''">
-            <h1 class="card-header">
-                Create / Update Voucher
-            </h1>
-            <div class="card-body">
-                <mat-form-field appearance="outline" class="d-block">
-                    <mat-label>#</mat-label>
-                    <input type="number" matInput="" formControlName="id" (blur)="onIdFieldChange()">
-                </mat-form-field>
-                <mat-form-field appearance="outline" class="d-block">
-                    <mat-label>Giver</mat-label>
-                    <mat-select formControlName="cr">
-                    <mat-option *ngFor="let l of creditors | async" [value]="l.id">{{ l.title }} - {{ l.kind }}</mat-option>
-                    </mat-select>
-                    <mat-hint>Account From Which Money is Deducted</mat-hint>
-                    <mat-error *ngIf="cr.hasError('required')">
-                        Please Enter Creditor Account
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field appearance="outline" class="d-block">
-                    <mat-label>Receiver</mat-label>
-                    <mat-select formControlName="dr">
-                        <mat-option *ngFor="let l of debtors | async" [value]="l.id">{{ l.title }} - {{ l.kind }}</mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="dr.hasError('required')">
-                        Please Enter Debtor Account
-                    </mat-error>
-                    <mat-hint>Account Which is Receiving the Amount</mat-hint>
-                </mat-form-field>
-                <mat-form-field appearance="outline" class="d-block">
-                    <mat-label>Narration</mat-label>
-                    <textarea matInput formControlName="narration" rows="5"></textarea>
-                </mat-form-field>
-                <mat-form-field appearance="outline" class="d-block">
-                    <mat-label>Amount</mat-label>
-                    <input type="number" matInput formControlName="amount" min="0">
-                    <mat-error *ngIf="amount.invalid && (amount.dirty || amount.touched)">
-                        <span *ngIf="amount.hasError('required')">
-                            Amount is Required for Voucher Entry
-                        </span>
-                        <span *ngIf="amount.hasError('min')">
-                            Amount Must Be A Greater than 0
-                        </span>
-                    </mat-error>
-                </mat-form-field>
-                <button type="submit" class="btn m-1" mat-raised-button color="primary" [disabled]="voucherForm.invalid">Submit</button>
-                <button type="reset" class="btn m-1" mat-raised-button color="warn">Reset Form</button>
-            </div>
-
-        </form>
-    </div>
+  <div class="col-md-6">
+    <form
+      [@initialize]
+      class="card"
+      [formGroup]="voucherForm"
+      (ngSubmit)="onSubmit()"
+      [ngClass]="isLoading ? 'loading' : ''"
+    >
+      <h1 class="card-header">Create / Update Voucher</h1>
+      <div class="card-body">
+        <mat-form-field appearance="outline" class="d-block">
+          <mat-label>#</mat-label>
+          <input
+            type="number"
+            matInput=""
+            formControlName="id"
+            (blur)="onIdFieldChange()"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="d-block">
+          <mat-label>Giver</mat-label>
+          <mat-select formControlName="cr">
+            <mat-option *ngFor="let l of creditors | async" [value]="l.id"
+              >{{ l.title }} - {{ l.kind }}</mat-option
+            >
+          </mat-select>
+          <mat-hint>Account From Which Money is Deducted</mat-hint>
+          <mat-error *ngIf="cr.hasError('required')">
+            Please Enter Creditor Account
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="d-block">
+          <mat-label>Receiver</mat-label>
+          <mat-select formControlName="dr">
+            <mat-option *ngFor="let l of debtors | async" [value]="l.id"
+              >{{ l.title }} - {{ l.kind }}</mat-option
+            >
+          </mat-select>
+          <mat-error *ngIf="dr.hasError('required')">
+            Please Enter Debtor Account
+          </mat-error>
+          <mat-hint>Account Which is Receiving the Amount</mat-hint>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="d-block">
+          <mat-label>Narration</mat-label>
+          <textarea matInput formControlName="narration" rows="5"></textarea>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="d-block">
+          <mat-label>Amount</mat-label>
+          <input type="number" matInput formControlName="amount" min="0" />
+          <mat-error *ngIf="amount.invalid && (amount.dirty || amount.touched)">
+            <span *ngIf="amount.hasError('required')">
+              Amount is Required for Voucher Entry
+            </span>
+            <span *ngIf="amount.hasError('min')">
+              Amount Must Be A Greater than 0
+            </span>
+          </mat-error>
+        </mat-form-field>
+        <button
+          type="submit"
+          class="btn m-1"
+          mat-raised-button
+          color="primary"
+          [disabled]="voucherForm.invalid"
+        >
+          Submit
+        </button>
+        <button type="reset" class="btn m-1" mat-raised-button color="warn">
+          Reset Form
+        </button>
+      </div>
+    </form>
+  </div>
 </div>
