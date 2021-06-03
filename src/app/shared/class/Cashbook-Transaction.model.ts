@@ -1,4 +1,4 @@
-import { Ledger, Voucher } from "../collection";
+import { Ledger, Voucher } from '../collection';
 
 export class Cashbook {
     private pLedger: Ledger;
@@ -11,10 +11,13 @@ export class Cashbook {
     }
 
     private generateRow(voucher: Voucher): void {
+        let transfer = voucher.creditor.title;
+        if (voucher.cr === this.pLedger.id) {
+            transfer = voucher.debtor.title;
+        }
         const row: CashbookRow = {
             id: voucher.id,
-            cr: voucher.creditor.title,
-            dr: voucher.debtor.title,
+            transfer,
             narration: voucher.narration,
             amount: 0,
             balance: 0
@@ -38,8 +41,7 @@ export class Cashbook {
     private generateInitialRow(): void {
         const row: CashbookRow = {
             id: 0,
-            cr: 'Previous Day',
-            dr: this.pLedger.title,
+            transfer: 'Previous Day',
             narration: 'Opening Balance',
             amount: 0,
             balance: 0
@@ -70,8 +72,7 @@ export class Cashbook {
 
 export interface CashbookRow {
     id: number;
-    cr: string;
-    dr: string;
+    transfer: string;
     narration: string;
     amount: number;
     balance: number;
