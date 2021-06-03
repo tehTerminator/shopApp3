@@ -1,7 +1,7 @@
 <div class="card mt-3">
     <div class="card-body">
       <table class="table table-sm" *ngIf="dataLength > 0; else noItem">
-        <thead>
+        <thead class="text-center">
           <tr>
             <th>#</th>
             <th>Customer</th>
@@ -11,13 +11,13 @@
         </thead>
         <tbody>
           <tr
-            *ngFor="let invoice of invoices | async"
+            *ngFor="let invoice of invoices | async;let i = index"
             (click)="selectInvoice(invoice.id)"
             style="cursor: pointer;"
           >
-            <td>{{ invoice.id }}</td>
-            <td>{{ invoice.customer.title }}</td>
-            <td>{{ invoice.amount | currency:'INR' }}</td>
+            <td>{{ i + 1 }}</td>
+            <td>{{ invoice.customer.title | slice:0:10 }}</td>
+            <td class="text-end pe-3">{{ invoice.amount | currency:'INR' }}</td>
             <td>{{ invoice.paymentMethod | slice:0:3 }} .. </td>
           </tr>
         </tbody>
