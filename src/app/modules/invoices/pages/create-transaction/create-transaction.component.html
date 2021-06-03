@@ -45,13 +45,6 @@
             matInput
             formControlName="discount"
           />
-          <mat-error
-            *ngIf="discount.invalid && (discount.touched || discount.dirty)"
-          >
-            <span *ngIf="discount.hasError('toohigh')">
-              Discount is Very High.
-              </span>
-          </mat-error>
         </mat-form-field>
       </div>
     </div>
@@ -65,7 +58,7 @@
           [disabled]="transactionForm.invalid"
           (click)="onSubmit()"
         >
-          Select Payment
+          Next
         </button>
       </div>
 
@@ -88,11 +81,11 @@
 <table class="table bg-light mt-3 text-center">
   <thead>
     <tr>
-      <th>
+      <th *ngIf="netPrice < 5000">
         <span class="d-block">Gross Amount</span>
         <span class="d-block text-center">A</span>
       </th>
-      <th>
+      <th *ngIf="netPrice < 5000">
         <span class="d-block">Total Discount</span>
         <span class="d-block text-center">B</span>
       </th>
@@ -103,8 +96,8 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>
+    <tr class="text-center">
+      <td *ngIf="netPrice < 5000">
         <span class="d-block">
           {{ grossPrice | currency: 'INR' }}
         </span>
@@ -112,11 +105,11 @@
           {{ this.quantity.value }}@{{ this.rate.value }}
         </span>
       </td>
-      <td>
+      <td *ngIf="netPrice < 5000">
         <span class="d-block">{{ discount.value | currency: 'INR'}}</span>
         <span class="d-block">{{ discountPercent | number:'1.2-2' }} %</span>
       </td>
-      <td>
+      <td class="fw-bold fs-1 align-middle">
         {{ netPrice | currency: 'INR' }}
       </td>
     </tr>
