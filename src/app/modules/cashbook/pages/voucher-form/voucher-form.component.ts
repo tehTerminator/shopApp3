@@ -23,11 +23,9 @@ import { map } from 'rxjs/operators';
     trigger('initialize', [
       state('in', style({
         opacity: 1,
-        left: 0,
       })),
       state('void', style({
         opacity: 0,
-        left: -1000,
       })),
       transition('void => *', animate(500))
     ])
