@@ -1,6 +1,6 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { InvoiceStoreService } from '../../services/invoice-store.service';
+import { InvoiceStoreService } from './../../services/invoice-store.service';
 import { Customer } from './../../../../shared/collection';
 
 @Component({

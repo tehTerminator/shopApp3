@@ -10,14 +10,10 @@ import { ListCustomerComponent } from './components/list-customer/list-customer.
 import { ListItemsComponent } from './pages/list-items/list-items.component';
 import { CreateTransactionComponent } from './pages/create-transaction/create-transaction.component';
 import { ChoosePaymentMethodComponent } from './pages/choose-payment-method/choose-payment-method.component';
-import { PreviewInvoiceComponent } from './components/preview-invoice/preview-invoice.component';
 import { FormsModule } from '@angular/forms';
 import { WaitPageComponent } from './pages/wait-page/wait-page.component';
-import { SearchInvoiceComponent } from './pages/search-invoice/search-invoice.component';
-import { CustomerTableComponent } from './components/customer-table/customer-table.component';
-import { TransactionsTableComponent } from './components/transactions-table/transactions-table.component';
-import { InvoiceInfoComponent } from './components/invoice-info/invoice-info.component';
 import { GoBackBtnComponent } from './components/go-back-btn/go-back-btn.component';
+import { SharedComponentModule } from './shared-components/shared-components.module';
 
 
 @NgModule({
@@ -29,18 +25,14 @@ import { GoBackBtnComponent } from './components/go-back-btn/go-back-btn.compone
     ListItemsComponent,
     CreateTransactionComponent,
     ChoosePaymentMethodComponent,
-    PreviewInvoiceComponent,
     WaitPageComponent,
-    SearchInvoiceComponent,
-    CustomerTableComponent,
-    TransactionsTableComponent,
-    InvoiceInfoComponent,
     GoBackBtnComponent
   ],
   imports: [
     CommonModule,
     InvoicesRoutingModule,
     CoreModule,
+    SharedComponentModule,
     FormsModule
   ],
   providers: []

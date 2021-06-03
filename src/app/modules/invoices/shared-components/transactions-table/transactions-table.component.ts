@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { InvoiceStoreService } from '../../services/invoice-store.service';
-import { Transaction } from './../../../../shared/collection';
+import { Transaction } from '../../../../shared/collection';
 
 @Component({
     selector: 'app-transactions-table',

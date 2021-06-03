@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { InvoiceStoreService } from './../../services/invoice-store.service';
+import { InvoiceStoreService } from '../../services/invoice-store.service';
 
 @Component({
   selector: 'app-preview-invoice',
