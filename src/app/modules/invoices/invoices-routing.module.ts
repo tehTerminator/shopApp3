@@ -15,10 +15,14 @@ const routes: Routes = [
       { path: 'list-items', component: ListItemsComponent },
       { path: 'transactions', component: CreateTransactionComponent },
       { path: 'paymentMethod', component: ChoosePaymentMethodComponent },
-      { path: '**', redirectTo: 'select-customer', pathMatch: 'full'}
+      { path: '**', redirectTo: 'select-customer', pathMatch: 'full' }
     ],
   },
-  { path: 'search', component: SearchInvoiceComponent },
+  {
+    path: 'search',
+    loadChildren: () => import('./pages/search-invoice/search-invoice.module')
+      .then(m => m.SearchInvoiceModule)
+  },
   { path: 'wait', component: WaitPageComponent },
 ];
 

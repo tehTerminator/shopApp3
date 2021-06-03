@@ -11,42 +11,10 @@ import { ApiService } from './../../../../shared/services/api/api.service';
   styleUrls: ['./search-invoice.component.css']
 })
 export class SearchInvoiceComponent implements OnInit {
-  searchForm: FormGroup = new FormGroup({});
-  invoices: Invoice[] = [];
-
   constructor(
-    private titleService: Title,
-    private store: InvoiceStoreService,
-    private formBuilder: FormBuilder, 
-    private api: ApiService) { }
+    private titleService: Title) { }
 
   ngOnInit(): void {
-    this.searchForm = this.formBuilder.group({
-      createdAt: [0, Validators.required]
-    });
     this.titleService.setTitle('Search Invoices | ShopApp');
   }
-
-  onSubmit(): void {
-    this.api.select<Invoice[]>('invoices', {createdAt: this.date})
-    .subscribe(
-      (data) => this.invoices = data
-    );
-  }
-
-  selectInvoice(invoice: Invoice): void {
-    this.api.select<Invoice>('invoices', {id: invoice.id.toString()})
-    .subscribe(
-      (data) => this.store.invoice.next(data)
-    );
-  }
-
-  get createdAtField(): FormControl {
-    return this.searchForm.get('createdAt') as FormControl;
-  }
-
-  get date(): string {
-    return this.createdAtField.value;
-  }
-
 }
