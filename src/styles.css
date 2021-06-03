@@ -71,10 +71,3 @@ mat-form-field {
 .list-group-item {
   cursor: pointer;
 }
-
-
-button.btn:active {
-  -webkit-box-shadow: inset 1px 1px 10px #333;
-  -moz-box-shadow:    inset 1px 1px 10px #333;
-  box-shadow:         inset 1px 1px 10px #333;
-}

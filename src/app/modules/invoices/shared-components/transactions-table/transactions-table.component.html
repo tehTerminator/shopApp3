@@ -23,24 +23,24 @@
                     </td>
                     <td>{{ t.description }}</td>
                     <td class="text-center">{{ t.quantity }}</td>
-                    <td class="text-center">{{ t.rate | currency:'INR' }}</td>
+                    <td class="text-end pe-3">{{ t.rate | currency:'INR' }}</td>
                     <td class="text-center text-danger">{{ t.discount | number:'1.2-2' }} %</td>
-                    <td class="text-center text-primary">{{ rowAmount(t) | currency:'INR'}}</td>
+                    <td class="text-end pe-3 text-primary">{{ rowAmount(t) | currency:'INR'}}</td>
                     
                 </tr>
             </tbody>
             <tfoot>
-                <tr>
+                <tr class="table-info">
                     <td [attr.colspan]="colspan" class="text-end">Gross Amount</td>
-                    <td class="text-center">{{ grossAmount | currency:'INR' }}</td>
+                    <td class="text-end pe-3">{{ grossAmount | currency:'INR' }}</td>
                 </tr>
-                <tr>
+                <tr class="table-danger">
                     <td [attr.colspan]="colspan" class="text-end">Total Discount</td>
-                    <td class="text-center text-danger">{{ totalDiscount | currency:'INR' }}</td>
+                    <td class="text-end pe-3">{{ totalDiscount | currency:'INR' }}</td>
                 </tr>
-                <tr class="bg-success text-light">
+                <tr class="table-success">
                     <td [attr.colspan]="colspan" class="text-end">Net Amount</td>
-                    <td class="text-center fw-bold">{{ netTotal | currency:'INR' }}</td>
+                    <td class="text-end pe-3 fw-bold">{{ netTotal | currency:'INR' }}</td>
                 </tr>
             </tfoot>
         </table>

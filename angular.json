@@ -28,7 +28,9 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/.htaccess"
+              "src/.htaccess",
+              "src/assets/Arizonia-Regular.ttf",
+              "src/assets/Bungee-Regular.ttf"
             ],
             "styles": [
               "src/styles.css",
