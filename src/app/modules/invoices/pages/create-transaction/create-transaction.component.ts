@@ -38,7 +38,7 @@ export class CreateTransactionComponent implements OnInit {
     this.transactionForm = this.fb.group({
       quantity: [1, [Validators.min(1), Validators.required]],
       rate: [0, [Validators.required, Validators.min(1)]],
-      discount: [0, [Validators.min(0)], this.validateDiscount.bind(this)]
+      discount: [0, [Validators.min(0)]]
     });
 
     if (!this.ledgerService.isInstanceOfLedger(this.store.selectedItem)) {
@@ -56,6 +56,11 @@ export class CreateTransactionComponent implements OnInit {
       return;
     }
 
+    if (this.discountPercent >= 90 ) {
+      this.notification.showError('Error', 'Discount Too High');
+      return;
+    }
+
     this.store.createTransaction(this.quantity.value, this.rate.value, this.discountPercent);
 
     if (addMore) {
@@ -63,20 +68,6 @@ export class CreateTransactionComponent implements OnInit {
     } else {
       this.router.navigate(['/invoices', 'create', 'paymentMethod']);
     }
-  }
-
-  validateDiscount(control: AbstractControl): Promise<ValidationErrors|null> {
-    const promise = new Promise<ValidationErrors|null>((resolve) => {
-      const val = control.value as number;
-      const totalAmount = this.grossPrice;
-      if (val >= totalAmount) {
-        const error: ValidationErrors = {toohigh: true};
-        resolve(error);
-      }
-      resolve(null);
-    });
-
-    return promise;
   }
 
   get productName(): string {
