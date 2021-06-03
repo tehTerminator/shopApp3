@@ -95,6 +95,8 @@ export class VoucherFormComponent implements OnInit {
       return;
     }
 
+    this.isLoading = true;
+
     const payload = this.voucherForm.value;
     let response = EMPTY;
 
@@ -115,9 +117,11 @@ export class VoucherFormComponent implements OnInit {
       () => {
         this.ns.showSuccess(word, successMessage);
         this.voucherForm.reset();
+        this.isLoading = false;
       },
       error => {
         this.ns.showError('Error', error);
+        this.isLoading = false;
       }
     );
   }
