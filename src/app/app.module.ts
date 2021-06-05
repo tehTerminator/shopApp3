@@ -13,6 +13,8 @@ import { CalculatorComponent } from './shared/components/calculator/calculator.c
 import { MatDialogModule } from '@angular/material/dialog';
 import { AuthInterceptor } from './shared/interceptor/auth.interceptor';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { EvaluatorComponent } from './shared/components/calculator/evaluator/evaluator.component';
+import { CurrencyTableComponent } from './shared/components/calculator/currency-table/currency-table.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     NavComponent,
     NotificationComponent,
     CalculatorComponent,
+    EvaluatorComponent,
+    CurrencyTableComponent
   ],
   imports: [
     BrowserModule,
