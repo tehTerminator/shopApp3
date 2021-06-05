@@ -3,25 +3,7 @@
   <div class="row">
     <div class="col">
       <form [formGroup]="calcForm" (ngSubmit)="addCurrency()">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Equation</mat-label>
-          <input
-            matInput
-            type="text"
-            formControlName="command"
-            class="text-center"
-            placeholder="Enter Math Equation Here"
-          />
-          <mat-error
-            *ngIf="command.invalid && (command.dirty || command.touched)"
-          >
-            Invalid Calculator Command.
-          </mat-error>
-          <mat-hint>
-            {{ previousCalculatorCommand }}
-          </mat-hint>
-        </mat-form-field>
-
+        <app-evaluator></app-evaluator>
         <div class="row gt-1">
           <mat-form-field class="col-6" appearance="fill">
             <mat-label>Denomination</mat-label>
@@ -43,7 +25,7 @@
               matInput
               formControlName="count"
               class="text-center"
-              type="text"
+              type="number"
               min="1"
               step="1"
             />
@@ -55,54 +37,13 @@
           mat-raised-button
           color="primary"
           class="btn w-100 mb-3"
-          (click)="addCurrency()"
         >
           Add Currency
         </button>
       </form>
     </div>
   </div>
-  <div class="row" [hidden]="currencyTotal === 0">
-    <div class="col">
-      <table
-        class="table table-sm table-striped table-bordered"
-      >
-        <thead>
-          <tr class="text-center">
-            <th>Value</th>
-            <th>Count</th>
-            <th>Amount</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let currency of CurrencyArray">
-            <td class="text-center">
-              {{ currency.denomination | currency: "INR" }}
-            </td>
-            <td class="text-center">x {{ currency.count }}</td>
-            <td class="text-center pr-5">
-              {{ currency.amount | currency: "INR" }}
-            </td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <th colspan="2" class="text-end">Total</th>
-            <th class="text-center pr-5">
-              {{ currencyTotal | currency: "INR" }}
-            </th>
-          </tr>
-        </tfoot>
-      </table>
-      <button
-        mat-raised-button
-        color="warn"
-        type="button"
-        class="btn m-1"
-        (click)="resetCurrency()"
-      >
-        Reset
-      </button>
-    </div>
-  </div>
+  
+  <app-currency-table [currencyArray]="currencyArray"></app-currency-table>
+
 </div>
