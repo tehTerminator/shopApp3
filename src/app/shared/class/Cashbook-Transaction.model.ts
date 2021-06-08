@@ -4,7 +4,7 @@ export class Cashbook {
     private pLedger: Ledger;
     private pRows: CashbookRow[] = [];
 
-    constructor(ledger: Ledger, vouchers: Voucher[]) {
+    constructor(ledger: Ledger, vouchers: Voucher[], private openingBalance = 0) {
         this.pLedger = ledger;
         this.pRows = [];
         vouchers.forEach(item => this.generateRow(item));
@@ -19,7 +19,8 @@ export class Cashbook {
             id: voucher.id,
             transfer,
             narration: voucher.narration,
-            amount: 0,
+            cr: 0,
+            dr: 0,
             balance: 0
         };
 
@@ -30,10 +31,10 @@ export class Cashbook {
         prevBalance = this.pRows[this.pRows.length - 1].balance;
         if (this.pLedger.id === voucher.creditor.id) {
             row.balance = prevBalance - voucher.amount;
-            row.amount = (-voucher.amount);
+            row.cr = voucher.amount;
         } else {
             row.balance = prevBalance + voucher.amount;
-            row.amount = voucher.amount;
+            row.dr = voucher.amount;
         }
         this.pRows.push(row);
     }
@@ -43,20 +44,15 @@ export class Cashbook {
             id: 0,
             transfer: 'Previous Day',
             narration: 'Opening Balance',
-            amount: 0,
+            cr: 0,
+            dr: 0,
             balance: 0
         };
         row.balance = this.openingBalance;
-        row.amount = this.openingBalance;
+        row.dr = this.openingBalance;
         this.pRows.push(row);
     }
 
-    get openingBalance(): number {
-        if (this.pLedger.balance.length === 1) {
-            return this.pLedger.balance[0].opening;
-        }
-        return 0;
-    }
 
     get closingBalance(): number {
         if (this.pLedger.balance.length === 1) {
@@ -74,6 +70,7 @@ export interface CashbookRow {
     id: number;
     transfer: string;
     narration: string;
-    amount: number;
+    cr: number;
+    dr: number;
     balance: number;
 }

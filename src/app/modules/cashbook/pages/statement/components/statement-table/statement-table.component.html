@@ -1,21 +1,23 @@
 <div class="card" *ngIf="rowCount > 0;else noDataMessage">
-    <div class="card-body">
+    <div class="card-body" style="overflow-y: scroll; max-height: 80vh;">
         <table class="table table-hover table-sm">
             <thead class="text-center bg-dark text-light">
                 <tr>
                     <th>#</th>
                     <th>Transfer</th>
                     <th>Description</th>
-                    <th>Amount</th>
+                    <th>Debit</th>
+                    <th>Credit</th>
                     <th>Balance</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let v of rows | async"  [ngClass]="v.amount > 0 ? 'table-success' : 'table-danger'">
+                <tr *ngFor="let v of rows | async" >
                     <td>{{ v.id }}</td>
                     <td>{{ v.transfer }}</td>
                     <td>{{ v.narration }}</td>
-                    <td class="text-end pe-3">{{ v.amount | currency:'INR' }}</td>
+                    <td class="text-end pe-3" [ngClass]="v.dr > 0 ? 'table-success' : ''">{{ v.dr | currency:'INR' }}</td>
+                    <td class="text-end pe-3" [ngClass]="v.cr > 0 ? 'table-danger' : ''">{{ v.cr | currency:'INR' }}</td>
                     <td class="text-end pe-3">{{ v.balance | currency:'INR' }}</td>
                 </tr>
             </tbody>

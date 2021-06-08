@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Cashbook } from '../../../../shared/class/Cashbook-Transaction.model';
 import { Ledger, Voucher } from '../../../../shared/collection';
 import { ApiService } from '../../../../shared/services/api/api.service';
@@ -12,10 +12,10 @@ export class StatementService {
 
     fetchData(ledger: Ledger, date: string): void {
         this.api
-        .select<Voucher[]>('vouchers', {ledger: ledger.id.toString() , date})
+        .select<{openingBalance: number, vouchers: Voucher[]}>('vouchers', {ledger: ledger.id.toString() , date})
         .subscribe(
-            vouchers => {
-                const newCashbook = new Cashbook(ledger, vouchers);
+            data => {
+                const newCashbook = new Cashbook(ledger, data.vouchers, data.openingBalance);
                 this.cashbook.next(newCashbook);
             },
             error => {
