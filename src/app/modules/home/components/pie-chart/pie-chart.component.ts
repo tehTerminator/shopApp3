@@ -5,6 +5,7 @@ import { retry, takeUntil } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { FormControl } from '@angular/forms';
+import { getCurrentDateString } from './../../../../shared/functions';
 
 @Component({
     selector: 'app-pie-chart',
@@ -12,7 +13,7 @@ import { FormControl } from '@angular/forms';
     styles: ['']
 })
 export class PieChartComponent implements OnInit, OnDestroy {
-    dateField = new FormControl(this.getCurrentDate());
+    dateField = new FormControl(getCurrentDateString());
     dataUrl: string | null = 'userWiseInvoice';
     header = 'Default Header';
     dataSet: ChartData[] = [];
@@ -61,14 +62,6 @@ export class PieChartComponent implements OnInit, OnDestroy {
 
     get empty(): boolean {
         return this.dataSet.length === 0;
-    }
-
-    private getCurrentDate(): string {
-        const currentDate = (new Date());
-        const year = currentDate.getFullYear();
-        const month = currentDate.getMonth() + 1;
-        const date = currentDate.getDate();
-        return [year, month, date].join('-');
     }
 
     constructor(
