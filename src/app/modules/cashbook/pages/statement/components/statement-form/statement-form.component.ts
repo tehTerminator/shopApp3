@@ -5,6 +5,7 @@ import { Ledger } from '../../../../../../shared/collection';
 import { LedgerService } from '../../../../../../shared/services/ledger/ledger.service';
 import { NotificationService } from '../../../../../../shared/services/notification/notification.service';
 import { StatementService } from './../../statement.service';
+import { getCurrentDateString } from '../../../../../../shared/functions';
 
 @Component({
     selector: 'app-statement-form',
@@ -27,6 +28,8 @@ export class StatementFormComponent implements OnInit {
       this.myForm.addControl('date', this.date);
       this.myForm.addControl('ledger', this.ledger);
       this.ledgerService.init();
+
+      this.date.setValue(getCurrentDateString());
     }
 
     onSubmit(): void {
