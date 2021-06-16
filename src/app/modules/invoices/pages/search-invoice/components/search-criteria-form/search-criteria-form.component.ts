@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { retry } from 'rxjs/operators';
+import { getCurrentDateString } from '../../../../../../shared/functions';
 import { ApiService } from '../../../../../../shared/services/api/api.service';
 import { SearchInvoiceStoreService } from '../../search-invoice-store.service';
 
@@ -15,7 +16,7 @@ export class SearchCriteriaFormComponent implements OnInit {
 
     ngOnInit(): void {
         this.searchForm = this.formBuilder.group({
-            createdAt: [0, [Validators.required]],
+            createdAt: [getCurrentDateString(), [Validators.required]],
             userId: [0, [Validators.required, Validators.min(1)]]
         });
         this.api.select<UserData[]>('users')
