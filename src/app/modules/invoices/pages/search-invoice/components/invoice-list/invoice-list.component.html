@@ -1,9 +1,10 @@
 <div class="card mt-3">
     <div class="card-body" style="max-height: 50vh; overflow-x: scroll;">
-      <table class="table table-sm" *ngIf="dataLength > 0; else noItem">
+      <table class="table table-sm table-hover" *ngIf="dataLength > 0; else noItem">
         <thead class="text-center">
           <tr>
             <th>#</th>
+            <th>Time</th>
             <th>Customer</th>
             <th>Amount</th>
             <th>Counter</th>
@@ -13,10 +14,10 @@
           <tr
             *ngFor="let invoice of invoices | async"
             (click)="selectInvoice(invoice.id)"
-            style="cursor: pointer;"
           >
             <td>{{ invoice.id }}</td>
-            <td>{{ invoice.customer.title | slice:0:10 }}</td>
+            <td>{{ invoice.created_at | date:'hh:mm a' }}</td>
+            <td class="text-center">{{ invoice.customer.title | slice:0:10 }}</td>
             <td class="text-end pe-3">{{ invoice.amount | currency:'INR' }}</td>
             <td>{{ invoice.paymentMethod | slice:0:3 }} .. </td>
           </tr>

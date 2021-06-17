@@ -6,7 +6,7 @@ import { SearchInvoiceStoreService } from '../../search-invoice-store.service';
 @Component({
     selector: 'app-invoice-list',
     templateUrl: './invoice-list.component.html',
-    styles: ['']
+    styleUrls: ['./invoice-list.component.css']
 })
 export class InvoiceListComponent implements OnInit, OnDestroy {
     private sub: Subscription = new Subscription();
