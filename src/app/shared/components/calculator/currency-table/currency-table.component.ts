@@ -1,4 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { CurrencyStoreService } from '../currency-store.service';
 import { Currency } from '../currency.model';
 
 @Component({
@@ -6,32 +8,23 @@ import { Currency } from '../currency.model';
     templateUrl: './currency-table.component.html',
     styles: ['']
 })
-export class CurrencyTableComponent implements OnChanges {
-    @Input() currencyArray: Currency[] = [];
+export class CurrencyTableComponent {
 
-    deleteItem(index: number): void {
-        this.currencyArray.splice(index, 1);
-    }
-
-    resetCurrency(): void {
-        this.currencyArray = [];
-    }
+    deleteItem = (index: number) => this.store.delete(index);
+    resetCurrency = () => this.store.reset();
 
     get currencyTotal(): number {
+        const currencyArray = this.currencyArray.value;
         let total = 0;
-        this.currencyArray.forEach(item => {
+        currencyArray.forEach(item => {
             total += item.amount;
         });
         return total;
     }
 
-
-    ngOnChanges(changes: SimpleChanges): void {
-        const change = changes.currencyArray;
-        if (change.currentValue !== change.previousValue) {
-            this.currencyArray = change.currentValue as Currency[];
-        }
+    get currencyArray(): BehaviorSubject<Currency[]> {
+        return this.store.currencyArray;
     }
 
-    constructor() { }
+    constructor(private store: CurrencyStoreService) { }
 }

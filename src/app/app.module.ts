@@ -15,6 +15,7 @@ import { AuthInterceptor } from './shared/interceptor/auth.interceptor';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { EvaluatorComponent } from './shared/components/calculator/evaluator/evaluator.component';
 import { CurrencyTableComponent } from './shared/components/calculator/currency-table/currency-table.component';
+import { CurrencyFormComponent } from './shared/components/calculator/currency-form/currency-form.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { CurrencyTableComponent } from './shared/components/calculator/currency-
     NotificationComponent,
     CalculatorComponent,
     EvaluatorComponent,
-    CurrencyTableComponent
+    CurrencyTableComponent,
+    CurrencyFormComponent
   ],
   imports: [
     BrowserModule,

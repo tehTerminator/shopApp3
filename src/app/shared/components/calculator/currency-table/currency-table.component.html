@@ -9,7 +9,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let currency of currencyArray; let i = index" class="align-middle">
+        <tr *ngFor="let currency of currencyArray | async; let i = index" class="align-middle">
           <td class="d-flex justify-content-between">
             <span class="flex-grow-1 pt-2 text-center">
               {{ currency.denomination | currency: "INR" }}

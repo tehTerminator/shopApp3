@@ -1,9 +1,6 @@
-<h2 mat-dialog-title>Calculator</h2>
-<div mat-dialog-content>
-  <div class="row">
+<div class="row">
     <div class="col">
       <form [formGroup]="calcForm" (ngSubmit)="addCurrency()">
-        <app-evaluator></app-evaluator>
         <div class="row gt-1">
           <mat-form-field class="col-6" appearance="fill">
             <mat-label>Denomination</mat-label>
@@ -43,7 +40,3 @@
       </form>
     </div>
   </div>
-  
-  <app-currency-table [currencyArray]="currencyArray"></app-currency-table>
-
-</div>
