@@ -86,11 +86,11 @@ export class InvoiceStoreService {
     );
   }
 
-  createTransaction(quantity: number, rate: number, discount = 0): void {
+  createTransaction(quantity: number, rate: number, discount = 0, description?: string): void {
     let transaction = { ...this.baseTransaction };
 
     if (this.ledgerService.isInstanceOfLedger(this.selectedItem)) {
-      transaction = this.createTransactionFromLedger(quantity, rate);
+      transaction = this.createTransactionFromLedger(quantity, rate, description);
     } else if (this.posItemService.isInstanceOfPosItem(this.selectedItem)) {
       this.handlePosItem(this.selectedItem, quantity);
     } else {
@@ -99,8 +99,10 @@ export class InvoiceStoreService {
     this.appendTransaction(transaction);
   }
 
-  private createTransactionFromLedger(quantity: number, rate: number): Transaction {
-      const description = `${this.selectedItem.title} Payment`;
+  private createTransactionFromLedger(quantity: number, rate: number, description?: string): Transaction {
+      if (description === undefined || description === null) {
+        description = `${this.selectedItem.title} Payment`;
+      }
       const discount = 0; // No Discount for Payments
       // tslint:disable-next-line: variable-name
       const item_id = this.selectedItem.id;
@@ -118,7 +120,7 @@ export class InvoiceStoreService {
     return {...this.baseTransaction, quantity, rate, discount, description, item_id };
   }
 
-  private handlePosItem(posItem: PosItem, quantity: number): void {
+  private handlePosItem(posItem: PosItem, quantity: number, description?: string): void {
     for (const template of posItem.pos_templates) {
       try {
         let item: Product | Ledger | PosItem = {... posItem };
@@ -128,7 +130,7 @@ export class InvoiceStoreService {
           item = this.ledgerService.getElementById(template.item_id) as Ledger;
         }
         this.selectedItem = item;
-        this.createTransaction(template.quantity * quantity, template.rate);
+        this.createTransaction(template.quantity * quantity, template.rate, 0, description);
       } catch (e) {
         console.log('Error for Template', template);
         throw new Error('Unable to Create Transaction, Please Check Log');

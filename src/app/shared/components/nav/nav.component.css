@@ -5,3 +5,8 @@
 .dropdown-menu > li :hover {
     background-color: cornflowerblue;
 }
+
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
