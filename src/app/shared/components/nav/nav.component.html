@@ -1,62 +1,57 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <div class="navbar-brand">
-      Maharaja Shop App
-    </div>
-    <button class="navbar-toggler" type="button" (click)="isExpanded = !isExpanded">
+    <div class="navbar-brand">Maharaja Shop App</div>
+    <button
+      class="navbar-toggler"
+      type="button"
+      (click)="isExpanded = !isExpanded"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="navbar-collapse" [ngClass]="isExpanded ? '': 'collapse'">
-    <!-- <div class="navbar-collapse"> -->
+    <div class="navbar-collapse" [ngClass]="isExpanded ? '' : 'collapse'">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item" >
-          <a routerLink="/home" class="nav-link" routerLinkActive="active">
-            Home
-          </a>
-        </li>
-        <li class="nav-item dropdown" appDropdown>
-          <a class="nav-link dropdown-toggle" routerLinkActive="active">
-            Cashbook
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" [routerLink]="['/cashbook', 'voucher']">Voucher</a></li>
-            <li><a class="dropdown-item" [routerLink]="['/cashbook', 'statement']">Statement</a></li>
-            <li><a class="dropdown-item" [routerLink]="['/cashbook', 'balance']">Balance</a></li>
-          </ul>
-        </li>
-        <li class="nav-item dropdown" appDropdown>
-          <a class="nav-link dropdown-toggle" routerLinkActive="active">
-            Invoices
-          </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" [routerLink]="['/invoices', 'create', 'select-customer']">Create New</a></li>
-              <li><a class="dropdown-item" [routerLink]="['/invoices', 'search']">View</a></li>
-            </ul>
-        </li>
-        <li class="nav-item dropdown" appDropdown>
-          <a class="nav-link dropdown-toggle" routerLinkActive="active">
-            Admin
-          </a>
-            <ul class="dropdown-menu">
-              <li><a href="" class="dropdown-item" [routerLink]="['/admin', 'ledger']">Ledger</a></li>
-              <li><a href="" class="dropdown-item" [routerLink]="['/admin', 'products']">Products</a></li>
-              <li><a href="" class="dropdown-item" [routerLink]="['/admin', 'pos-item']">PosItems</a></li>
-            </ul>
-        </li>
+       <li 
+       *ngFor="let item of menuItems" 
+       class="nav-item" 
+       [ngClass]="item.children.length > 0 ? 'dropdown' : ''">
+        <a
+          class="nav-link"
+          [routerLink]="item.url" 
+          routerLinkActive="active"
+          [ngClass]="item.children.length > 0 ? 'dropdown-toggle' : ''"
+        >
+          {{ item.title }}
+        </a>
+        <ul *ngIf="item.children.length > 0" class="dropdown-menu">
+          <li *ngFor="let child of item.children">
+            <a class="dropdown-item" [routerLink]="child.url">
+              {{ child.title }}
+            </a>
+          </li>
+        </ul>
+       </li>
       </ul>
       <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-        <li class="nav-item"><a class="nav-link" (click)="showCalculator()">Calculator</a></li>
-        <li class="nav-item"><a class="nav-link" (click)="showNotification()">Notifications</a></li>
-        <li class="nav-item dropdown" appDropdown *ngIf="loggedIn; else signInMenu">
+        <li class="nav-item">
+          <a class="nav-link" (click)="showCalculator()">Calculator</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="showNotification()">Notifications</a>
+        </li>
+        <li
+          class="nav-item dropdown"
+          appDropdown
+          *ngIf="loggedIn; else signInMenu"
+        >
           <a class="nav-link dropdown-toggle">
             {{ displayName }}
           </a>
-            <ul class="dropdown-menu">
-              <li>
-                <div class="dropdown-item">Profile</div>
-              </li>
-              <li><a (click)="signOut()" class="dropdown-item">Logout</a></li>
-            </ul>
+          <ul class="dropdown-menu">
+            <li>
+              <div class="dropdown-item">Profile</div>
+            </li>
+            <li><a (click)="signOut()" class="dropdown-item">Logout</a></li>
+          </ul>
         </li>
         <ng-template #signInMenu>
           <li class="nav-item">
