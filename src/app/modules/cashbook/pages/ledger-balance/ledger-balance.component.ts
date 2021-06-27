@@ -7,6 +7,7 @@ import { Title } from '@angular/platform-browser';
     <div class="row">
         <div class="col-md-4">
             <app-ledger-balance-form></app-ledger-balance-form>
+            <app-auto-set-buttons></app-auto-set-buttons>
         </div>
         <div class="col-md-8">
             <app-ledger-balance-list></app-ledger-balance-list>
