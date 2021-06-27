@@ -5,6 +5,7 @@ import { LedgerBalanceListComponent } from './ledger-balance-list/ledger-balance
 import { CommonModule } from '@angular/common';
 import { CoreModule } from '../../../core/core.module';
 import { RouterModule, Routes } from '@angular/router';
+import { AutoSetButtons } from './auto-set-button/auto-set-button.component';
 
 const routes: Routes = [
     { path: '', component: LedgerBalanceComponent }
@@ -14,7 +15,8 @@ const routes: Routes = [
     declarations: [
         LedgerBalanceComponent,
         LedgerBalanceFormComponent,
-        LedgerBalanceListComponent
+        LedgerBalanceListComponent,
+        AutoSetButtons
     ],
     imports: [
         CommonModule,
