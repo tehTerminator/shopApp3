@@ -24,6 +24,7 @@ const routes: Routes = [
       .then(m => m.SearchInvoiceModule)
   },
   { path: 'wait', component: WaitPageComponent },
+  { path: '**', redirectTo: 'search', pathMatch: 'full' }
 ];
 
 @NgModule({
