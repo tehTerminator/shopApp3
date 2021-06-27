@@ -7,7 +7,7 @@ import { LedgerService } from './../../../../../shared/services/ledger/ledger.se
 @Component({
   selector: 'app-ledger-balance-list',
   template: `
-    <table class="table bg-light">
+    <table class="table bg-light text-center">
       <thead>
           <tr>
               <th>Ledger Name</th>
@@ -18,8 +18,8 @@ import { LedgerService } from './../../../../../shared/services/ledger/ledger.se
       <tbody>
           <tr *ngFor="let ledger of ledgers | async">
               <td>{{ ledger.title }}</td>
-              <td>{{ printOpening(ledger) }}</td>
-              <td>{{ printClosing(ledger) }}</td>
+              <td class="text-center">{{ printOpening(ledger) | currency:'INR' }}</td>
+              <td class="text-center">{{ printClosing(ledger) | currency: 'INR' }}</td>
           </tr>
       </tbody>
     </table>
