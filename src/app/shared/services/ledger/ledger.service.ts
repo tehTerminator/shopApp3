@@ -61,7 +61,7 @@ export class LedgerService extends BaseService {
     }
   }
 
-  updateBalance(id: number, opening: number, closing: number): Observable<any> {
+  updateBalance(id: number, opening?: number, closing?: number): Observable<any> {
     return this.api.create<Ledger>('balance', {id, opening, closing})
     .pipe(
       tap(ledger => {
