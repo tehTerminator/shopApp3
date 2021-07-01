@@ -5,16 +5,14 @@
           <mat-form-field class="col-6" appearance="fill">
             <mat-label>Denomination</mat-label>
             <input
+              #denoField
               matInput
               formControlName="denomination"
               class="text-center"
-              [matAutocomplete]="auto"
             />
-            <mat-autocomplete #auto="matAutocomplete">
-              <mat-option *ngFor="let i of denominations" [value]="i">
-                {{ i }}
-              </mat-option>
-            </mat-autocomplete>
+            <mat-error *ngIf="denomination.invalid">
+              Please Enter Correct Value
+            </mat-error>
           </mat-form-field>
           <mat-form-field class="col-6" appearance="fill">
             <mat-label> Count </mat-label>
@@ -26,6 +24,9 @@
               min="1"
               step="1"
             />
+            <mat-error *ngIf="count.hasError('min')">
+              Please Enter Count
+            </mat-error>
           </mat-form-field>
         </div>
 
@@ -34,6 +35,7 @@
           mat-raised-button
           color="primary"
           class="btn w-100 mb-3"
+          [disabled]="calcForm.invalid"
         >
           Add Currency
         </button>
