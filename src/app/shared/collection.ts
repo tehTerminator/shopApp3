@@ -6,7 +6,7 @@ export const STRING = '^[0-9a-zA-Z ]+$';
 export const ALPHA_NUM = '^[0-9a-zA-Z]+$';
 export const ALPHA = '^[a-zA-Z]+$';
 
-export interface TableRow{
+export interface TableRow {
     id: number;
     created_at: string;
     updated_at: string;
@@ -99,5 +99,18 @@ export interface Invoice extends TableRow {
 export interface ChartData {
     name: string;
     value: number;
+}
+
+export interface GeneralItem {
+    id: number;
+    title: string;
+    type: ItemType;
+    rate: number;
+}
+
+export enum ItemType {
+    PRODUCT,
+    LEDGER,
+    POSITEM
 }
 
