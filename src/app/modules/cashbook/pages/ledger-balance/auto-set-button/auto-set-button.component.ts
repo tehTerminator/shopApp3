@@ -31,11 +31,6 @@ export class AutoSetButtons implements OnInit {
     }
 
     setOpening(): void {
-
-        if (!confirm('Are You Sure?')) {
-            return;
-        }
-
         if (!this.initialized) {
             this.fetchUniqueId();
         }
