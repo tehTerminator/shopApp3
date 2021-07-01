@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -11,9 +11,9 @@ import { LedgerService } from './../../../../shared/services/ledger/ledger.servi
   templateUrl: './create-transaction.component.html',
   styleUrls: ['./create-transaction.component.css']
 })
-export class CreateTransactionComponent implements OnInit {
+export class CreateTransactionComponent implements OnInit, AfterViewInit {
   transactionForm: FormGroup = new FormGroup({});
-
+  @ViewChild('quantityField') quantityField: ElementRef<HTMLInputElement> | null = null;
   constructor(
     private router: Router,
     private notification: NotificationService,
@@ -36,7 +36,7 @@ export class CreateTransactionComponent implements OnInit {
     }
 
     this.transactionForm = this.fb.group({
-      quantity: [1, [Validators.min(1), Validators.required]],
+      quantity: ['', [Validators.min(1), Validators.required]],
       rate: [0, [Validators.required, Validators.min(1)]],
       discount: [0, [Validators.min(0)]]
     });
@@ -48,6 +48,12 @@ export class CreateTransactionComponent implements OnInit {
     }
 
     this.titleService.setTitle('Set Quantity And Rate | ShopApp');
+  }
+
+  ngAfterViewInit(): void {
+    if (this.quantityField !== null) {
+      this.quantityField.nativeElement.focus();
+    }
   }
 
   onSubmit(addMore = false): void {
