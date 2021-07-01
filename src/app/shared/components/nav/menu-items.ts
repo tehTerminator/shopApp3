@@ -19,6 +19,10 @@ export const MENUITEMS = [
             {
                 title: 'Opening / Closing',
                 url: ['/cashbook', 'balance']
+            },
+            {
+                title: 'Day Book',
+                url: ['/cashbook', 'day-book']
             }
         ]
     },

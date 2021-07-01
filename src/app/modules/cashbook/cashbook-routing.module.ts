@@ -6,6 +6,7 @@ const routes: Routes = [
   { path: 'voucher', component: VoucherFormComponent },
   { path: 'statement', loadChildren: () => import('./pages/statement/statement.module').then(m => m.StatementModule) },
   { path: 'balance', loadChildren: () => import('./pages/ledger-balance/ledger-balance.module').then(m => m.LedgerBalanceModule) },
+  { path: 'day-book', loadChildren: () => import('./pages/day-book/day-book.module').then(m => m.DayBookModule) },
   { path: '**', redirectTo: 'voucher', pathMatch: 'full' }
 ];
 
