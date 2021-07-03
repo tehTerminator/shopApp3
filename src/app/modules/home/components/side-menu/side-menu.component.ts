@@ -1,56 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { MenuItems } from './side-menu.json';
 
 @Component({
     selector: 'app-side-menu',
     templateUrl: './side-menu.component.html',
     styles: ['']
 })
-export class SideMenuComponent implements OnInit {
-    menuItems: Menu[] = [];
-
-    ngOnInit(): void {
-        this.menuItems = [
-            {
-                chartType: 'pie',
-                url: 'userWiseInvoiceCount',
-                title: 'User Wise Invoice Count',
-            },
-            {
-                chartType: 'pie',
-                url: 'userWisePaymentCount',
-                title: 'User Wise Payment Count'
-            },
-            {
-                chartType: 'pie',
-                url: 'userWiseSalesCount',
-                title: 'User Wise Sales Count'
-            },
-            {
-                chartType: 'pie',
-                url: 'productWiseSaleCount',
-                title: 'Product Wise Sales'
-            },
-            {
-                chartType: 'bar',
-                url: 'monthlyStats',
-                title: 'Monthly Invoice Amount',
-                queryParams: {
-                    xaxislabel: 'Date Invoices were Created',
-                    yaxislabel: 'Total Amount of Invoices'
-                }
-            },
-            {
-                chartType: 'line',
-                url: 'incomeExpense',
-                title: 'Income Vs Expense',
-                queryParams: {
-                    xaxislabel: 'Date',
-                    yaxislabel: 'Amount'
-                }
-            },
-
-        ];
-    }
+export class SideMenuComponent {
+    menuItems: Menu[] = MenuItems;
 
     getQueryParams(index: number): {[key: string]: string} {
         const menu = this.menuItems[index];
@@ -60,7 +17,6 @@ export class SideMenuComponent implements OnInit {
         return { header: menu.title };
     }
 }
-
 
 interface Menu {
     title: string;
