@@ -1,10 +1,8 @@
 
-<div class="card border-0">
     <div class="list-group">
     <div class="list-group-item">
       <div class="form-group border-0">
         <input
-          #search
           class="form-control border-0"
           type="text"
           [(ngModel)]="searchText"
@@ -14,7 +12,9 @@
     </div>
     <a
       class="list-group-item d-flex justify-content-between"
-      *ngFor="let item of items | search: 'title':searchText | slice: 0:10"
+      *ngFor="let item of items 
+      | search: 'title':searchText 
+      | slice: 0:10"
       (click)="onSelect(item)"
     >
       <span>{{ item.title }}</span>
@@ -27,4 +27,3 @@
       No Item Found ...
     </div>
   </div>
-</div>
