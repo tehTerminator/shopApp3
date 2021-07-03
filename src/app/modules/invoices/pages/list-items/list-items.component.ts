@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GeneralItem } from '../../../../shared/collection';
 import { InvoiceStoreService } from '../../services/invoice-store.service';
