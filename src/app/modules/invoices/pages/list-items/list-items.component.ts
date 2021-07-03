@@ -4,16 +4,15 @@ import { GeneralItem } from '../../../../shared/collection';
 import { InvoiceStoreService } from '../../services/invoice-store.service';
 import { NotificationService } from '../../../../shared/services/notification/notification.service';
 import { Title } from '@angular/platform-browser';
-import { GeneralItemStoreService } from './general-item-store.service';
+import { GeneralItemStoreService } from './../../services/general-item-store.service';
 
 @Component({
   selector: 'app-list-items',
   templateUrl: './list-items.component.html',
   styleUrls: ['./list-items.component.css']
 })
-export class ListItemsComponent implements OnInit, AfterViewInit {
+export class ListItemsComponent implements OnInit {
   searchText = '';
-  @ViewChild('search', {static: false}) searchInput: ElementRef<HTMLInputElement> | null = null;
   constructor(
     private router: Router,
     private store: InvoiceStoreService,
@@ -28,12 +27,6 @@ export class ListItemsComponent implements OnInit, AfterViewInit {
     }
     this.itemStore.init();
     this.titleService.setTitle('Select Invoice Item | ShopApp');
-  }
-
-  ngAfterViewInit(): void {
-    if (this.searchInput !== null) {
-      this.searchInput.nativeElement.focus();
-    }
   }
 
   onSelect(item: GeneralItem): void {
