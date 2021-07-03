@@ -17,6 +17,7 @@ export class Cashbook {
         }
         const row: CashbookRow = {
             id: voucher.id,
+            date: voucher.created_at,
             transfer,
             narration: voucher.narration,
             cr: 0,
@@ -26,7 +27,7 @@ export class Cashbook {
 
         let prevBalance = 0;
         if (this.pRows.length === 0) {
-            this.generateInitialRow();
+            this.generateInitialRow(voucher.created_at);
         }
         prevBalance = this.pRows[this.pRows.length - 1].balance;
         if (this.pLedger.id === voucher.creditor.id) {
@@ -39,9 +40,10 @@ export class Cashbook {
         this.pRows.push(row);
     }
 
-    private generateInitialRow(): void {
+    private generateInitialRow(initialDate: string): void {
         const row: CashbookRow = {
             id: 0,
+            date: '',
             transfer: 'Previous Day',
             narration: 'Opening Balance',
             cr: 0,
@@ -68,6 +70,7 @@ export class Cashbook {
 
 export interface CashbookRow {
     id: number;
+    date: string;
     transfer: string;
     narration: string;
     cr: number;

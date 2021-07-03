@@ -4,6 +4,7 @@
             <thead class="text-center bg-dark text-light">
                 <tr>
                     <th>#</th>
+                    <th>Date</th>
                     <th>Transfer</th>
                     <th>Description</th>
                     <th>Debit</th>
@@ -14,6 +15,7 @@
             <tbody>
                 <tr *ngFor="let v of rows | async" >
                     <td>{{ v.id }}</td>
+                    <td>{{ v.date | date: 'd/M/yy' }}</td>
                     <td>{{ v.transfer }}</td>
                     <td>{{ v.narration }}</td>
                     <td class="text-end pe-3" [ngClass]="v.dr > 0 ? 'table-success' : ''">{{ v.dr | currency:'INR' }}</td>

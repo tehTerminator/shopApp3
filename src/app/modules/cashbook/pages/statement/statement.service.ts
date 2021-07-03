@@ -10,9 +10,9 @@ export class StatementService {
 
     constructor(private api: ApiService) { }
 
-    fetchData(ledger: Ledger, date: string): void {
+    fetchData(ledger: Ledger, fromDate: string, toDate: string): void {
         this.api
-        .select<{openingBalance: number, vouchers: Voucher[]}>('vouchers', {ledger: ledger.id.toString() , date})
+        .select<{openingBalance: number, vouchers: Voucher[]}>('vouchers', {ledger: ledger.id.toString() , fromDate, toDate})
         .subscribe(
             data => {
                 const newCashbook = new Cashbook(ledger, data.vouchers, data.openingBalance);

@@ -14,7 +14,8 @@ import { getCurrentDateString } from '../../../../../../shared/functions';
 })
 export class StatementFormComponent implements OnInit {
     ledger = new FormControl(0, [Validators.min(1), Validators.required]);
-    date = new FormControl('', [Validators.required]);
+    fromDate = new FormControl('', [Validators.required]);
+    toDate = new FormControl('', [Validators.required]);
     myForm = new FormGroup({});
 
     constructor(
@@ -25,11 +26,13 @@ export class StatementFormComponent implements OnInit {
 
 
     ngOnInit(): void {
-      this.myForm.addControl('date', this.date);
+      this.myForm.addControl('fromDate', this.fromDate);
+      this.myForm.addControl('toDate', this.toDate);
       this.myForm.addControl('ledger', this.ledger);
       this.ledgerService.init();
 
-      this.date.setValue(getCurrentDateString());
+      this.fromDate.setValue(getCurrentDateString());
+      this.toDate.setValue(getCurrentDateString());
     }
 
     onSubmit(): void {
@@ -38,7 +41,7 @@ export class StatementFormComponent implements OnInit {
         return;
       }
 
-      this.statementService.fetchData(this.ledger.value, this.date.value);
+      this.statementService.fetchData(this.ledger.value, this.fromDate.value, this.toDate.value);
     }
 
     get ledgers(): Observable<Ledger[]> {
