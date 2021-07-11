@@ -1,0 +1,26 @@
+<div class="card">
+  <div class="card-header d-flex justify-content-between">
+    <h3 class="fs-3">Ledger Opening And Closing Balance</h3>
+    <div class="form-group">
+        <input type="date" class="form-control" [formControl]="dateField" (change)="this.updateList()">
+    </div>
+  </div>
+  <div class="card-body">
+    <table class="table bg-light text-center">
+      <thead>
+        <tr>
+          <th>Ledger Name</th>
+          <th>Opening Balance</th>
+          <th>Closing Balance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of data | async">
+          <td>{{ item.ledger.title }}</td>
+          <td class="text-center">{{ item.opening | currency: "INR" }}</td>
+          <td class="text-center">{{ item.closing | currency: "INR" }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

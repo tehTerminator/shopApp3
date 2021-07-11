@@ -55,14 +55,6 @@ export class Cashbook {
         this.pRows.push(row);
     }
 
-
-    get closingBalance(): number {
-        if (this.pLedger.balance.length === 1) {
-            return this.pLedger.balance[0].closing;
-        }
-        return 0;
-    }
-
     get rows(): CashbookRow[] {
         return this.pRows;
     }

@@ -5,6 +5,7 @@ import { Ledger } from './../../../../../shared/collection';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { NotificationService } from './../../../../../shared/services/notification/notification.service';
+import { LedgerBalanceService } from '../ledger-balance.service';
 
 @Component({
   selector: 'app-ledger-balance-form',
@@ -17,7 +18,8 @@ export class LedgerBalanceFormComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private ns: NotificationService,
-    private ledgerService: LedgerService,
+    private balanceStore: LedgerBalanceService,
+    private ledgerService: LedgerService
   ) { }
 
   ngOnInit(): void {
@@ -34,15 +36,15 @@ export class LedgerBalanceFormComponent implements OnInit, OnDestroy {
         if (!!!selectedLedger) {
           return;
         }
-        const ledger = this.ledgerService.getElementById(selectedLedger.id) as Ledger;
-        if (ledger.balance.length === 0) {
+        const ledgers = this.balanceStore.accountBalance.value;
+        const ledger = ledgers.find(x => x.ledger_id === selectedLedger.id);
+        if (ledger === undefined || ledger === null) {
           return;
-        } else {
-          this.myForm.patchValue({
-            opening: ledger.balance[0].opening,
-            closing: ledger.balance[0].closing
-          });
         }
+        this.myForm.patchValue({
+          opening: ledger.opening,
+          closing: ledger.closing
+        });
       }
     );
   }

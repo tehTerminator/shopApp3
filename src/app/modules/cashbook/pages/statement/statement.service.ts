@@ -31,7 +31,6 @@ const emptyLedger: Ledger = {
     id: 0,
     title: '',
     kind: '',
-    balance: [],
     created_at: '',
     updated_at: ''
 };
