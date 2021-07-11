@@ -21,6 +21,19 @@
           <td class="text-center">{{ item.closing | currency: "INR" }}</td>
         </tr>
       </tbody>
+      <tfoot class="border border-top">
+        <tr>
+          <td>
+            Opening : {{ totalOpening | currency:'INR' }}
+          </td>
+          <td>
+            Closing : {{ totalClosing | currency:'INR'}}
+          </td>
+          <td>
+            Diff : {{ totalClosing - totalOpening | currency:'INR'| currency:'INR' }}
+          </td>
+        </tr>
+      </tfoot>
     </table>
   </div>
 </div>
