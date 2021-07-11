@@ -1,12 +1,12 @@
 <div class="card">
   <div class="card-header d-flex justify-content-between">
-    <h3 class="fs-3">Ledger Opening And Closing Balance</h3>
+    <h3 class="fs-3 mb-0 mt-1">Ledger Opening And Closing Balance</h3>
     <div class="form-group">
         <input type="date" class="form-control" [formControl]="dateField" (change)="this.updateList()">
     </div>
   </div>
   <div class="card-body">
-    <table class="table bg-light text-center">
+    <table class="table bg-light text-center" *ngIf="hasData; else noData">
       <thead>
         <tr>
           <th>Ledger Name</th>
@@ -24,3 +24,8 @@
     </table>
   </div>
 </div>
+
+
+<ng-template #noData>
+  <h1 class="fs-1 text-center">Sorry No Data To Display</h1>
+</ng-template>
