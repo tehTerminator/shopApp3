@@ -26,12 +26,13 @@ export class GeneralItemStoreService {
     }
 
     get ledgers(): GeneralItem[] {
-        const list = this.ledgerService.getAsList() as Product[];
+        let list = this.ledgerService.getAsList() as Ledger[];
+        list = list.filter(x => x.kind === 'BANK' || x.kind === 'CASH');
         return this.mapListToGeneralItemList(list);
     }
 
     get posItems(): GeneralItem[] {
-        const list = this.posItemService.getAsList() as Product[];
+        const list = this.posItemService.getAsList() as PosItem[];
         return this.mapListToGeneralItemList(list);
     }
 
