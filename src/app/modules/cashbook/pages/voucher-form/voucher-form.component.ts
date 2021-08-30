@@ -161,22 +161,6 @@ export class VoucherFormComponent implements OnInit {
     return ledger && ledger.title ? `${ledger.title} - ${ledger.kind}` : '';
   }
 
-  // get creditors(): Observable<Ledger[]> {
-  //   return this.ledgers.pipe(
-  //     map(
-  //       (ledgers: Ledger[]) => ledgers.filter(x => x.kind !== 'EXPENSE')
-  //     )
-  //   );
-  // }
-
-  // get debtors(): Observable<Ledger[]> {
-  //   return this.ledgers.pipe(
-  //     map(
-  //       (ledgers: Ledger[]) => ledgers.filter(x => x.kind !== 'INCOME')
-  //     )
-  //   );
-  // }
-
   get editMode(): boolean {
     return this.id.value > 0;
   }
