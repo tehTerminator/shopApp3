@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CoreModule } from './../core/core.module';
+import { MatAutocompleteModule} from '@angular/material/autocomplete';
 
 import { CashbookRoutingModule } from './cashbook-routing.module';
 import { CashbookComponent } from './cashbook.component';
@@ -15,7 +16,8 @@ import { VoucherFormComponent } from './pages/voucher-form/voucher-form.componen
   imports: [
     CommonModule,
     CashbookRoutingModule,
-    CoreModule
+    CoreModule,
+    MatAutocompleteModule
   ],
   providers: []
 })

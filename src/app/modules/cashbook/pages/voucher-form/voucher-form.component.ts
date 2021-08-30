@@ -13,7 +13,7 @@ import {
   style
 } from '@angular/animations';
 import { Title } from '@angular/platform-browser';
-import { map } from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-voucher-form',
@@ -34,6 +34,8 @@ import { map } from 'rxjs/operators';
 export class VoucherFormComponent implements OnInit {
   voucherForm: FormGroup = new FormGroup({});
   isLoading = false;
+  filteredCreditor: Observable<Ledger[]> = EMPTY;
+  filteredDebtor: Observable<Ledger[]> = EMPTY;
 
   constructor(
     private fb: FormBuilder,
@@ -54,6 +56,19 @@ export class VoucherFormComponent implements OnInit {
 
     this.ledgerService.init();
     this.titleService.setTitle('Create / Update Vouchers | ShopApp');
+    this.filteredCreditor = this.cr.valueChanges.pipe(
+      startWith(''),
+      map(
+        value => this.filteredOptions(value, 'EXPENSE')
+      )
+    );
+
+    this.filteredDebtor = this.dr.valueChanges.pipe(
+      startWith(''),
+      map(
+        value => this.filteredOptions(value, 'INCOME')
+      )
+    );
   }
 
   onIdFieldChange(): void {
@@ -96,6 +111,8 @@ export class VoucherFormComponent implements OnInit {
     this.isLoading = true;
 
     const payload = this.voucherForm.value;
+    payload.cr = payload.cr.id;
+    payload.dr = payload.dr.id;
     let response = EMPTY;
 
     if (this.editMode) {
@@ -128,23 +145,37 @@ export class VoucherFormComponent implements OnInit {
     return this.ledgerService.getAsObservable() as Observable<Ledger[]>;
   }
 
-  get creditors(): Observable<Ledger[]> {
-    return this.ledgers.pipe(
-      map(
-        (ledgers: Ledger[]) => ledgers.filter(x => x.kind !== 'EXPENSE')
-      )
-    );
+  public filteredOptions(title: string, kindIsNot: string): Ledger[] {
+    const ledgers = this.ledgerService.getAsList() as Ledger[];
+    let t = '';
+    try{
+      t = title.toLowerCase();
+      return ledgers.filter(x => x.kind !== kindIsNot && x.title.toLowerCase().indexOf(t) >= 0);
+    }
+    catch (e) {
+      return ledgers.filter(x => x.kind !== kindIsNot);
+    }
   }
 
-  get debtors(): Observable<Ledger[]> {
-    return this.ledgers.pipe(
-      map(
-        (ledgers: Ledger[]) => ledgers.filter(x => x.kind !== 'INCOME')
-      )
-    );
+  public displayFunction(ledger: Ledger): string {
+    return ledger && ledger.title ? `${ledger.title} - ${ledger.kind}` : '';
   }
 
+  // get creditors(): Observable<Ledger[]> {
+  //   return this.ledgers.pipe(
+  //     map(
+  //       (ledgers: Ledger[]) => ledgers.filter(x => x.kind !== 'EXPENSE')
+  //     )
+  //   );
+  // }
 
+  // get debtors(): Observable<Ledger[]> {
+  //   return this.ledgers.pipe(
+  //     map(
+  //       (ledgers: Ledger[]) => ledgers.filter(x => x.kind !== 'INCOME')
+  //     )
+  //   );
+  // }
 
   get editMode(): boolean {
     return this.id.value > 0;

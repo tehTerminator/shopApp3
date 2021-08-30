@@ -22,7 +22,7 @@ export const MenuItems = [
     {
         chartType: 'bar',
         url: 'monthlyStats',
-        title: 'Monthly Invoice Amount',
+        title: 'Invoice Amount',
         queryParams: {
             xaxislabel: 'Date Invoices were Created',
             yaxislabel: 'Total Amount of Invoices'
