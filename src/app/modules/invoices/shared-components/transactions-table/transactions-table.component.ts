@@ -71,6 +71,17 @@ export class TransactionsTableComponent implements OnInit, OnDestroy {
         return this._transactions;
     }
 
+    get emptyRows(): number[] {
+        const tCount = this.transactions.length;
+        if (tCount >= 5)
+        {
+            return [];
+        }
+        else{
+            return Array.from(Array(5 - tCount).keys());
+        }
+    }
+
 
     showButtons(): boolean {
         return this.store.invoice.value.id === 0;

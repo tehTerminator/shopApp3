@@ -28,6 +28,13 @@
                     <td class="text-end pe-3 text-primary">{{ rowAmount(t) | currency:'INR'}}</td>
                     
                 </tr>
+                <tr *ngFor="let row of emptyRows">
+                    <td style="padding: 15px"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td *ngIf="colspan === 5"></td>                </tr>
             </tbody>
             <tfoot>
                 <tr class="table-info">
