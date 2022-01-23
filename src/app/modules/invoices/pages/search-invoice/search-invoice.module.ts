@@ -8,6 +8,8 @@ import { InvoiceListComponent } from './components/invoice-list/invoice-list.com
 import { SearchCriteriaFormComponent } from './components/search-criteria-form/search-criteria-form.component';
 import { SearchInvoiceStoreService } from './search-invoice-store.service';
 import { SearchInvoiceComponent } from './search-invoice.component';
+import { InvoiceControlsComponent } from './components/invoice-controls/invoice-controls.component';
+import { DeleteInvoiceComponent } from './components/delete-invoice/delete-invoice.component';
 
 const routes: Routes = [
     {path: '', component: SearchInvoiceComponent }
@@ -17,7 +19,9 @@ const routes: Routes = [
     declarations: [
         SearchInvoiceComponent,
         InvoiceListComponent,
-        SearchCriteriaFormComponent
+        SearchCriteriaFormComponent,
+        InvoiceControlsComponent,
+        DeleteInvoiceComponent
     ],
     imports: [
         CommonModule,
