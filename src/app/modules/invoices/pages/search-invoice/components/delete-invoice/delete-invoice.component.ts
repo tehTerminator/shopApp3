@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { InvoiceStoreService } from './../../../../services/invoice-store.service';
 import { ApiService } from './../../../../../../shared/services/api/api.service';
+import { SearchInvoiceStoreService } from '../../search-invoice-store.service';
 
 @Component({
   selector: 'app-delete-invoice',
@@ -11,7 +12,8 @@ export class DeleteInvoiceComponent implements OnInit {
 
   constructor(
     private store: InvoiceStoreService,
-    private api: ApiService
+    private api: ApiService,
+    private listStore: SearchInvoiceStoreService
   ) { }
 
   ngOnInit(): void {
@@ -22,8 +24,13 @@ export class DeleteInvoiceComponent implements OnInit {
   }
 
   deleteInvoice(): void {
-    if( this.confirmDelete() ) {
-      this.api.delete('invoices', this.store.invoice.value.id);
+    if(this.confirmDelete() ) {
+      this.api.delete('invoices', this.store.invoice.value.id)
+      .subscribe(
+        () => {
+            this.listStore.fetchInvoice();
+        }
+      );
     }
   }
 }
