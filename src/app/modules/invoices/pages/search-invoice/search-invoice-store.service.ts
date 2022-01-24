@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { create } from 'domain';
 import { BehaviorSubject } from 'rxjs';
 import { Invoice } from '../../../../shared/collection';
+import { NotificationService } from '../../../../shared/services/notification/notification.service';
 import { InvoiceStoreService } from '../../services/invoice-store.service';
 import { ApiService } from './../../../../shared/services/api/api.service';
 
@@ -14,13 +15,19 @@ export class SearchInvoiceStoreService {
 
     constructor(
         private api: ApiService,
-        private invoiceStore: InvoiceStoreService
+        private invoiceStore: InvoiceStoreService,
+        private ns: NotificationService
     ) { }
 
     fetchInvoice(createdAt?: string, userId?: number): void {
 
-        if (createdAt === undefined && userId === undefined && this.initialized) {
-            this.fetchInvoice(this.createdAt, this.userId);
+        if (createdAt === undefined && userId === undefined) {
+            if (this.initialized) {
+                this.fetchInvoice(this.createdAt, this.userId);
+            } else {
+                this.ns.showError('Not Initialized', 'Please Refresh Using Form Data');
+                return;
+            }
         }
         else {
             this.createdAt = createdAt;

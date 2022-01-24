@@ -16,15 +16,14 @@ export class DeleteInvoiceComponent implements OnInit {
     private listStore: SearchInvoiceStoreService
   ) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {  }
 
   private confirmDelete(): boolean {
     return confirm('Do You Really Want to Delete Invoice. This Operation is Irreversible');
   }
 
   deleteInvoice(): void {
-    if(this.confirmDelete() ) {
+    if (this.confirmDelete() ) {
       this.api.delete('invoices', this.store.invoice.value.id)
       .subscribe(
         () => {
