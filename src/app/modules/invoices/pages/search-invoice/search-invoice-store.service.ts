@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { create } from 'domain';
 import { BehaviorSubject } from 'rxjs';
 import { Invoice } from '../../../../shared/collection';
 import { NotificationService } from '../../../../shared/services/notification/notification.service';
@@ -21,15 +20,7 @@ export class SearchInvoiceStoreService {
 
     fetchInvoice(createdAt?: string, userId?: number): void {
 
-        if (createdAt === undefined && userId === undefined) {
-            if (this.initialized) {
-                this.fetchInvoice(this.createdAt, this.userId);
-            } else {
-                this.ns.showError('Not Initialized', 'Please Refresh Using Form Data');
-                return;
-            }
-        }
-        else {
+        if (!!createdAt && !!userId) {
             this.createdAt = createdAt;
             this.userId = userId;
             this.initialized = true;
@@ -41,6 +32,14 @@ export class SearchInvoiceStoreService {
                 .subscribe(
                     (data) => this.invoices.next(data)
                 );
+        }
+        else {
+            if (this.initialized) {
+                this.fetchInvoice(this.createdAt, this.userId);
+            } else {
+                this.ns.showError('Not Initialized', 'Please Refresh Using Form Data');
+                return;
+            }
         }
 
     }

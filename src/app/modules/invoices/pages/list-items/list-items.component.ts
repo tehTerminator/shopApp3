@@ -34,7 +34,7 @@ export class ListItemsComponent implements OnInit {
       this.store.selectedItem = this.itemStore.selectActualItem(item);
       this.router.navigate(['/invoices', 'create', 'transactions']);
     } catch (e) {
-      this.notification.showError('Error', e);
+      this.notification.showError('Error', 'Item Not Found');
     }
   }
 

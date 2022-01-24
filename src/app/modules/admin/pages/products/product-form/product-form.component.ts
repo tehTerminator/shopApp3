@@ -37,7 +37,7 @@ export class ProductFormComponent implements OnInit {
         });
         return;
       } catch (e) {
-        this.ns.showError('Error', e);
+        this.ns.showError('Error', 'Item Not Found');
       }
     }
     this.productForm.reset();

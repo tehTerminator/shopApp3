@@ -76,6 +76,19 @@ export class LedgerService extends BaseService {
     );
   }
 
+  public getElementByTitle(title: string): Ledger {
+    const list = this.data.value as Ledger[];
+    title = title.toLowerCase();
+    if (list.length > 0) {
+      const result = list.find(x => x.title.toLowerCase() === title);
+      if (!!result) {
+        return result;
+      }
+      throw new Error('Item Not Found');
+    }
+    throw new Error('List is Empty');
+  }
+
   public isInstanceOfLedger(data: any): data is Ledger {
     return 'kind' in data;
   }

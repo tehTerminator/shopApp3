@@ -34,7 +34,7 @@ export class CreateTemplateComponent implements OnInit {
       this.titleService.setTitle('Create / Update Template | ShopApp');
     } catch (e) {
       this.router.navigate(['/admin', 'pos-item']);
-      this.notificationService.showError('Invalid Pos ID', e);
+      this.notificationService.showError('Invalid Pos ID', 'Item Not Found');
     }
   }
 }

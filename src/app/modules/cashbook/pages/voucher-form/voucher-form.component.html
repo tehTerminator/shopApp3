@@ -20,35 +20,66 @@
         </mat-form-field>
         <mat-form-field class="d-block" appearance="outline">
           <mat-label>Giver</mat-label>
-          <input type="text"
-                 placeholder="Pick one"
-                 aria-label="Creditor"
-                 matInput
-                 [formControl]="cr"
-                 [matAutocomplete]="creditor">
-          <mat-autocomplete autoActiveFirstOption #creditor="matAutocomplete" [displayWith]="displayFunction">
-            <mat-option *ngFor="let creditor of filteredCreditor | async" [value]="creditor" class="d-flex justify-content-between">
-              {{creditor.title}} - {{ creditor.kind }}
+          <input
+            type="text"
+            placeholder="Pick one"
+            aria-label="Creditor"
+            matInput
+            [formControl]="cr"
+            [matAutocomplete]="creditor"
+          />
+          <mat-autocomplete
+            autoActiveFirstOption
+            #creditor="matAutocomplete"
+          >
+            <mat-option
+              *ngFor="let creditor of filteredCreditor | async"
+              [value]="creditor.title"
+              class="d-flex justify-content-between"
+            >
+              <div class="d-flex justify-content-between">
+                <span>{{ creditor.id }} - {{ creditor.title }}</span>
+                <span>{{ creditor.kind }}</span>
+              </div>
             </mat-option>
           </mat-autocomplete>
         </mat-form-field>
         <mat-form-field class="d-block" appearance="outline">
           <mat-label>Receiver</mat-label>
-          <input type="text"
-                 placeholder="Pick one"
-                 aria-label="Creditor"
-                 matInput
-                 [formControl]="dr"
-                 [matAutocomplete]="debtor">
-          <mat-autocomplete autoActiveFirstOption #debtor="matAutocomplete" [displayWith]="displayFunction">
-            <mat-option *ngFor="let debtor of filteredDebtor | async" [value]="debtor" class="d-flex justify-content-between">
-              {{debtor.title}} - {{ debtor.kind }}
+          <input
+            type="text"
+            placeholder="Pick one"
+            aria-label="Creditor"
+            matInput
+            [formControl]="dr"
+            [matAutocomplete]="debtor"
+          />
+          <mat-autocomplete
+            autoActiveFirstOption
+            #debtor="matAutocomplete"
+          >
+            <mat-option
+              *ngFor="let debtor of filteredDebtor | async"
+              [value]="debtor.title"
+              class="d-flex justify-content-between"
+            >
+              <div class="d-flex justify-content-between">
+                <span>{{ debtor.id }} - {{ debtor.title }}</span>
+                <span>{{ debtor.kind }}</span>
+              </div>
             </mat-option>
           </mat-autocomplete>
         </mat-form-field>
         <mat-form-field appearance="outline" class="d-block">
           <mat-label>Narration</mat-label>
           <textarea matInput formControlName="narration" rows="5"></textarea>
+          <mat-error
+            *ngIf="narration.invalid && (narration.dirty || narration.touched)"
+          >
+            <span *ngIf="narration.hasError('required')">
+              Please Enter Narration For Transaction
+            </span>
+          </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline" class="d-block">
           <mat-label>Amount</mat-label>
