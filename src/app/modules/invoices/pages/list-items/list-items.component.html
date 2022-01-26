@@ -1,29 +1,26 @@
-
-    <div class="list-group">
-    <div class="list-group-item">
-      <div class="form-group border-0">
-        <input
-          class="form-control border-0"
-          type="text"
-          [(ngModel)]="searchText"
-          placeholder="Search Items ..."
-        />
-      </div>
-    </div>
-    <a
-      class="list-group-item d-flex justify-content-between"
-      *ngFor="let item of items 
-      | search: 'title':searchText 
-      | slice: 0:10"
-      (click)="onSelect(item)"
-    >
-      <span>{{ item.title }}</span>
-      <span>{{ item.rate | currency: "INR" }}</span>
-    </a>
-    <div
-      class="list-group-item"
-      *ngIf="(items | search: 'title':searchText | slice: 0:10).length === 0"
-    >
-      No Item Found ...
+<section class="list-group">
+  <div class="list-group-item">
+    <div class="form-group border-0">
+      <input
+        class="form-control border-0"
+        type="text"
+        [(ngModel)]="searchText"
+        placeholder="Search Items ..."
+      />
     </div>
   </div>
+  <a
+    class="list-group-item d-flex justify-content-between"
+    *ngFor="let item of items | search: 'title':searchText | slice: 0:10"
+    (click)="onSelect(item)"
+  >
+    <span>{{ item.title }}</span>
+    <span>{{ item.rate | currency: "INR" }}</span>
+  </a>
+  <div
+    class="list-group-item"
+    *ngIf="(items | search: 'title':searchText | slice: 0:10).length === 0"
+  >
+    No Item Found ...
+  </div>
+</section>

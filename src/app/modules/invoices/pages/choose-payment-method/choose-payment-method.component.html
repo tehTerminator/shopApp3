@@ -1,8 +1,8 @@
-<div class="card">
+<section class="card">
     <div class="card-body">
         <button mat-stroked-button class="btn w-100 mb-1" *ngFor="let ledger of ledgers | async" (click)="selectPaymentMethod(ledger)">
             {{ ledger.title }}
         </button>
         <button mat-stroked-button class="btn w-100" (click)="setUdhaar()">Udhaar</button>
     </div>
-</div>
+</section>

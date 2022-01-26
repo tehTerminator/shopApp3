@@ -1,4 +1,4 @@
-<div class="card mt-3">
+<section class="card mt-3">
     <div class="card-body" style="max-height: 50vh; overflow-x: scroll;">
       <table class="table table-sm table-hover" *ngIf="dataLength > 0; else noItem">
         <thead class="text-center">
@@ -24,7 +24,7 @@
         </tbody>
       </table>
     </div>
-  </div>
+  </section>
 
   <ng-template #noItem>
     <div class="text-center fs-3">No Invoices For Selected Date</div>
