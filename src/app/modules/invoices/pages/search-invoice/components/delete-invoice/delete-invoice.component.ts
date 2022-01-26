@@ -23,13 +23,8 @@ export class DeleteInvoiceComponent implements OnInit {
   }
 
   deleteInvoice(): void {
-    if (this.confirmDelete() ) {
-      this.api.delete('invoices', this.store.invoice.value.id)
-      .subscribe(
-        () => {
-            this.listStore.fetchInvoice();
-        }
-      );
+    if (this.confirmDelete()) {
+      this.listStore.deleteInvoice(this.store.invoice.value.id);
     }
   }
 }

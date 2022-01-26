@@ -1,8 +1,55 @@
-<div class="card">
-    <div class="card-title">
-        Search By Customer
-    </div>
-    <div class="card-body">
-        Search By Customer Works!
-    </div>
-</div>
+<section class="card">
+  <div class="card-body">
+    <div class="fs-4 card-title text-center">Search By Customer</div>
+    <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+      <div class="form-group mt-3 mb-3">
+        <label for="customer">Select Customer</label>
+        <input
+          type="text"
+          name="customer"
+          class="form-control"
+          list="customer-list"
+          formControlName="customer"
+        />
+        <datalist id="customer-list">
+          <option value="0-All">All Customers</option>
+          <option
+            *ngFor="let customer of customers | async"
+            [value]="customer.id + '-' + customer.title"
+          >
+            {{ customer.address }}
+          </option>
+        </datalist>
+      </div>
+      <div class="form-group mb-3">
+        <label for="month">Month</label>
+        <input
+          type="month"
+          name="month"
+          class="form-control"
+          formControlName="month"
+        />
+      </div>
+      <div class="form-group mb-3">
+        <label for="paymentStatus">Payment Status</label>
+        <select
+          name="paymentStatus"
+          class="form-control"
+          formControlName="paymentStatus"
+        >
+          <option value="1">Paid</option>
+          <option value="0">Unpaid</option>
+        </select>
+      </div>
+      <button
+        type="submit"
+        class="btn d-block w-100"
+        mat-raised-button
+        color="primary"
+        [disabled]="searchForm.invalid"
+      >
+        Search
+      </button>
+    </form>
+  </div>
+</section>
