@@ -6,11 +6,11 @@ import { ApiService } from '../../../../../../shared/services/api/api.service';
 import { SearchInvoiceStoreService } from '../../search-invoice-store.service';
 
 @Component({
-    selector: 'app-search-criteria-form',
-    templateUrl: './search-criteria-form.component.html',
+    selector: 'app-search-by-date-form',
+    templateUrl: './search-by-date.component.html',
     styles: ['']
 })
-export class SearchCriteriaFormComponent implements OnInit {
+export class SearchByDateComponent implements OnInit {
     searchForm: FormGroup = new FormGroup({});
     users: UserData[] = [];
 

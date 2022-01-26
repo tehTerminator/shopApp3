@@ -35,9 +35,13 @@ export const MENUITEMS = [
                 url: ['/invoices', 'create', 'select-customer']
             },
             {
-                title: 'View Invoices',
-                url: ['/invoices', 'search']
+                title: 'Search By Date',
+                url: ['/invoices', 'search', 'search-by-date']
             },
+            {
+                title: 'Search By Customer',
+                url: ['/invoices', 'search', 'search-by-customer']
+            }
         ]
     },
     {
