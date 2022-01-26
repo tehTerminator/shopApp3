@@ -8,9 +8,6 @@ import { ApiService } from './../../../../shared/services/api/api.service';
 @Injectable()
 export class SearchInvoiceStoreService {
     invoices = new BehaviorSubject<Invoice[]>([]);
-    private createdAt = '';
-    private userId = 0;
-    private initialized = false;
 
     constructor(
         private api: ApiService,
@@ -18,30 +15,15 @@ export class SearchInvoiceStoreService {
         private ns: NotificationService
     ) { }
 
-    fetchInvoice(createdAt?: string, userId?: number): void {
-
-        if (!!createdAt && !!userId) {
-            this.createdAt = createdAt;
-            this.userId = userId;
-            this.initialized = true;
-            this.api
-                .select<Invoice[]>('invoices', {
-                    createdAt,
-                    userId: userId.toString()
-                })
-                .subscribe(
-                    (data) => this.invoices.next(data)
-                );
-        }
-        else {
-            if (this.initialized) {
-                this.fetchInvoice(this.createdAt, this.userId);
-            } else {
-                this.ns.showError('Not Initialized', 'Please Refresh Using Form Data');
-                return;
-            }
-        }
-
+    fetchInvoice(createdAt: string, userId: number): void {
+        this.api
+            .select<Invoice[]>('invoices', {
+                createdAt,
+                userId: userId.toString()
+            })
+            .subscribe(
+                (data) => this.invoices.next(data)
+            );
     }
 
     selectInvoice(id: number): void {
@@ -49,5 +31,29 @@ export class SearchInvoiceStoreService {
             .subscribe(
                 (data) => this.invoiceStore.invoice.next(data)
             );
+    }
+
+    fetchUsingCustomerId(customerId: number, month: string, paid: string): void {
+        this.api.select<Invoice[]>('invoices', { customerId: customerId.toString(), month, paid })
+            .subscribe(
+                (data) => this.invoices.next(data)
+            );
+        // console.log(customerId, month, paid);
+    }
+
+    deleteInvoice(invoiceId: number): void {
+        this.api.delete('invoices', invoiceId)
+            .subscribe(
+                () => {
+                    this.removeInvoiceFromList(invoiceId);
+                    this.invoiceStore.reset();
+                }
+            );
+    }
+
+    private removeInvoiceFromList(invoiceId: number): void {
+        const list = this.invoices.value;
+        const index = list.findIndex(x => x.id === invoiceId);
+        this.invoices.next(list.splice(index, 1));
     }
 }

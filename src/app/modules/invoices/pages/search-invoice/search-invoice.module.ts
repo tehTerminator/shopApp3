@@ -13,11 +13,13 @@ import { DeleteInvoiceComponent } from './components/delete-invoice/delete-invoi
 import { SearchByCustomerComponent } from './components/search-by-customer/search-by-customer.component';
 
 const routes: Routes = [
-    { path: '', component: SearchInvoiceComponent, children: [
-        { path: 'search-by-operator', component: SearchByDateComponent },
-        { path: 'search-by-customer', component: SearchByCustomerComponent },
-        { path: '**', pathMatch: 'full', redirectTo: 'search-by-operator' }
-    ]}
+    {
+        path: '', component: SearchInvoiceComponent, children: [
+            { path: 'search-by-operator', component: SearchByDateComponent },
+            { path: 'search-by-customer', component: SearchByCustomerComponent },
+            { path: '**', pathMatch: 'full', redirectTo: 'search-by-operator' }
+        ]
+    }
 ];
 
 @NgModule({
