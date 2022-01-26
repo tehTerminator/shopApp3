@@ -1,23 +1,24 @@
 <form class="card card-body" [formGroup]="myForm" (ngSubmit)="onSubmit()">
   <h4 class="fs-4 mb-3 card-title">View Cashbook</h4>
 
-  <mat-form-field class="d-block w-100" appearance="outline">
-    <mat-label>Date</mat-label>
-    <input matInput type="date" [formControl]="fromDate" />
-  </mat-form-field>
-  <mat-form-field class="d-block w-100" appearance="outline">
-    <mat-label>Date</mat-label>
-    <input matInput type="date" [formControl]="toDate" />
-  </mat-form-field>
+  <div class="form-group mb-3 mt-3" appearance="outline">
+    <label>Date</label>
+    <input type="date" [formControl]="fromDate" class="form-control" />
+  </div>
+  <div class="form-group mb-3" appearance="outline">
+    <label>Date</label>
+    <input type="date" [formControl]="toDate" class="form-control" />
+  </div>
 
-  <mat-form-field class="d-block w-100" appearance="outline">
-    <mat-label>Ledger</mat-label>
-    <mat-select [formControl]="ledger">
-      <mat-option *ngFor="let l of ledgers | async" [value]="l">
-        {{ l.title }} - {{ l.kind }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+  <div class="form-group mb-3" appearance="outline">
+    <label>Ledger</label>
+    <input type="text" [formControl]="ledger" list="ledgers" class="form-control" (click)="onLedgerFieldClick()">
+    <datalist id="ledgers">
+      <option *ngFor="let l of ledgers | async" [value]="l.id + '-' + l.title ">
+        {{ l.kind }}
+      </option>
+    </datalist>
+  </div>
 
   <button
     type="submit"

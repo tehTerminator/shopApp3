@@ -35,13 +35,18 @@ export class StatementFormComponent implements OnInit {
       this.toDate.setValue(getCurrentDateString());
     }
 
+    onLedgerFieldClick(): void {
+      this.ledger.patchValue('');
+    }
+
     onSubmit(): void {
       if (this.myForm.invalid) {
         this.ns.showError('Error', 'Invalid Form Data');
         return;
       }
-
-      this.statementService.fetchData(this.ledger.value, this.fromDate.value, this.toDate.value);
+      const ledgerId = +this.ledger.value.split('-')[0];
+      const ledger = this.ledgerService.getElementById(ledgerId) as Ledger;
+      this.statementService.fetchData(ledger, this.fromDate.value, this.toDate.value);
     }
 
     get ledgers(): Observable<Ledger[]> {
