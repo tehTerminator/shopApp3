@@ -52,8 +52,11 @@ export class SearchInvoiceStoreService {
     }
 
     private removeInvoiceFromList(invoiceId: number): void {
+        console.log('Invoice Id', invoiceId);
         const list = this.invoices.value;
+        console.log(list);
         const index = list.findIndex(x => x.id === invoiceId);
-        this.invoices.next(list.splice(index, 1));
+        list.splice(index, 1);
+        this.invoices.next(list);
     }
 }
