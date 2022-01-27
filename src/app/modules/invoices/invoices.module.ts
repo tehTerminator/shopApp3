@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { WaitPageComponent } from './pages/wait-page/wait-page.component';
 import { GoBackBtnComponent } from './components/go-back-btn/go-back-btn.component';
 import { SharedComponentModule } from './shared-components/shared-components.module';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { SharedComponentModule } from './shared-components/shared-components.mod
     InvoicesRoutingModule,
     CoreModule,
     SharedComponentModule,
-    FormsModule
+    FormsModule,
+    MatAutocompleteModule
   ],
   providers: []
 })
