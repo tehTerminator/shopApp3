@@ -48,9 +48,9 @@ export class VoucherFormComponent implements OnInit {
   ngOnInit(): void {
     this.voucherForm = this.fb.group({
       id: 0,
-      cr: ['', Validators.required],
-      dr: ['', Validators.required],
-      narration: ['', Validators.required],
+      cr: [0, Validators.required],
+      dr: [0, Validators.required],
+      narration: '',
       amount: [0, [Validators.required, Validators.min(0.01)]]
     });
 
@@ -78,20 +78,8 @@ export class VoucherFormComponent implements OnInit {
         id: this.id.value,
       }).subscribe(
         voucher => {
-          try{
-            const creditor = this.ledgerService.getElementById(voucher.cr) as Ledger;
-            const debtor = this.ledgerService.getElementById(voucher.dr) as Ledger;
-            this.voucherForm.patchValue({
-              cr: creditor.title,
-              dr: debtor.title,
-              narration: voucher.narration,
-              amount: voucher.amount
-            });
-            this.isLoading = false;
-          } catch (e) {
-            this.ns.showError('Invalid CR or DR', 'Invalid Value of Cr or DR Found');
-            return;
-          }
+          this.isLoading = false;
+          this.updateFormData(voucher);
         },
         () => {
           this.isLoading = false;
@@ -101,6 +89,21 @@ export class VoucherFormComponent implements OnInit {
       );
     } else {
       this.isLoading = false;
+    }
+  }
+
+  private updateFormData(voucher: Voucher): void {
+    try {
+      const cr = this.ledgerService.getElementById(voucher.cr);
+      const dr = this.ledgerService.getElementById(voucher.dr);
+      console.log({
+        cr, dr, narration: voucher.narration, amount: voucher.amount
+      });
+      this.voucherForm.patchValue({
+        cr, dr, narration: voucher.narration, amount: voucher.amount
+      });
+    } catch (e) {
+      this.ns.showError('Error', 'Error Loading Data From Server');
     }
   }
 
@@ -118,15 +121,8 @@ export class VoucherFormComponent implements OnInit {
     this.isLoading = true;
 
     const payload = this.voucherForm.value;
-    try{
-      payload.cr = this.ledgerService.getElementByTitle(payload.cr).id;
-      payload.dr = this.ledgerService.getElementByTitle(payload.dr).id;
-    } catch (e) {
-      this.ns.showError('Invalid CR or DR', 'Invalid Value of CR or DR');
-      this.isLoading = false;
-      return;
-    }
-
+    payload.cr = payload.cr.id;
+    payload.dr = payload.dr.id;
     let response = EMPTY;
 
     if (this.editMode) {
@@ -161,11 +157,18 @@ export class VoucherFormComponent implements OnInit {
 
   public filteredOptions(title: string, kindIsNot: string): Ledger[] {
     const ledgers = this.ledgerService.getAsList() as Ledger[];
-    title = title.toLowerCase();
-    if (title.length === 0) {
+    let t = '';
+    try{
+      t = title.toLowerCase();
+      return ledgers.filter(x => x.kind !== kindIsNot && x.title.toLowerCase().indexOf(t) >= 0);
+    }
+    catch (e) {
       return ledgers.filter(x => x.kind !== kindIsNot);
     }
-    return ledgers.filter(x => x.kind !== kindIsNot && x.title.includes(title));
+  }
+
+  public displayFunction(ledger: Ledger): string {
+    return ledger && ledger.title ? `${ledger.title} - ${ledger.kind}` : '';
   }
 
   get editMode(): boolean {

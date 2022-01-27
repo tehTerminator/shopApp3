@@ -31,14 +31,15 @@
           <mat-autocomplete
             autoActiveFirstOption
             #creditor="matAutocomplete"
+            [displayWith]="displayFunction"
           >
             <mat-option
               *ngFor="let creditor of filteredCreditor | async"
-              [value]="creditor.title"
-              class="d-flex justify-content-between"
+              [value]="creditor"
             >
               <div class="d-flex justify-content-between">
-                <span>{{ creditor.id }} - {{ creditor.title }}</span>
+                <span>{{ creditor.id }}</span>
+                <span>{{ creditor.title }}</span>
                 <span>{{ creditor.kind }}</span>
               </div>
             </mat-option>
@@ -57,15 +58,16 @@
           <mat-autocomplete
             autoActiveFirstOption
             #debtor="matAutocomplete"
+            [displayWith]="displayFunction"
           >
             <mat-option
               *ngFor="let debtor of filteredDebtor | async"
-              [value]="debtor.title"
-              class="d-flex justify-content-between"
+              [value]="debtor"
             >
               <div class="d-flex justify-content-between">
-                <span>{{ debtor.id }} - {{ debtor.title }}</span>
-                <span>{{ debtor.kind }}</span>
+                <span>{{ debtor.id }}</span
+                ><span>{{ debtor.title }}</span
+                ><span>{{ debtor.kind }}</span>
               </div>
             </mat-option>
           </mat-autocomplete>
@@ -73,13 +75,6 @@
         <mat-form-field appearance="outline" class="d-block">
           <mat-label>Narration</mat-label>
           <textarea matInput formControlName="narration" rows="5"></textarea>
-          <mat-error
-            *ngIf="narration.invalid && (narration.dirty || narration.touched)"
-          >
-            <span *ngIf="narration.hasError('required')">
-              Please Enter Narration For Transaction
-            </span>
-          </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline" class="d-block">
           <mat-label>Amount</mat-label>
