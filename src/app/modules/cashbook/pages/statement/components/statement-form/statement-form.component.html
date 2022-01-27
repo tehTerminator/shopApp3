@@ -1,31 +1,41 @@
-<form class="card card-body" [formGroup]="myForm" (ngSubmit)="onSubmit()">
-  <h4 class="fs-4 mb-3 card-title">View Cashbook</h4>
+<form class="card" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+  <h4 class="fs-4 card-header">View Cashbook</h4>
+  <div class="card-body">
+    <div class="form-group mb-3" appearance="outline">
+      <label>Date</label>
+      <input type="date" [formControl]="fromDate" class="form-control" />
+    </div>
+    <div class="form-group mb-3" appearance="outline">
+      <label>Date</label>
+      <input type="date" [formControl]="toDate" class="form-control" />
+    </div>
 
-  <div class="form-group mb-3 mt-3" appearance="outline">
-    <label>Date</label>
-    <input type="date" [formControl]="fromDate" class="form-control" />
-  </div>
-  <div class="form-group mb-3" appearance="outline">
-    <label>Date</label>
-    <input type="date" [formControl]="toDate" class="form-control" />
-  </div>
+    <div class="form-group mb-3" appearance="outline">
+      <label>Ledger</label>
+      <input
+        type="text"
+        [formControl]="ledger"
+        list="ledgers"
+        class="form-control"
+        (click)="onLedgerFieldClick()"
+      />
+      <datalist id="ledgers">
+        <option
+          *ngFor="let l of ledgers | async"
+          [value]="l.id + '-' + l.title"
+        >
+          {{ l.kind }}
+        </option>
+      </datalist>
+    </div>
 
-  <div class="form-group mb-3" appearance="outline">
-    <label>Ledger</label>
-    <input type="text" [formControl]="ledger" list="ledgers" class="form-control" (click)="onLedgerFieldClick()">
-    <datalist id="ledgers">
-      <option *ngFor="let l of ledgers | async" [value]="l.id + '-' + l.title ">
-        {{ l.kind }}
-      </option>
-    </datalist>
+    <button
+      type="submit"
+      class="btn d-block w-100"
+      mat-flat-button
+      color="primary"
+    >
+      Get Data
+    </button>
   </div>
-
-  <button
-    type="submit"
-    class="btn d-block w-100"
-    mat-flat-button
-    color="primary"
-  >
-    Get Data
-  </button>
 </form>
