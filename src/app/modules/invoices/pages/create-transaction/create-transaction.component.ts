@@ -48,6 +48,12 @@ export class CreateTransactionComponent implements OnInit, AfterViewInit {
     }
 
     this.titleService.setTitle('Set Quantity And Rate | ShopApp');
+
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
   }
 
   ngAfterViewInit(): void {
@@ -62,7 +68,7 @@ export class CreateTransactionComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    if (this.discountPercent >= 90 ) {
+    if (this.discountPercent >= 90) {
       this.notification.showError('Error', 'Discount Too High');
       return;
     }
