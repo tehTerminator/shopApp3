@@ -1,0 +1,12 @@
+@media screen {
+    .scrollable-container {
+        max-height: 700px !important;
+        overflow-y: scroll;
+    }
+}
+
+@media screen {
+    .scrollable-container {
+        max-height: auto;
+    }
+}

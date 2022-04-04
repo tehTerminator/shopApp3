@@ -4,9 +4,6 @@
 }
 
 .list-group {
-    z-index: 997 !important;
-}
-
-input {
-    z-index: 998 !important;
+    max-height: 700px;
+    overflow-y: scroll;
 }

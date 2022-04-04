@@ -11,7 +11,7 @@
   </div>
   <a
     class="list-group-item d-flex justify-content-between"
-    *ngFor="let item of items | search: 'title':searchText | slice: 0:10"
+    *ngFor="let item of items | search: 'title':searchText"
     (click)="onSelect(item)"
   >
     <span>{{ item.title }}</span>
