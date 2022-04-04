@@ -13,7 +13,7 @@ export class NotificationService {
   public show(title: string, text: string, state = MessageState.ALERT): void {
     const createdAt = new Date();
     const message: Message = { title, text, state, createdAt };
-    this.snackBar.open(text, 'DISMISS', {duration: 5000});
+    this.snackBar.open(text, 'DISMISS', {duration: 2000});
     this.appendMessage(message);
   }
 
