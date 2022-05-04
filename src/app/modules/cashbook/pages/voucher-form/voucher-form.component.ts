@@ -5,13 +5,6 @@ import { ApiService } from './../../../../shared/services/api/api.service';
 import { NotificationService } from '../../../../shared/services/notification/notification.service';
 import { Ledger, Voucher } from '../../../../shared/collection';
 import { EMPTY, Observable } from 'rxjs';
-import {
-  trigger,
-  state,
-  transition,
-  animate,
-  style
-} from '@angular/animations';
 import { Title } from '@angular/platform-browser';
 import { map, startWith } from 'rxjs/operators';
 
@@ -19,17 +12,6 @@ import { map, startWith } from 'rxjs/operators';
   selector: 'app-voucher-form',
   templateUrl: './voucher-form.component.html',
   styleUrls: ['./voucher-form.component.css'],
-  animations: [
-    trigger('initialize', [
-      state('in', style({
-        opacity: 1,
-      })),
-      state('void', style({
-        opacity: 0,
-      })),
-      transition('void => *', animate(500))
-    ])
-  ]
 })
 export class VoucherFormComponent implements OnInit {
   voucherForm: FormGroup = new FormGroup({});

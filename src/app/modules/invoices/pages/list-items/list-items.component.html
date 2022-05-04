@@ -1,4 +1,4 @@
-<section class="list-group">
+<!-- <section class="list-group">
   <div class="list-group-item">
     <div class="form-group border-0">
       <input
@@ -23,4 +23,37 @@
   >
     No Item Found ...
   </div>
+</section> -->
+
+
+<section class="card">
+  <form [formGroup]="itemForm" (ngSubmit)="onSubmit()" class="card-body">
+    <mat-form-field class="w-100">
+      <mat-label>Select POS Item</mat-label>
+      <input
+        type="text"
+        matInput
+        [matAutocomplete]="auto"
+        [formControl]="itemField"
+        #item
+      />
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        <mat-option
+          *ngFor="let item of filteredItems | async"
+          [value]="item"
+        >
+        <div class="d-flex justify-content-between">
+          <span>
+            {{ item.title }}
+          </span>
+          <span>
+            {{ item.rate | currency:'INR' }}
+          </span>
+
+        </div>
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <button type="submit" class="btn btn-primary">Next</button>
+  </form>
 </section>
