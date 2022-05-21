@@ -21,7 +21,7 @@ export class StatementFormComponent implements OnInit {
     constructor(
       private ns: NotificationService,
       private ledgerService: LedgerService,
-      private statementService: StatementService
+      private statementService: StatementService,
     ) {}
 
 

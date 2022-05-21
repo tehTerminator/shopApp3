@@ -7,6 +7,7 @@ import { Ledger, Voucher } from '../../../../shared/collection';
 import { EMPTY, Observable } from 'rxjs';
 import { Title } from '@angular/platform-browser';
 import { map, startWith } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-voucher-form',
@@ -25,6 +26,7 @@ export class VoucherFormComponent implements OnInit {
     private titleService: Title,
     private ns: NotificationService,
     private ledgerService: LedgerService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -51,6 +53,18 @@ export class VoucherFormComponent implements OnInit {
         value => this.filteredOptions(value, 'INCOME')
       )
     );
+
+    this.loadIdFromRoute();
+  }
+
+  private loadIdFromRoute(): void {
+    try {
+      const id = Number(this.route.snapshot.paramMap.get('id'));
+      this.id.setValue(id);
+      this.onIdFieldChange();
+    } catch (e) {
+      this.id.setValue(null);
+    }
   }
 
   onIdFieldChange(): void {

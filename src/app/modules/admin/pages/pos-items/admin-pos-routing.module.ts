@@ -1,8 +1,8 @@
-import { NgModule } from "@angular/core";
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CreatePosItemComponent } from "./pages/create-pos-item/create-pos-item.component";
-import { CreateTemplateComponent } from "./pages/create-template/create-template.component";
-import { PosItemsComponent } from "./pos-items.component";
+import { CreatePosItemComponent } from './pages/create-pos-item/create-pos-item.component';
+import { CreateTemplateComponent } from './pages/create-template/create-template.component';
+import { PosItemsComponent } from './pos-items.component';
 
 const routes: Routes = [
     {

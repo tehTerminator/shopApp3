@@ -4,6 +4,7 @@ import { VoucherFormComponent } from './pages/voucher-form/voucher-form.componen
 
 const routes: Routes = [
   { path: 'voucher', component: VoucherFormComponent },
+  { path: 'voucher/:id', component: VoucherFormComponent },
   { path: 'statement', loadChildren: () => import('./pages/statement/statement.module').then(m => m.StatementModule) },
   { path: 'balance', loadChildren: () => import('./pages/ledger-balance/ledger-balance.module').then(m => m.LedgerBalanceModule) },
   { path: 'day-book', loadChildren: () => import('./pages/day-book/day-book.module').then(m => m.DayBookModule) },
