@@ -28,6 +28,16 @@ export class StatementTableComponent implements OnInit, OnDestroy {
             );
     }
 
+    splitText(narration: string): string[] {
+        if (narration.indexOf('#') >= 0){
+            const sp = narration.split('#');
+            if (sp.length === 2 && !isNaN(+sp[1])) {
+                return sp;
+            }
+        }
+        return [narration, ''];
+    }
+
     ngOnDestroy(): void {
         this.sub.unsubscribe();
     }
@@ -39,3 +49,4 @@ export class StatementTableComponent implements OnInit, OnDestroy {
             }));
     }
 }
+

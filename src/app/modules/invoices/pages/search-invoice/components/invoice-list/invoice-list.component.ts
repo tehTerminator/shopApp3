@@ -1,4 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { Invoice } from '../../../../../../shared/collection';
 import { SearchInvoiceStoreService } from '../../search-invoice-store.service';
@@ -16,6 +17,7 @@ export class InvoiceListComponent implements OnInit, OnDestroy {
     }
 
     selectInvoice(id: number): void {
+        console.log('Selecting ', id);
         this.store.selectInvoice(id);
     }
 
@@ -27,6 +29,8 @@ export class InvoiceListComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void { this.sub.unsubscribe(); }
-    constructor(private store: SearchInvoiceStoreService) { }
+
+    constructor(
+        private store: SearchInvoiceStoreService) { }
 }
 

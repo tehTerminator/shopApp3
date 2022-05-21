@@ -9,14 +9,14 @@ import { Transaction } from '../../../../shared/collection';
     styles: ['']
 })
 export class TransactionsTableComponent implements OnInit, OnDestroy {
-    private _transactions: Transaction[] = [];
+    public transactions: Transaction[] = [];
     private sub: Subscription = new Subscription();
 
     constructor(private store: InvoiceStoreService) { }
 
     ngOnInit(): void {
         this.sub = this.store.invoice.subscribe(
-            (invoice => this._transactions = invoice.transactions)
+            (invoice => this.transactions = invoice.transactions)
         );
     }
 
@@ -65,10 +65,6 @@ export class TransactionsTableComponent implements OnInit, OnDestroy {
             return 5;
         }
         return 4;
-    }
-
-    get transactions(): Transaction[] {
-        return this._transactions;
     }
 
     get emptyRows(): number[] {

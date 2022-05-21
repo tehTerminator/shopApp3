@@ -15,6 +15,7 @@ import { SearchByCustomerComponent } from './components/search-by-customer/searc
 const routes: Routes = [
     {
         path: '', component: SearchInvoiceComponent, children: [
+            { path: 'search-by-operator/:id', component: SearchByDateComponent },
             { path: 'search-by-operator', component: SearchByDateComponent },
             { path: 'search-by-customer', component: SearchByCustomerComponent },
             { path: '**', pathMatch: 'full', redirectTo: 'search-by-operator' }
