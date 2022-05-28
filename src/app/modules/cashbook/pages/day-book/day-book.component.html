@@ -1,5 +1,5 @@
-<div class="row">
-  <div class="col-md-3 col-sm-6">
+<div class="row g-3">
+  <div class="col-md-4">
     <div class="card" [ngClass]="loading ? 'loading' : ''">
       <div class="card-body">
         <div class="form-group">
@@ -15,7 +15,7 @@
       </div>
     </div>
   </div>
-  <div class="col-md-9 col-sm-6">
+  <div class="col-md-8">
     <div class="card" *ngIf="dayBook.length > 0; else noData">
       <div class="card-body">
         <table class="table-sm table-bordered text-center w-100">
