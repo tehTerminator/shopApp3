@@ -37,7 +37,7 @@
         [formControl]="itemField"
         #item
       />
-      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
         <mat-option
           *ngFor="let item of filteredItems | async"
           [value]="item"

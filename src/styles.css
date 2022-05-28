@@ -82,3 +82,9 @@ mat-form-field {
 .list-group-item {
   cursor: pointer;
 }
+
+.mat-active {
+  background-color: #6320a6af !important;
+  color: #eee !important;
+  border-radius: 5px !important;
+}
