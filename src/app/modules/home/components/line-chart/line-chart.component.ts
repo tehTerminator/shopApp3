@@ -10,7 +10,7 @@ import { Subject } from 'rxjs';
     template: `
         <div class="card">
             <div class="card-header">{{ header }} </div>
-            <div class="card-body">
+            <div class="card-body text-center">
                 <ngx-charts-line-chart
                     [legend]="TRUE"
                     [legendPosition]="legendPosition"
