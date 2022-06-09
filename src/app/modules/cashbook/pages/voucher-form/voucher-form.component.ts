@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LedgerService } from './../../../../shared/services/ledger/ledger.service';
 import { ApiService } from './../../../../shared/services/api/api.service';
@@ -15,6 +15,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./voucher-form.component.css'],
 })
 export class VoucherFormComponent implements OnInit {
+  @ViewChild('firstInputField') input!: ElementRef<HTMLInputElement>;
   voucherForm: FormGroup = new FormGroup({});
   isLoading = false;
   filteredCreditor: Observable<Ledger[]> = EMPTY;
@@ -34,7 +35,7 @@ export class VoucherFormComponent implements OnInit {
       id: 0,
       cr: [0, Validators.required],
       dr: [0, Validators.required],
-      narration: '',
+      narration: ['', [Validators.required, Validators.minLength(3)]],
       amount: [0, [Validators.required, Validators.min(0.01)]]
     });
 
@@ -139,6 +140,7 @@ export class VoucherFormComponent implements OnInit {
         this.ns.showSuccess(word, successMessage);
         this.voucherForm.reset();
         this.isLoading = false;
+        this.input.nativeElement.focus();
       },
       error => {
         this.ns.showError('Error', error);
