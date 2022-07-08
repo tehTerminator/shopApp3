@@ -62,7 +62,7 @@ export class CreateTransactionComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onSubmit(addMore = false): void {
+  onSubmit(): void {
     if (this.transactionForm.invalid) {
       this.notification.showError('Error', 'Invalid Form Data');
       return;
@@ -74,12 +74,7 @@ export class CreateTransactionComponent implements OnInit, AfterViewInit {
     }
 
     this.store.createTransaction(this.quantity.value, this.rate.value, this.discountPercent);
-
-    if (addMore) {
-      this.router.navigate(['/invoices', 'create', 'list-items']);
-    } else {
-      this.router.navigate(['/invoices', 'create', 'paymentMethod']);
-    }
+    this.router.navigate(['/invoices', 'create', 'list-items']);
   }
 
   get productName(): string {
