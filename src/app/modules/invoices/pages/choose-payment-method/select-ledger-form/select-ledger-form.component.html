@@ -1,0 +1,15 @@
+<section class="card mt-2">
+    <div class="card-body">
+      <form [formGroup]="paymentMethodForm" (ngSubmit)="onSubmit()">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Select Payment Method</mat-label>
+          <mat-select name="paymentMethod" formControlName="paymentMethod">
+            <mat-option *ngFor="let ledger of ledgers | async" [value]="ledger">
+              {{ ledger.title }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button type="submit" class="btn btn-primary w-100">Select</button>
+      </form>
+    </div>
+  </section>
