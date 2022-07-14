@@ -42,6 +42,10 @@ export class InvoiceStoreService {
     this.invoice.next({ ...this.invoice.value, paymentMethod });
   }
 
+  get paymentMethod(): string {
+    return this.invoice.value.paymentMethod;
+  }
+
   removeTransaction(index: number): void {
     const invoice = this.invoice.value;
     invoice.transactions.splice(index, 1);

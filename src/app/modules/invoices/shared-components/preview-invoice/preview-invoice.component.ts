@@ -12,4 +12,8 @@ export class PreviewInvoiceComponent implements OnInit {
   ngOnInit(): void {
     this.store.reset();
   }
+
+  get paymentStatus(): string {
+    return this.store.paymentMethod ? this.store.paymentMethod : 'EMPTY';
+  }
 }
