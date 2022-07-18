@@ -24,13 +24,13 @@
       <tfoot class="border border-top">
         <tr>
           <td>
+            Diff : {{ totalClosing - totalOpening | currency:'INR' }}
+          </td>
+          <td>
             Opening : {{ totalOpening | currency:'INR' }}
           </td>
           <td>
             Closing : {{ totalClosing | currency:'INR'}}
-          </td>
-          <td>
-            Diff : {{ totalClosing - totalOpening | currency:'INR' }}
           </td>
         </tr>
       </tfoot>
