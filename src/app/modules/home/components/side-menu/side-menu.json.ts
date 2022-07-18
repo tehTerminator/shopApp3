@@ -37,4 +37,13 @@ export const MenuItems = [
             yaxislabel: 'Amount'
         }
     },
+    {
+        chartType: 'line',
+        url: 'operatorPerformance',
+        title: 'Operator Performance',
+        queryParams: {
+            xasislabel: 'Date',
+            yaxislabel: 'Amount'
+        }
+    }
 ];
