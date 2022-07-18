@@ -21,6 +21,7 @@ import { Subject } from 'rxjs';
                     [xAxisLabel]="xAxisLabel"
                     [yAxisLabel]="yAxisLabel"
                     [results]="dataSet"
+                    [scheme]="colorScheme"
                     *ngIf="!empty; else noData"
                 ></ngx-charts-line-chart>
             </div>
@@ -41,7 +42,24 @@ export class LineChartComponent implements OnInit, OnDestroy {
     readonly legendPosition = 'right';
     readonly TRUE = true;
     readonly colorScheme = {
-        domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5', '#FF01FF', '#FF0010', '#0100FF', '#003f5c', '#2f4b7c', '#665191', '#a05195', '#d45087', '#f95d6a', '#ff7c43', '#ffa600']
+        domain: [
+            '#5AA454',
+            '#E44D25',
+            '#8b0000',
+            '#00008B',
+            '#a8385d',
+            '#FF01FF',
+            '#FF0010',
+            '#0100FF',
+            '#003f5c',
+            '#2f4b7c',
+            '#665191',
+            '#a05195',
+            '#d45087',
+            '#f95d6a',
+            '#ff7c43',
+            '#ffa600'
+        ]
     };
 
     constructor(private api: ApiService, private route: ActivatedRoute) { }
@@ -70,7 +88,12 @@ export class LineChartComponent implements OnInit, OnDestroy {
         this.api.select<LineChartData[]>(this.dataUrl)
             .pipe(retry(5))
             .subscribe(
-                (response => this.dataSet = response),
+                (response => {
+                    console.log(response);
+                    const filteredData = response.filter(x => x.series.length > 0);
+                    console.log(filteredData);
+                    this.dataSet = filteredData;
+                }),
                 () => this.dataSet = []
             );
     }
