@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, ValidationErrors, AbstractControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, UntypedFormBuilder, ValidationErrors, AbstractControl, Validators } from '@angular/forms';
 import { CurrencyStoreService } from '../currency-store.service';
 import { ValidateDenomiation } from './deno-validator';
 
@@ -9,7 +9,7 @@ import { ValidateDenomiation } from './deno-validator';
     styles: ['']
 })
 export class CurrencyFormComponent {
-    calcForm: FormGroup = this.fb.group({
+    calcForm: UntypedFormGroup = this.fb.group({
         denomination: [0, [Validators.required, ValidateDenomiation]],
         count: [0, [Validators.required, Validators.min(1)]]
     });
@@ -25,13 +25,13 @@ export class CurrencyFormComponent {
         }
     }
 
-    get denomination(): FormControl {
-        return this.calcForm.get('denomination') as FormControl;
+    get denomination(): UntypedFormControl {
+        return this.calcForm.get('denomination') as UntypedFormControl;
     }
 
-    get count(): FormControl {
-        return this.calcForm.get('count') as FormControl;
+    get count(): UntypedFormControl {
+        return this.calcForm.get('count') as UntypedFormControl;
     }
 
-    constructor(private fb: FormBuilder, private store: CurrencyStoreService) { }
+    constructor(private fb: UntypedFormBuilder, private store: CurrencyStoreService) { }
 }

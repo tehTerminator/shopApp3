@@ -1,6 +1,6 @@
 import { ThisReceiver } from '@angular/compiler';
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EMPTY, Observable } from 'rxjs';
 import { startWith, map, filter } from 'rxjs/operators';
@@ -16,15 +16,15 @@ import { InvoiceStoreService } from './../../services/invoice-store.service';
 export class ListCustomerComponent implements OnInit, AfterViewInit {
   // searchText = '';
   @ViewChild('customerTextField') input!: ElementRef<HTMLInputElement>;
-  customerField = new FormControl(null, Validators.required);
-  customerForm = new FormGroup({customer: this.customerField});
+  customerField = new UntypedFormControl(null, Validators.required);
+  customerForm = new UntypedFormGroup({customer: this.customerField});
   filteredCustomer: Observable<Customer[]> = EMPTY;
 
   constructor(
     private router: Router,
     private customerService: CustomerService,
     private store: InvoiceStoreService,
-    private fb: FormBuilder
+    private fb: UntypedFormBuilder
   ) { }
 
   ngOnInit(): void {
@@ -54,7 +54,7 @@ export class ListCustomerComponent implements OnInit, AfterViewInit {
   }
 
   onSubmit(): void {
-    const customer = (this.customerForm.get('customer') as FormControl).value;
+    const customer = (this.customerForm.get('customer') as UntypedFormControl).value;
     if ('title' in customer && 'address' in customer) {
       this.store.customer = customer;
       this.router.navigate(['/invoices', 'create', 'list-items']);

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { getCurrentDateString } from '../../../../../../shared/functions';
 import { DayBookService } from '../../services/day-book.service';
 
@@ -8,7 +8,7 @@ import { DayBookService } from '../../services/day-book.service';
     templateUrl: './day-book-form.component.html'
 })
 export class DayBookFormComponent implements OnInit {
-    dateField: FormControl = new FormControl();
+    dateField: UntypedFormControl = new UntypedFormControl();
     loading = false;
     onSubmit = () => this.dayBookService.fetchData(this.dateField.value);
     ngOnInit(): void {

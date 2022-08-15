@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { LedgerService } from '../../../../../shared/services/ledger/ledger.service';
 import { NotificationService } from '../../../../../shared/services/notification/notification.service';
 import { STRING, Ledger } from '../../../../../shared/collection';
@@ -12,12 +12,12 @@ import { EMPTY, Observable, Subscription } from 'rxjs';
 })
 export class LedgerFormComponent implements OnInit {
   readonly kinds = ['BANK', 'CASH', 'PAYABLES', 'RECEIVABLES', 'EXPENSE', 'INCOME'];
-  ledgerForm: FormGroup = new FormGroup({});
+  ledgerForm: UntypedFormGroup = new UntypedFormGroup({});
   sub = new Subscription();
   isLoading = false;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private notification: NotificationService,
     private ledgerService: LedgerService
   ) { }
@@ -104,16 +104,16 @@ export class LedgerFormComponent implements OnInit {
     return this.kindField.value;
   }
 
-  get idField(): FormControl {
-    return this.ledgerForm.get('id') as FormControl;
+  get idField(): UntypedFormControl {
+    return this.ledgerForm.get('id') as UntypedFormControl;
   }
 
-  get titleField(): FormControl {
-    return this.ledgerForm.get('title') as FormControl;
+  get titleField(): UntypedFormControl {
+    return this.ledgerForm.get('title') as UntypedFormControl;
   }
 
-  get kindField(): FormControl{
-    return this.ledgerForm.get('kind') as FormControl;
+  get kindField(): UntypedFormControl{
+    return this.ledgerForm.get('kind') as UntypedFormControl;
   }
 }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { retry } from 'rxjs/operators';
 import { getCurrentDateString } from '../../../../../../shared/functions';
@@ -12,7 +12,7 @@ import { SearchInvoiceStoreService } from '../../search-invoice-store.service';
     styles: ['']
 })
 export class SearchByDateComponent implements OnInit {
-    searchForm: FormGroup = new FormGroup({});
+    searchForm: UntypedFormGroup = new UntypedFormGroup({});
     users: UserData[] = [];
 
     ngOnInit(): void {
@@ -42,21 +42,21 @@ export class SearchByDateComponent implements OnInit {
         );
     }
 
-    get createdAtField(): FormControl {
-        return this.searchForm.get('createdAt') as FormControl;
+    get createdAtField(): UntypedFormControl {
+        return this.searchForm.get('createdAt') as UntypedFormControl;
     }
 
     get date(): string {
         return this.createdAtField.value;
     }
 
-    get userIdField(): FormControl {
-        return this.searchForm.get('userId') as FormControl;
+    get userIdField(): UntypedFormControl {
+        return this.searchForm.get('userId') as UntypedFormControl;
     }
 
     constructor(
         private route: ActivatedRoute,
-        private formBuilder: FormBuilder,
+        private formBuilder: UntypedFormBuilder,
         private api: ApiService,
         private store: SearchInvoiceStoreService) { }
 }

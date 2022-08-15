@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthStateService } from './../../../../shared/services/auth/auth-state.service';
 import { AuthService } from './../../../../shared/services/auth/auth.service';
@@ -32,11 +32,11 @@ import {
   ]
 })
 export class SignInComponent implements OnInit {
-  signInForm: FormGroup = this.fb.group({});
+  signInForm: UntypedFormGroup = this.fb.group({});
   isLoading = false;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private authService: AuthService,
     private router: Router,
     private ns: NotificationService
@@ -78,11 +78,11 @@ export class SignInComponent implements OnInit {
     return !!password ? password : '';
   }
 
-  get usernameField(): FormControl {
-    return this.signInForm.get('username') as FormControl;
+  get usernameField(): UntypedFormControl {
+    return this.signInForm.get('username') as UntypedFormControl;
   }
 
-  get passwordField(): FormControl {
-    return this.signInForm.get('password') as FormControl;
+  get passwordField(): UntypedFormControl {
+    return this.signInForm.get('password') as UntypedFormControl;
   }
 }

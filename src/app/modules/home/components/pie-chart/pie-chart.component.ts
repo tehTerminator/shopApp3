@@ -4,7 +4,7 @@ import { ChartData } from './../../../../shared/collection';
 import { retry, takeUntil } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { getCurrentDateString } from './../../../../shared/functions';
 
 @Component({
@@ -13,7 +13,7 @@ import { getCurrentDateString } from './../../../../shared/functions';
     styles: ['']
 })
 export class PieChartComponent implements OnInit, OnDestroy {
-    dateField = new FormControl(getCurrentDateString());
+    dateField = new UntypedFormControl(getCurrentDateString());
     dataUrl: string | null = 'userWiseInvoice';
     header = 'Default Header';
     dataSet: ChartData[] = [];

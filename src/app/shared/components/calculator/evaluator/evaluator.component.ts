@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
     styles: ['']
 })
 export class EvaluatorComponent implements OnInit, OnDestroy {
-    command = new FormControl('', Validators.pattern(mathPattern));
+    command = new UntypedFormControl('', Validators.pattern(mathPattern));
     previousCalculatorCommand = 'Enter Expression to Calculate';
 
     private sub = new Subscription();

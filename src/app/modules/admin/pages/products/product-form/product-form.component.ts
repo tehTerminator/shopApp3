@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, UntypedFormControl } from '@angular/forms';
 import { STRING, Product } from '../../../../../shared/collection';
 import { NotificationService } from '../../../../../shared/services/notification/notification.service';
 import { ProductService } from '../../../../../shared/services/product/product.service';
@@ -11,10 +11,10 @@ import { ProductService } from '../../../../../shared/services/product/product.s
 })
 export class ProductFormComponent implements OnInit {
 
-  productForm: FormGroup = new FormGroup({});
+  productForm: UntypedFormGroup = new UntypedFormGroup({});
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private ns: NotificationService,
     private productService: ProductService) { }
 
@@ -69,16 +69,16 @@ export class ProductFormComponent implements OnInit {
     }
   }
 
-  get id(): FormControl {
-    return this.productForm.get('id') as FormControl;
+  get id(): UntypedFormControl {
+    return this.productForm.get('id') as UntypedFormControl;
   }
 
-  get title(): FormControl {
-    return this.productForm.get('title') as FormControl;
+  get title(): UntypedFormControl {
+    return this.productForm.get('title') as UntypedFormControl;
   }
 
-  get rate(): FormControl {
-    return this.productForm.get('rate') as FormControl;
+  get rate(): UntypedFormControl {
+    return this.productForm.get('rate') as UntypedFormControl;
   }
 
   get editMode(): boolean {

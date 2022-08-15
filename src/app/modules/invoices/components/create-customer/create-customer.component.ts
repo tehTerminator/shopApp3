@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormControl, UntypedFormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Customer, STRING } from '../../../../shared/collection';
 import { NotificationService } from '../../../../shared/services/notification/notification.service';
@@ -12,9 +12,9 @@ import { InvoiceStoreService } from '../../services/invoice-store.service';
   styleUrls: ['./create-customer.component.css']
 })
 export class CreateCustomerComponent implements OnInit {
-  createCustomerForm: FormGroup = new FormGroup({});
-  nameFormControl = new FormControl('', [Validators.required, Validators.pattern(STRING)]);
-  addressFormControl = new FormControl('', [Validators.required, Validators.pattern(STRING)]);
+  createCustomerForm: UntypedFormGroup = new UntypedFormGroup({});
+  nameFormControl = new UntypedFormControl('', [Validators.required, Validators.pattern(STRING)]);
+  addressFormControl = new UntypedFormControl('', [Validators.required, Validators.pattern(STRING)]);
 
   constructor(
     private router: Router,

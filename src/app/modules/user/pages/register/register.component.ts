@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NotificationService } from './../../../../shared/services/notification/notification.service';
 import { ApiService } from './../../../../shared/services/api/api.service';
@@ -11,12 +11,12 @@ import { ALPHA, STRING } from './../../../../shared/collection';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  userRegistrationForm: FormGroup = new FormGroup({});
+  userRegistrationForm: UntypedFormGroup = new UntypedFormGroup({});
   isLoading = false;
   hide = true;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private router: Router,
     private notice: NotificationService,
     private api: ApiService
@@ -65,19 +65,19 @@ export class RegisterComponent implements OnInit {
       });
   }
 
-  get displayName(): FormControl {
-    return this.userRegistrationForm.get('displayName') as FormControl;
+  get displayName(): UntypedFormControl {
+    return this.userRegistrationForm.get('displayName') as UntypedFormControl;
   }
 
-  get username(): FormControl {
-    return this.userRegistrationForm.get('username') as FormControl;
+  get username(): UntypedFormControl {
+    return this.userRegistrationForm.get('username') as UntypedFormControl;
   }
 
-  get password(): FormControl {
-    return this.userRegistrationForm.get('password') as FormControl;
+  get password(): UntypedFormControl {
+    return this.userRegistrationForm.get('password') as UntypedFormControl;
   }
 
-  usernameValidator(control: FormControl): Promise<ValidationErrors | null> {
+  usernameValidator(control: UntypedFormControl): Promise<ValidationErrors | null> {
     const promise = new Promise<ValidationErrors | null>((resolve, reject) => {
       const username = control.value;
       this.api.select<{ count: number }>('username', { username })
@@ -97,7 +97,7 @@ export class RegisterComponent implements OnInit {
     return promise;
   }
 
-  displayNameValidator(control: FormControl): Promise<ValidationErrors | null> {
+  displayNameValidator(control: UntypedFormControl): Promise<ValidationErrors | null> {
     const promise = new Promise<ValidationErrors | null>((resolve, reject) => {
       const displayName = control.value;
       this.api.select<{ count: number }>('displayName', { displayName })

@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, UntypedFormControl, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NotificationService } from '../../../../shared/services/notification/notification.service';
@@ -12,13 +12,13 @@ import { LedgerService } from './../../../../shared/services/ledger/ledger.servi
   styleUrls: ['./create-transaction.component.css']
 })
 export class CreateTransactionComponent implements OnInit, AfterViewInit {
-  transactionForm: FormGroup = new FormGroup({});
+  transactionForm: UntypedFormGroup = new UntypedFormGroup({});
   @ViewChild('quantityField') quantityField: ElementRef<HTMLInputElement> | null = null;
   constructor(
     private router: Router,
     private notification: NotificationService,
     private store: InvoiceStoreService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private ledgerService: LedgerService,
     private titleService: Title
   ) { }
@@ -98,15 +98,15 @@ export class CreateTransactionComponent implements OnInit, AfterViewInit {
     return this.grossPrice - this.discount.value;
   }
 
-  get quantity(): FormControl {
-    return this.transactionForm.get('quantity') as FormControl;
+  get quantity(): UntypedFormControl {
+    return this.transactionForm.get('quantity') as UntypedFormControl;
   }
 
-  get rate(): FormControl {
-    return this.transactionForm.get('rate') as FormControl;
+  get rate(): UntypedFormControl {
+    return this.transactionForm.get('rate') as UntypedFormControl;
   }
 
-  get discount(): FormControl {
-    return this.transactionForm.get('discount') as FormControl;
+  get discount(): UntypedFormControl {
+    return this.transactionForm.get('discount') as UntypedFormControl;
   }
 }

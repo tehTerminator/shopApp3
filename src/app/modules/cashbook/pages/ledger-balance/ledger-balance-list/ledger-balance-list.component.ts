@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { LedgerBalance, LedgerBalanceService } from '../ledger-balance.service';
@@ -11,7 +11,7 @@ import { getCurrentDateString } from './../../../../../shared/functions';
   styles: ['']
 })
 export class LedgerBalanceListComponent implements OnInit, OnDestroy {
-  dateField = new FormControl();
+  dateField = new UntypedFormControl();
   hasData = false;
   totalOpening = 0;
   totalClosing = 0;

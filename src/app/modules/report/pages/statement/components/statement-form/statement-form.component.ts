@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Ledger } from '../../../../../../shared/collection';
 import { LedgerService } from '../../../../../../shared/services/ledger/ledger.service';
@@ -13,10 +13,10 @@ import { getCurrentDateString } from '../../../../../../shared/functions';
     styles: ['']
 })
 export class StatementFormComponent implements OnInit {
-    ledger = new FormControl(0, [Validators.min(1), Validators.required]);
-    fromDate = new FormControl('', [Validators.required]);
-    toDate = new FormControl('', [Validators.required]);
-    myForm = new FormGroup({});
+    ledger = new UntypedFormControl(0, [Validators.min(1), Validators.required]);
+    fromDate = new UntypedFormControl('', [Validators.required]);
+    toDate = new UntypedFormControl('', [Validators.required]);
+    myForm = new UntypedFormGroup({});
 
     constructor(
       private ns: NotificationService,

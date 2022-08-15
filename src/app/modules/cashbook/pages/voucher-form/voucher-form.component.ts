@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { LedgerService } from './../../../../shared/services/ledger/ledger.service';
 import { ApiService } from './../../../../shared/services/api/api.service';
 import { NotificationService } from '../../../../shared/services/notification/notification.service';
@@ -16,13 +16,13 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class VoucherFormComponent implements OnInit {
   @ViewChild('firstInputField') input!: ElementRef<HTMLInputElement>;
-  voucherForm: FormGroup = new FormGroup({});
+  voucherForm: UntypedFormGroup = new UntypedFormGroup({});
   isLoading = false;
   filteredCreditor: Observable<Ledger[]> = EMPTY;
   filteredDebtor: Observable<Ledger[]> = EMPTY;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private api: ApiService,
     private titleService: Title,
     private ns: NotificationService,
@@ -173,23 +173,23 @@ export class VoucherFormComponent implements OnInit {
     return this.id.value > 0;
   }
 
-  get id(): FormControl {
-    return this.voucherForm.get('id') as FormControl;
+  get id(): UntypedFormControl {
+    return this.voucherForm.get('id') as UntypedFormControl;
   }
 
-  get cr(): FormControl {
-    return this.voucherForm.get('cr') as FormControl;
+  get cr(): UntypedFormControl {
+    return this.voucherForm.get('cr') as UntypedFormControl;
   }
 
-  get dr(): FormControl {
-    return this.voucherForm.get('dr') as FormControl;
+  get dr(): UntypedFormControl {
+    return this.voucherForm.get('dr') as UntypedFormControl;
   }
 
-  get narration(): FormControl {
-    return this.voucherForm.get('narration') as FormControl;
+  get narration(): UntypedFormControl {
+    return this.voucherForm.get('narration') as UntypedFormControl;
   }
 
-  get amount(): FormControl {
-    return this.voucherForm.get('amount') as FormControl;
+  get amount(): UntypedFormControl {
+    return this.voucherForm.get('amount') as UntypedFormControl;
   }
 }

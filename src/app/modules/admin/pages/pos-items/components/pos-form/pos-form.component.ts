@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { PosItem } from '../../../../../../shared/collection';
@@ -12,12 +12,12 @@ import { PosItemService } from './../../../../../../shared/services/posItem/pos-
   styleUrls: ['./pos-form.component.css']
 })
 export class PosFormComponent implements OnInit {
-  posForm: FormGroup = new FormGroup({});
+  posForm: UntypedFormGroup = new UntypedFormGroup({});
 
   constructor(
     private router: Router,
     private posService: PosItemService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private ns: NotificationService) { }
 
   ngOnInit(): void {
@@ -78,16 +78,16 @@ export class PosFormComponent implements OnInit {
     return this.id.value > 0;
   }
 
-  get id(): FormControl {
-    return this.posForm.get('id') as FormControl;
+  get id(): UntypedFormControl {
+    return this.posForm.get('id') as UntypedFormControl;
   }
 
-  get title(): FormControl {
-    return this.posForm.get('title') as FormControl;
+  get title(): UntypedFormControl {
+    return this.posForm.get('title') as UntypedFormControl;
   }
 
-  get rate(): FormControl {
-    return this.posForm.get('rate') as FormControl;
+  get rate(): UntypedFormControl {
+    return this.posForm.get('rate') as UntypedFormControl;
   }
 
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Customer } from '../../../../../../shared/collection';
 import { CustomerService } from '../../../../services/customer.service';
@@ -10,7 +10,7 @@ import { SearchInvoiceStoreService } from '../../search-invoice-store.service';
     selector: 'app-search-by-customer'
 })
 export class SearchByCustomerComponent implements OnInit {
-    searchForm: FormGroup = this.fb.group({
+    searchForm: UntypedFormGroup = this.fb.group({
         customer: ['', Validators.required],
         month: [null, Validators.required],
         paymentStatus: [0, Validators.required]
@@ -19,7 +19,7 @@ export class SearchByCustomerComponent implements OnInit {
     constructor(
         private customerService: CustomerService,
         private store: SearchInvoiceStoreService,
-        private fb: FormBuilder
+        private fb: UntypedFormBuilder
     ) {}
 
     ngOnInit(): void {
@@ -46,15 +46,15 @@ export class SearchByCustomerComponent implements OnInit {
         return this.customerService.getAsObservable() as Observable<Customer[]>;
     }
 
-    get customerFormControl(): FormControl {
-        return this.searchForm.get('customer') as FormControl;
+    get customerFormControl(): UntypedFormControl {
+        return this.searchForm.get('customer') as UntypedFormControl;
     }
 
-    get monthFormControl(): FormControl {
-        return this.searchForm.get('month') as FormControl;
+    get monthFormControl(): UntypedFormControl {
+        return this.searchForm.get('month') as UntypedFormControl;
     }
 
-    get paymentStatusFormControl(): FormControl {
-        return this.searchForm.get('paymentStatus') as FormControl;
+    get paymentStatusFormControl(): UntypedFormControl {
+        return this.searchForm.get('paymentStatus') as UntypedFormControl;
     }
 }

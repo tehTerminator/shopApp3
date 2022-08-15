@@ -5,7 +5,7 @@ import { InvoiceStoreService } from '../../services/invoice-store.service';
 import { NotificationService } from '../../../../shared/services/notification/notification.service';
 import { Title } from '@angular/platform-browser';
 import { GeneralItemStoreService } from './../../services/general-item-store.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { EMPTY, Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 
@@ -15,8 +15,8 @@ import { startWith, map } from 'rxjs/operators';
   styleUrls: ['./list-items.component.css']
 })
 export class ListItemsComponent implements OnInit, AfterViewInit {
-  itemField = new FormControl(null, Validators.required);
-  itemForm = new FormGroup({item: this.itemField});
+  itemField = new UntypedFormControl(null, Validators.required);
+  itemForm = new UntypedFormGroup({item: this.itemField});
   filteredItems: Observable<GeneralItem[]> = EMPTY;
   @ViewChild('item') input!: ElementRef<HTMLInputElement>;
 

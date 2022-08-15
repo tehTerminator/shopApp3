@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Validators, FormBuilder, FormControl } from '@angular/forms';
+import { Validators, UntypedFormBuilder, UntypedFormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -19,7 +19,7 @@ export class SelectLedgerFormComponent {
     constructor(
         private ledgerService: LedgerService,
         private store: InvoiceStoreService,
-        private fb: FormBuilder,
+        private fb: UntypedFormBuilder,
         private router: Router) { }
 
     get ledgers(): Observable<Ledger[]> {
@@ -40,7 +40,7 @@ export class SelectLedgerFormComponent {
     }
 
     onSubmit(): void {
-        const paymentMethod = this.paymentMethodForm.get('paymentMethod') as FormControl;
+        const paymentMethod = this.paymentMethodForm.get('paymentMethod') as UntypedFormControl;
         const ledger = paymentMethod.value as Ledger;
 
         if (paymentMethod.invalid) {

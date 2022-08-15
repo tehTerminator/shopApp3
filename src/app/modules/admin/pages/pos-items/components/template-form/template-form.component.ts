@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { PosItemService } from './../../../../../../shared/services/posItem/pos-item.service';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, UntypedFormControl } from '@angular/forms';
 import { LedgerService } from './../../../../../../shared/services/ledger/ledger.service';
 import { ProductService } from './../../../../../../shared/services/product/product.service';
 import { Ledger, PosItemTemplate, Product } from '../../../../../../shared/collection';
@@ -15,7 +15,7 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class TemplateFormComponent implements OnInit, OnChanges, OnDestroy {
   @Input() pos = 0;
-  templateForm: FormGroup = new FormGroup({});
+  templateForm: UntypedFormGroup = new UntypedFormGroup({});
   sub: Subscription = new Subscription();
   isProduct = true;
   private notifier = new Subject();
@@ -25,7 +25,7 @@ export class TemplateFormComponent implements OnInit, OnChanges, OnDestroy {
     private posItemService: PosItemService,
     private ledgerService: LedgerService,
     private productService: ProductService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
   ) { }
 
   ngOnInit(): void {
@@ -147,27 +147,27 @@ export class TemplateFormComponent implements OnInit, OnChanges, OnDestroy {
     return this.ledgerService.getAsObservable() as Observable<Ledger[]>;
   }
 
-  get id(): FormControl {
-    return this.templateForm.get('id') as FormControl;
+  get id(): UntypedFormControl {
+    return this.templateForm.get('id') as UntypedFormControl;
   }
 
-  get positem_id(): FormControl {
-    return this.templateForm.get('positem_id') as FormControl;
+  get positem_id(): UntypedFormControl {
+    return this.templateForm.get('positem_id') as UntypedFormControl;
   }
 
-  get item_id(): FormControl {
-    return this.templateForm.get('item_id') as FormControl;
+  get item_id(): UntypedFormControl {
+    return this.templateForm.get('item_id') as UntypedFormControl;
   }
 
-  get kind(): FormControl {
-    return this.templateForm.get('kind') as FormControl;
+  get kind(): UntypedFormControl {
+    return this.templateForm.get('kind') as UntypedFormControl;
   }
 
-  get rate(): FormControl {
-    return this.templateForm.get('rate') as FormControl;
+  get rate(): UntypedFormControl {
+    return this.templateForm.get('rate') as UntypedFormControl;
   }
 
-  get quantity(): FormControl {
-    return this.templateForm.get('quantity') as FormControl;
+  get quantity(): UntypedFormControl {
+    return this.templateForm.get('quantity') as UntypedFormControl;
   }
 }

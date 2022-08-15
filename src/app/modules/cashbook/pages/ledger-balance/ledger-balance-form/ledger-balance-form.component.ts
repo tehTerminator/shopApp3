@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, UntypedFormControl } from '@angular/forms';
 import { LedgerService } from './../../../../../shared/services/ledger/ledger.service';
 import { Ledger } from './../../../../../shared/collection';
 import { Observable, Subscription } from 'rxjs';
@@ -13,10 +13,10 @@ import { LedgerBalanceService } from '../ledger-balance.service';
   styles: ['']
 })
 export class LedgerBalanceFormComponent implements OnInit, OnDestroy {
-  myForm: FormGroup = new FormGroup({});
+  myForm: UntypedFormGroup = new UntypedFormGroup({});
   private sub: Subscription = new Subscription();
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private ns: NotificationService,
     private balanceStore: LedgerBalanceService,
     private ledgerService: LedgerService
@@ -83,15 +83,15 @@ export class LedgerBalanceFormComponent implements OnInit, OnDestroy {
     );
   }
 
-  get ledger(): FormControl {
-    return this.myForm.get('ledger') as FormControl;
+  get ledger(): UntypedFormControl {
+    return this.myForm.get('ledger') as UntypedFormControl;
   }
 
-  get opening(): FormControl {
-    return this.myForm.get('opening') as FormControl;
+  get opening(): UntypedFormControl {
+    return this.myForm.get('opening') as UntypedFormControl;
   }
 
-  get closing(): FormControl {
-    return this.myForm.get('closing') as FormControl;
+  get closing(): UntypedFormControl {
+    return this.myForm.get('closing') as UntypedFormControl;
   }
 }
