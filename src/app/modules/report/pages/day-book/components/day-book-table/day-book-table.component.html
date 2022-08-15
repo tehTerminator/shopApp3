@@ -1,0 +1,28 @@
+<div class="card" *ngIf="length > 0; else noData">
+    <div class="card-body">
+      <table class="table-sm table-bordered text-center w-100">
+        <thead class="bg-dark text-light">
+          <tr>
+            <th>Creditor</th>
+            <th>Debtor</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of dayBook | async">
+            <td>{{ item.creditor }}</td>
+            <td>{{ item.debtor }}</td>
+            <td>{{ item.amount | currency: "INR" }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <ng-template #noData>
+    <div class="card">
+      <div class="card-body text-center">
+        <h3 class="fs-3">No Data To Display</h3>
+      </div>
+    </div>
+  </ng-template>

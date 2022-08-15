@@ -1,48 +1,10 @@
 <div class="row g-3">
   <div class="col-md-4">
-    <div class="card" [ngClass]="loading ? 'loading' : ''">
-      <div class="card-body">
-        <div class="form-group">
-          <label for="date">Date</label>
-          <input type="date" class="form-control" [formControl]="dateField" />
-        </div>
-        <button
-          class="btn btn-primary mt-2 w-100"
-          (click)="onSubmit()"
-        >
-          Submit
-        </button>
-      </div>
-    </div>
+    <app-day-book-form></app-day-book-form>
   </div>
   <div class="col-md-8">
-    <div class="card" *ngIf="dayBook.length > 0; else noData">
-      <div class="card-body">
-        <table class="table-sm table-bordered text-center w-100">
-          <thead class="bg-dark text-light">
-            <tr>
-              <th>Creditor</th>
-              <th>Debtor</th>
-              <th>Amount</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of dayBook">
-              <td>{{ item.creditor }}</td>
-              <td>{{ item.debtor }}</td>
-              <td>{{ item.amount | currency: "INR" }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+    <app-day-book-table></app-day-book-table>
   </div>
 </div>
 
-<ng-template #noData>
-  <div class="card">
-    <div class="card-body text-center">
-      <h3 class="fs-3">No Data To Display</h3>
-    </div>
-  </div>
-</ng-template>
+
