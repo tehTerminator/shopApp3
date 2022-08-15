@@ -28,6 +28,11 @@ const routes: Routes = [
     loadChildren: () => import('./modules/invoices/invoices.module').then(m => m.InvoicesModule)
   },
   {
+    path: 'reports',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./modules/report/report.module').then(m => m.ReportModule) 
+  },
+  {
     path: '**',
     redirectTo: '/home',
     pathMatch: 'full'

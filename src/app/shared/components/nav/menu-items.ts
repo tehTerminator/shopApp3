@@ -13,16 +13,22 @@ export const MENUITEMS = [
                 url: ['/cashbook', 'voucher']
             },
             {
-                title: 'View Statement',
-                url: ['/cashbook', 'statement']
-            },
-            {
                 title: 'Opening / Closing',
                 url: ['/cashbook', 'balance']
             },
+        ]
+    },
+    {
+        title: 'Reports',
+        url: ['/reports'],
+        children: [
+            {
+                title: 'Account Statement',
+                url: ['/reports', 'statement']
+            },
             {
                 title: 'Day Book',
-                url: ['/cashbook', 'day-book']
+                url: ['/reports', 'day-book']
             }
         ]
     },
