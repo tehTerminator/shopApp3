@@ -5,9 +5,7 @@ import { BaseService } from '../../../shared/class/BaseService';
 import { Customer } from '../../../shared/collection';
 import { ApiService } from '../../../shared/services/api/api.service';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class CustomerService extends BaseService {
 
     constructor(private api: ApiService) {

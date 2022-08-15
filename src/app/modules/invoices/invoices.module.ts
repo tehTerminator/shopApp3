@@ -18,6 +18,9 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { UdhaarPaymentBtnComponent } from './pages/choose-payment-method/udhaar-payment-btn/udhaar-payment-btn.component';
 import { RecentPaymentBtnComponent } from './pages/choose-payment-method/recent-payment-btn/recent-payment-btn.component';
 import { SelectLedgerFormComponent } from './pages/choose-payment-method/select-ledger-form/select-ledger-form.component';
+import { CustomerService } from './services/customer.service';
+import { GeneralItemStoreService } from './services/general-item-store.service';
+import { InvoiceStoreService } from './services/invoice-store.service';
 
 
 @NgModule({
@@ -43,6 +46,10 @@ import { SelectLedgerFormComponent } from './pages/choose-payment-method/select-
     FormsModule,
     MatAutocompleteModule
   ],
-  providers: []
+  providers: [
+    CustomerService,
+    GeneralItemStoreService,
+    InvoiceStoreService
+  ]
 })
 export class InvoicesModule { }

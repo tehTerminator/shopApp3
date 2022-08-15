@@ -4,9 +4,7 @@ import { LedgerService } from '../../../shared/services/ledger/ledger.service';
 import { PosItemService } from '../../../shared/services/posItem/pos-item.service';
 import { ProductService } from '../../../shared/services/product/product.service';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class GeneralItemStoreService {
     constructor(
         private ledgerService: LedgerService,
