@@ -36,5 +36,4 @@ export class CustomerService extends BaseService {
     public delete(id: number): Observable<any> {
         throw new Error('Method not implemented.');
     }
-
 }
