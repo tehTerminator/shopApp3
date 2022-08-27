@@ -3,7 +3,7 @@
     <div class="card-body">
       <div class="row">
         <div class="col-8">
-          <div class="card card-body border-0">
+          <div class="card card-body border-0 print-only">
             <h2 class="fs-1 text-center">MAHARAJA COMPUTERS</h2>
             <p class="text-center lh-0">
               Kher Complex, Opp Civil Hospital, Ashoknagar (M.P.) PIN 473331
@@ -13,7 +13,7 @@
             </p>
           </div>
         </div>
-        <div class="col-4">
+        <div class="col-4 print-only">
           <app-invoice-info></app-invoice-info>
         </div>
       </div>
@@ -31,7 +31,7 @@
       <div class="row mt-5 justify-content-end">
         <div class="col-6">Payment Status : {{ this.paymentStatus }}</div>
         <div class="col-6">
-          <p class="text-end">
+          <p class="text-end print-only">
             Proprietor<br /><br />
             Maharaja Computers
           </p>
@@ -40,7 +40,7 @@
 
       <div class="row">
         <div class="col-4 mt-1">
-          <ul>
+          <ul class="print-only">
             <li>Goods / Services onces Rendered Shall Not be Taken Back.</li>
             <li>
               Please Make all your payments in the name of Maharaja Computers.
@@ -48,7 +48,7 @@
           </ul>
         </div>
         <div class="col-8">
-          <table class="table">
+          <table class="table print-only">
             <tbody>
               <tr>
                 <td>A/c Name</td>

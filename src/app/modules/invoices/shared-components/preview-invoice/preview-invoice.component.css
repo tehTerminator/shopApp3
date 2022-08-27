@@ -3,10 +3,20 @@
         max-height: 700px !important;
         overflow-y: scroll;
     }
+
+    .print-only {
+        display: none;
+    }
 }
 
 @media screen {
     .scrollable-container {
         max-height: auto;
+    }
+}
+
+@media print {
+    .print-only {
+        display: block;
     }
 }
