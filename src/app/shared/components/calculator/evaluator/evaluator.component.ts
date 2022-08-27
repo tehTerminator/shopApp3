@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UntypedFormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { evaluateString, mathPattern } from '../../../functions';
 
 @Component({
     selector: 'app-evaluator',
@@ -16,15 +17,12 @@ export class EvaluatorComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.sub = this.command.valueChanges
             .subscribe((value: string) => {
-                const regex = new RegExp(mathPattern);
                 const lastChar = value[value.length - 1];
                 if (lastChar === '=') {
-                    const command = value.substr(0, value.length - 1);
-                    if (regex.test(command)) {
-                        this.previousCalculatorCommand = `Evaluating : ${command}`;
-                        // tslint:disable-next-line: no-eval
-                        this.command.setValue(eval(command));
-                    } else {
+                    try {
+                        this.command.setValue(evaluateString(value));
+                        this.previousCalculatorCommand = value;
+                    } catch (e) {
                         this.command.setValue('Invalid Expression');
                     }
                 }
@@ -37,4 +35,4 @@ export class EvaluatorComponent implements OnInit, OnDestroy {
     }
 }
 
-const mathPattern = '^([1-9][0-9]*[\\.+\\-*\\/])*[1-9][0-9]*$';
+
