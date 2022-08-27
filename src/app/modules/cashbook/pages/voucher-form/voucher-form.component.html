@@ -79,7 +79,7 @@
         </mat-form-field>
         <mat-form-field appearance="outline" class="d-block">
           <mat-label>Amount</mat-label>
-          <input type="number" matInput formControlName="amount" min="0" />
+          <input type="number" matInput formControlName="amount" min="0" (focus)="onAmountFieldFocus()" />
           <mat-error *ngIf="amount.invalid && (amount.dirty || amount.touched)">
             <span *ngIf="amount.hasError('required')">
               Amount is Required for Voucher Entry

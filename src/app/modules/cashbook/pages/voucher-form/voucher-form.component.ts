@@ -8,6 +8,7 @@ import { EMPTY, Observable } from 'rxjs';
 import { Title } from '@angular/platform-browser';
 import { map, startWith } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
+import { evaluateString } from '../../../../shared/functions';
 
 @Component({
   selector: 'app-voucher-form',
@@ -101,6 +102,16 @@ export class VoucherFormComponent implements OnInit {
       });
     } catch (e) {
       this.ns.showError('Error', 'Error Loading Data From Server');
+    }
+  }
+
+  onAmountFieldFocus(): void {
+    // alert('Focused');
+    try {
+      const value = evaluateString(this.narration.value);
+      this.amount.setValue(value);
+    } catch (e) {
+      this.amount.setValue(0);
     }
   }
 
