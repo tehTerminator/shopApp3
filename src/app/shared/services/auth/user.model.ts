@@ -9,9 +9,11 @@ export class User {
      */
     constructor(
         private pId: number,
-        private pName: string,
+        private pTitle: string,
         private pUserName: string,
         private pToken: string,
+        private pImageUrl: string,
+        private pAuthLevel: number,
         private expirationTime: number
     ) {
 
@@ -22,11 +24,15 @@ export class User {
     }
 
     get name(): string {
-        return this.pName;
+        return this.pTitle;
     }
 
     get username(): string {
         return this.pUserName;
+    }
+
+    get authLevel(): number {
+        return this.pAuthLevel;
     }
 
     get token(): string {
