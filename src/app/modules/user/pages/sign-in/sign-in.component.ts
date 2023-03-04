@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthStateService } from './../../../../shared/services/auth/auth-state.service';
 import { AuthService } from './../../../../shared/services/auth/auth.service';
 import { NotificationService } from './../../../../shared/services/notification/notification.service';
-import { ALPHA, AuthState } from './../../../../shared/collection';
+import { ALPHA } from './../../../../shared/collection';
 import {
   trigger,
   state,
@@ -32,18 +31,18 @@ import {
   ]
 })
 export class SignInComponent implements OnInit {
-  signInForm: UntypedFormGroup = this.fb.group({});
+  signInForm: FormGroup<LoginForm>;
   isLoading = false;
 
   constructor(
-    private fb: UntypedFormBuilder,
     private authService: AuthService,
     private router: Router,
-    private ns: NotificationService
+    private ns: NotificationService,
   ) { }
 
   ngOnInit(): void {
-    this.signInForm = this.fb.group({
+    const fb = new FormBuilder();
+    this.signInForm = fb.nonNullable.group({
       username: ['', [Validators.required, Validators.minLength(3), Validators.pattern(ALPHA)]],
       password: ['', [Validators.required, Validators.minLength(3)]]
     });
@@ -78,11 +77,16 @@ export class SignInComponent implements OnInit {
     return !!password ? password : '';
   }
 
-  get usernameField(): UntypedFormControl {
-    return this.signInForm.get('username') as UntypedFormControl;
+  get usernameField(): FormControl<string> {
+    return this.signInForm.get('username') as FormControl<string>;
   }
 
-  get passwordField(): UntypedFormControl {
-    return this.signInForm.get('password') as UntypedFormControl;
+  get passwordField(): FormControl<string> {
+    return this.signInForm.get('password') as FormControl<string>;
   }
+}
+
+interface LoginForm {
+  username: FormControl<string>;
+  password: FormControl<string>;
 }
