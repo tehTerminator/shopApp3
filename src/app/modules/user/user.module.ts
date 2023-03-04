@@ -9,7 +9,6 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { CoreModule } from './../core/core.module';
-import { BannerComponent } from './banner/banner.component';
 
 
 @NgModule({
@@ -18,7 +17,6 @@ import { BannerComponent } from './banner/banner.component';
     SignInComponent,
     RegisterComponent,
     ProfileComponent,
-    BannerComponent
   ],
   imports: [
     CommonModule,
