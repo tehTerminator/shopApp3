@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, UntypedFormControl, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NotificationService } from './../../../../shared/services/notification/notification.service';
 import { ApiService } from './../../../../shared/services/api/api.service';
@@ -11,25 +11,25 @@ import { ALPHA, STRING } from './../../../../shared/collection';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  userRegistrationForm: UntypedFormGroup = new UntypedFormGroup({});
+  userRegistrationForm: FormGroup<UserRegistrationForm>;
   isLoading = false;
   hide = true;
 
   constructor(
-    private fb: UntypedFormBuilder,
-    private router: Router,
     private notice: NotificationService,
-    private api: ApiService
+    private api: ApiService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
-    this.userRegistrationForm = this.fb.group({
-      displayName: ['', [
+    const formBuilder = new FormBuilder();
+    this.userRegistrationForm = formBuilder.nonNullable.group({
+      title: ['', [
         Validators.required,
         Validators.minLength(5),
         Validators.maxLength(60),
         Validators.pattern(STRING)
-      ], [this.displayNameValidator.bind(this)]],
+      ], [this.titleValidator.bind(this)]],
       username: ['', [
         Validators.required,
         Validators.minLength(5),
@@ -50,7 +50,7 @@ export class RegisterComponent implements OnInit {
     this.isLoading = true;
 
     this.api.create('users', {
-      displayName: this.displayName.value,
+      title: this.title.value,
       username: this.username.value,
       password: this.password.value
     })
@@ -65,8 +65,8 @@ export class RegisterComponent implements OnInit {
       });
   }
 
-  get displayName(): UntypedFormControl {
-    return this.userRegistrationForm.get('displayName') as UntypedFormControl;
+  get title(): UntypedFormControl {
+    return this.userRegistrationForm.get('title') as UntypedFormControl;
   }
 
   get username(): UntypedFormControl {
@@ -89,7 +89,7 @@ export class RegisterComponent implements OnInit {
             }
             resolve(null);
           },
-          (error) => {
+          () => {
             resolve(null);
           }
         );
@@ -97,14 +97,14 @@ export class RegisterComponent implements OnInit {
     return promise;
   }
 
-  displayNameValidator(control: UntypedFormControl): Promise<ValidationErrors | null> {
+  titleValidator(control: UntypedFormControl): Promise<ValidationErrors | null> {
     const promise = new Promise<ValidationErrors | null>((resolve, reject) => {
-      const displayName = control.value;
-      this.api.select<{ count: number }>('displayName', { displayName })
+      const title = control.value;
+      this.api.select<{ count: number }>('title', { title })
         .subscribe(
           (response) => {
             if (response.count > 0) {
-              const error: ValidationErrors = { displayNameExists: true };
+              const error: ValidationErrors = { titleExists: true };
               resolve(error);
             }
             resolve(null);
@@ -116,4 +116,10 @@ export class RegisterComponent implements OnInit {
     });
     return promise;
   }
+}
+
+interface UserRegistrationForm {
+  title: FormControl<string>;
+  username: FormControl<string>;
+  password: FormControl<string>;
 }
