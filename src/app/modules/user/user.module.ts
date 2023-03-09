@@ -7,7 +7,6 @@ import { SignInComponent } from './pages/sign-in/sign-in.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
 import { CoreModule } from './../core/core.module';
 
 
@@ -21,7 +20,6 @@ import { CoreModule } from './../core/core.module';
   imports: [
     CommonModule,
     UserRoutingModule,
-    MatInputModule,
     ReactiveFormsModule,
     CoreModule,
   ]
