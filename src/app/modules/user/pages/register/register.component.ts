@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, UntypedFormControl, ValidationErrors, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, UntypedFormControl, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NotificationService } from './../../../../shared/services/notification/notification.service';
 import { ApiService } from './../../../../shared/services/api/api.service';
@@ -29,13 +29,12 @@ export class RegisterComponent implements OnInit {
         Validators.minLength(5),
         Validators.maxLength(60),
         Validators.pattern(STRING)
-      ], [this.titleValidator.bind(this)]],
+      ]],
       username: ['', [
         Validators.required,
         Validators.minLength(5),
         Validators.maxLength(50),
         Validators.pattern(ALPHA)],
-        [this.usernameValidator.bind(this)]
       ],
       password: ['', [Validators.required, Validators.minLength(3)]]
     });
@@ -65,57 +64,57 @@ export class RegisterComponent implements OnInit {
       });
   }
 
-  get title(): UntypedFormControl {
-    return this.userRegistrationForm.get('title') as UntypedFormControl;
+  get title(): FormControl<string> {
+    return this.userRegistrationForm.get('title') as FormControl<string>;
   }
 
-  get username(): UntypedFormControl {
-    return this.userRegistrationForm.get('username') as UntypedFormControl;
+  get username(): FormControl<string> {
+    return this.userRegistrationForm.get('username') as FormControl<string>;
   }
 
-  get password(): UntypedFormControl {
-    return this.userRegistrationForm.get('password') as UntypedFormControl;
+  get password(): FormControl<string> {
+    return this.userRegistrationForm.get('password') as FormControl<string>;
   }
 
-  usernameValidator(control: UntypedFormControl): Promise<ValidationErrors | null> {
-    const promise = new Promise<ValidationErrors | null>((resolve, reject) => {
-      const username = control.value;
-      this.api.select<{ count: number }>('username', { username })
-        .subscribe(
-          (response) => {
-            if (response.count > 0) {
-              const error: ValidationErrors = { usernameExist: true };
-              resolve(error);
-            }
-            resolve(null);
-          },
-          () => {
-            resolve(null);
-          }
-        );
-    });
-    return promise;
-  }
+  // usernameValidator(control: FormControl<string>): Promise<ValidationErrors | null> {
+  //   const promise = new Promise<ValidationErrors | null>((resolve, reject) => {
+  //     const username = control.value;
+  //     this.api.select<{ count: number }>('username', { username })
+  //       .subscribe(
+  //         (response) => {
+  //           if (response.count > 0) {
+  //             const error: ValidationErrors = { usernameExist: true };
+  //             resolve(error);
+  //           }
+  //           resolve(null);
+  //         },
+  //         () => {
+  //           resolve(null);
+  //         }
+  //       );
+  //   });
+  //   return promise;
+  // }
 
-  titleValidator(control: UntypedFormControl): Promise<ValidationErrors | null> {
-    const promise = new Promise<ValidationErrors | null>((resolve, reject) => {
-      const title = control.value;
-      this.api.select<{ count: number }>('title', { title })
-        .subscribe(
-          (response) => {
-            if (response.count > 0) {
-              const error: ValidationErrors = { titleExists: true };
-              resolve(error);
-            }
-            resolve(null);
-          },
-          (error) => {
-            resolve(null);
-          }
-        );
-    });
-    return promise;
-  }
+  // titleValidator(control: FormControl<string>): Promise<ValidationErrors | null> {
+  //   const promise = new Promise<ValidationErrors | null>((resolve, reject) => {
+  //     const title = control.value;
+  //     this.api.select<{ count: number }>('title', { title })
+  //       .subscribe(
+  //         (response) => {
+  //           if (response.count > 0) {
+  //             const error: ValidationErrors = { titleExists: true };
+  //             resolve(error);
+  //           }
+  //           resolve(null);
+  //         },
+  //         (error) => {
+  //           resolve(null);
+  //         }
+  //       );
+  //   });
+  //   return promise;
+  // }
 }
 
 interface UserRegistrationForm {
