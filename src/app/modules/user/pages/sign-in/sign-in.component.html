@@ -1,8 +1,10 @@
 <div class="card" [@openClose] [ngClass]="isLoading ? 'loading': ''">
-    <div class="card-header">Registered User Sign In</div>
+    <div class="card-header">
+        <h1 class="fs-3 mb-0">Registered User Sign In</h1>
+    </div>
     <div class="card-body">
-        <form [ngClass]="isLoading ? 'loading' : ''" [formGroup]="signInForm" (ngSubmit)="onSubmit()">
-            <mat-form-field class="d-block w-100">
+        <form class="mt-2" [ngClass]="isLoading ? 'loading' : ''" [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+            <mat-form-field class="d-block w-100" appearance="outline">
                 <mat-label>Username</mat-label>
                 <input matInput type="text" name="username" formControlName="username" autocomplete="username" required>
                 <mat-error *ngIf="usernameField.invalid && (usernameField.dirty || usernameField.touched)">
@@ -18,7 +20,7 @@
                 </mat-error>
             </mat-form-field>
         
-            <mat-form-field class="d-block w-100">
+            <mat-form-field class="d-block w-100" appearance="outline">
                 <mat-label>
                     Password
                 </mat-label>
