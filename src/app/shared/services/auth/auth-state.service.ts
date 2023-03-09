@@ -12,7 +12,7 @@ export class AuthStateService {
      * Holds Current User Data
      */
     user = new BehaviorSubject<User>(
-        new User(0, 'Anonymous', 'anonymous', '', 0)
+        new User(0, 'Anonymous', 'anonymous', '', '', 0, 0)
     );
 
     constructor() { }
@@ -31,7 +31,7 @@ export class AuthStateService {
         }
 
         if (userData.id > 0) {
-            const newUser = new User(userData.id, userData.displayName, userData.username, userData.token, expirationTime);
+            const newUser = new User(userData.id, userData.displayName, userData.username, userData.token, '', 0, expirationTime);
             this.user.next(newUser);
             this.state = AuthState.LOGGED_IN;
             return;
@@ -45,7 +45,7 @@ export class AuthStateService {
      */
     signOut(): void {
         this.user.next(
-            new User(0, 'Anonymous', 'anonymous', '', 0)
+            new User(0, 'Anonymous', 'anonymous', '', '', 0, 0)
         );
         this.state = AuthState.LOGGED_OUT;
     }
