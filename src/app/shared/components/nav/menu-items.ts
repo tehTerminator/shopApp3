@@ -65,6 +65,10 @@ export const MENUITEMS = [
             {
                 title: 'Create / Edit POS Items',
                 url: ['/admin', 'pos-item']
+            },
+            {
+                title: 'Create / Edit Stocks',
+                url: ['/admin', 'stocks']
             }
         ]
     }

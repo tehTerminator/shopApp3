@@ -6,6 +6,7 @@ const routes: Routes = [
   { path: 'ledger', loadChildren: () => import ('./pages/ledger/admin-ledger.module').then(m => m.AdminLedgerModule) },
   { path: 'products', loadChildren: () => import('./pages/products/admin-products.module').then(m => m.AdminProductsModule) },
   { path: 'pos-item', loadChildren: () => import('./pages/pos-items/admin-pos.module').then(m => m.AdminPosModule) },
+  { path: 'stocks', loadChildren: () => import('./pages/stocks/stocks.module').then(m => m.StocksModule) },
   { path: '**', redirectTo: 'ledger', pathMatch: 'full' }
 ];
 
