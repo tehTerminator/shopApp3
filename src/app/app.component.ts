@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from './shared/services/auth/auth.service';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { CalculatorComponent } from './shared/components/calculator/calculator.component';
 import { NotificationComponent } from './shared/components/notification/notification.component';
 import { AppDialog } from './shared/collection';
