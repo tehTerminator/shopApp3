@@ -7,15 +7,16 @@ import { AppComponent } from './app.component';
 import { NavComponent } from './shared/components/nav/nav.component';
 import { CoreModule } from './modules/core/core.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatLegacySnackBarModule as MatSnackBarModule } from '@angular/material/legacy-snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NotificationComponent } from './shared/components/notification/notification.component';
 import { CalculatorComponent } from './shared/components/calculator/calculator.component';
-import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { AuthInterceptor } from './shared/interceptor/auth.interceptor';
-import { MatLegacyAutocompleteModule as MatAutocompleteModule } from '@angular/material/legacy-autocomplete';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { EvaluatorComponent } from './shared/components/calculator/evaluator/evaluator.component';
 import { CurrencyTableComponent } from './shared/components/calculator/currency-table/currency-table.component';
 import { CurrencyFormComponent } from './shared/components/calculator/currency-form/currency-form.component';
+import { VoucherFormComponent } from './shared/components/voucher-form/voucher-form.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { CurrencyFormComponent } from './shared/components/calculator/currency-f
     CalculatorComponent,
     EvaluatorComponent,
     CurrencyTableComponent,
-    CurrencyFormComponent
+    CurrencyFormComponent,
+    VoucherFormComponent
   ],
   imports: [
     BrowserModule,
