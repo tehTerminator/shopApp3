@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
 import { EMPTY, Observable } from "rxjs";
 import { catchError, tap } from "rxjs/operators";
-import { Voucher } from "../../../../shared/collection";
-import { ApiService } from "../../../../shared/services/api/api.service";
-import { LedgerService } from "../../../../shared/services/ledger/ledger.service";
-import { NotificationService } from "../../../../shared/services/notification/notification.service";
+import { Voucher } from "../../collection";
+import { ApiService } from "../../services/api/api.service";
+import { LedgerService } from "../../services/ledger/ledger.service";
+import { NotificationService } from "../../services/notification/notification.service";
 
 @Injectable({
     providedIn: 'root'

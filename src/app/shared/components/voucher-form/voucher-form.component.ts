@@ -1,14 +1,14 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { LedgerService } from './../../../../shared/services/ledger/ledger.service';
-import { ApiService } from './../../../../shared/services/api/api.service';
-import { NotificationService } from '../../../../shared/services/notification/notification.service';
-import { Ledger, Voucher } from '../../../../shared/collection';
+import { LedgerService } from './../../services/ledger/ledger.service';
+import { ApiService } from './../../services/api/api.service';
+import { NotificationService } from './../../services/notification/notification.service';
+import { Ledger, Voucher } from './../../collection';
 import { EMPTY, Observable } from 'rxjs';
 import { Title } from '@angular/platform-browser';
 import { map, startWith } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
-import { evaluateString } from '../../../../shared/functions';
+import { evaluateString } from './../../functions';
 
 @Component({
   selector: 'app-voucher-form',
