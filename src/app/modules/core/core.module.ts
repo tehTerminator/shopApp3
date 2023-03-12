@@ -8,6 +8,7 @@ import { SearchPipe } from './pipe/search.pipe';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { MatInputModule } from '@angular/material/input';
     MatSelectModule,
     MatIconModule,
     MatButtonModule,
-    MatInputModule
+    MatInputModule,
+    MatAutocompleteModule,
   ],
   exports: [
     DropdownDirective,
@@ -31,7 +33,8 @@ import { MatInputModule } from '@angular/material/input';
     SearchPipe,
     MatIconModule,
     MatButtonModule,
-    MatInputModule
+    MatInputModule,
+    MatAutocompleteModule
   ]
 })
 export class CoreModule { }

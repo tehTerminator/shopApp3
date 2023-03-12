@@ -1,0 +1,43 @@
+<div class="card">
+  <div class="card-body">
+    <div class="card-title">
+      <h1 class="fs-3">
+        <strong>
+          <span *ngIf="!editMode">Create</span>
+          <span *ngIf="editMode">Update</span>
+          Stock Item</strong
+        >
+      </h1>
+    </div>
+
+    <form
+      [ngClass]="isLoading ? 'loading' : ''"
+      [formGroup]="stockForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>ID</mat-label>
+        <input type="number" matInput formControlName="id" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Title</mat-label>
+        <input type="text" matInput formControlName="title" />
+        <mat-error *ngIf="titleField.touched && titleField.invalid">
+          <span *ngIf="titleField.hasError('required')">
+            Title Is Required.
+          </span>
+          <span *ngIf="titleField.hasError('minlength')">
+            Minimum 3 Characters Are Required
+          </span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Quantity</mat-label>
+        <input type="number" matInput formControlName="quantity" [readonly]="editMode" />
+      </mat-form-field>
+
+      <button type="submit" class="btn btn-primary">Submit</button>
+      <button class="btn btn-danger" type="reset">Reset</button>
+    </form>
+  </div>
+</div>

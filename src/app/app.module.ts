@@ -16,7 +16,6 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { EvaluatorComponent } from './shared/components/calculator/evaluator/evaluator.component';
 import { CurrencyTableComponent } from './shared/components/calculator/currency-table/currency-table.component';
 import { CurrencyFormComponent } from './shared/components/calculator/currency-form/currency-form.component';
-import { VoucherFormComponent } from './shared/components/voucher-form/voucher-form.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +26,6 @@ import { VoucherFormComponent } from './shared/components/voucher-form/voucher-f
     EvaluatorComponent,
     CurrencyTableComponent,
     CurrencyFormComponent,
-    VoucherFormComponent
   ],
   imports: [
     BrowserModule,

@@ -14,7 +14,8 @@ export interface TableRow {
 
 export enum AppDialog {
     CALCULATOR,
-    NOTIFICATION
+    NOTIFICATION,
+    VOUCHERFORM
 }
 
 export enum AuthState {
@@ -111,5 +112,10 @@ export enum ItemType {
     PRODUCT,
     LEDGER,
     POSITEM
+}
+
+export interface StockItem extends TableRow {
+    title: string;
+    quantity: number;
 }
 
