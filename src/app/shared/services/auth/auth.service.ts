@@ -30,7 +30,7 @@ export class AuthService implements OnDestroy {
 
     login(username: string, password: string): Observable<any> {
         this.userStore.authStarted();
-        const signInUrl = environment.baseUrl + 'users/login';
+        const signInUrl = environment.baseUrl + '/users/login';
         return this.http.post<UserData>(signInUrl, {username, password})
         .pipe(
             tap(userData => {

@@ -54,7 +54,7 @@ export interface PosItemTemplate extends TableRow {
     quantity: number;
 }
 
-export interface PosItem extends TableRow {
+export interface Bundle extends TableRow {
     title: string;
     rate: number;
     pos_templates: PosItemTemplate[];

@@ -12,7 +12,7 @@ import { NotificationService } from '../notification/notification.service';
 export class StockItemService extends BaseService {
 
     protected fetch(): void {
-        this.api.select<StockItem[]>(this.tableName)
+        this.api.get<StockItem[]>([this.tableName])
             .subscribe(
                 (stockItems) => this.store(stockItems),
                 (err) => {
@@ -24,14 +24,14 @@ export class StockItemService extends BaseService {
     }
 
     create(stock: StockItem): Observable<StockItem> {
-        return this.api.create<StockItem>(this.tableName, stock)
+        return this.api.insert<StockItem>([this.tableName], stock)
             .pipe(tap(response => {
                 this.insert(response);
             }));
     }
 
     update(stock: StockItem): Observable<StockItem> {
-        return this.api.update<StockItem>(this.tableName, stock)
+        return this.api.revise<StockItem>([this.tableName], stock)
             .pipe(
                 tap(
                     response => this.updateItem(response)
@@ -48,7 +48,7 @@ export class StockItemService extends BaseService {
     delete(index: number): Observable<any> {
         try {
             const item = this.get(index);
-            return this.api.delete<any>(this.tableName, item.id)
+            return this.api.remove([this.tableName, `${item.id}`])
                 .pipe(
                     tap(() => this.deleteItem(index))
                 );

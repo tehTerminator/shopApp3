@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap, catchError, map } from 'rxjs/operators';
 import { BaseService } from '../../class/BaseService';
-import { HOUR, PosItem, PosItemTemplate } from '../../collection';
+import { HOUR, Bundle, PosItemTemplate } from '../../collection';
 import { ApiService } from '../api/api.service';
 import { NotificationService } from '../notification/notification.service';
 
@@ -18,7 +18,7 @@ export class PosItemService extends BaseService {
     }
 
     protected fetch(): void {
-        this.api.select<PosItem[]>(this.tableName).subscribe(
+        this.api.select<Bundle[]>(this.tableName).subscribe(
             posItems => this.store(posItems),
             error => {
                 this.data.next([]);
@@ -32,7 +32,7 @@ export class PosItemService extends BaseService {
         return this.data.pipe(
             map(
                 x => {
-                    const item = (x.find(d => d.id === posItemId) as PosItem);
+                    const item = (x.find(d => d.id === posItemId) as Bundle);
                     if (item === undefined) {
                         return [];
                     }
@@ -46,8 +46,8 @@ export class PosItemService extends BaseService {
         );
     }
 
-    create(posItem: PosItem): Observable<PosItem> {
-        return this.api.create<PosItem>(this.tableName, posItem)
+    create(posItem: Bundle): Observable<Bundle> {
+        return this.api.create<Bundle>(this.tableName, posItem)
             .pipe(
                 tap(
                     response => this.insert(response)
@@ -61,8 +61,8 @@ export class PosItemService extends BaseService {
             );
     }
 
-    update(posItem: PosItem): Observable<PosItem> {
-        return this.api.update<PosItem>(this.tableName, posItem)
+    update(posItem: Bundle): Observable<Bundle> {
+        return this.api.update<Bundle>(this.tableName, posItem)
             .pipe(
                 tap(response => this.updateItem(response)),
                 catchError(
@@ -90,7 +90,7 @@ export class PosItemService extends BaseService {
                 tap(
                     response => {
                         try {
-                            const posItem = this.getElementById(response.positem_id) as PosItem;
+                            const posItem = this.getElementById(response.positem_id) as Bundle;
                             if (posItem.hasOwnProperty('pos_templates')) {
                                 posItem.pos_templates.push(response);
                             } else {
@@ -116,7 +116,7 @@ export class PosItemService extends BaseService {
                 tap(
                     response => {
                         try {
-                            const posItem = this.getElementById(response.positem_id) as PosItem;
+                            const posItem = this.getElementById(response.positem_id) as Bundle;
                             const indexOfTemplateToBeReplaced = this.findTemplateIndexById(response.positem_id, response.id);
                             posItem.pos_templates.splice(indexOfTemplateToBeReplaced, 1, response);
                             this.updateItem(posItem);
@@ -138,7 +138,7 @@ export class PosItemService extends BaseService {
                 tap(
                     () => {
                         try {
-                            const posItem = this.getElementById(template.positem_id) as PosItem;
+                            const posItem = this.getElementById(template.positem_id) as Bundle;
                             const indexOfItemToBeDeleted = this.findTemplateIndexById(posItem.id, template.id);
                             posItem.pos_templates.splice(indexOfItemToBeDeleted, 1);
                             this.updateItem(posItem);
@@ -154,13 +154,13 @@ export class PosItemService extends BaseService {
             );
     }
 
-    public isInstanceOfPosItem(data: any): data is PosItem {
+    public isInstanceOfPosItem(data: any): data is Bundle {
         return 'pos_templates' in data;
     }
 
     private findTemplateIndexById(posItemId: number, templateId: number): number {
         try {
-            const item = this.getElementById(posItemId) as PosItem;
+            const item = this.getElementById(posItemId) as Bundle;
             return item.pos_templates.findIndex(
                 x => x.id === templateId
             );
