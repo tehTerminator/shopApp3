@@ -21,20 +21,6 @@ export class StockFormComponent implements OnInit {
       title: ['', [Validators.required, Validators.minLength(3)]],
       quantity: [0, [Validators.min(0), Validators.required]]
     });
-
-    this.idField.valueChanges.subscribe(
-      (id) => {
-        if ( id === 0 ) {
-          return;
-        }
-        try{
-          const item: StockItem = this.stockItemService.getElementById(id) as StockItem;
-          this.stockForm.setValue(item);
-        } catch (e) {
-          this.idField.setValue(0);
-        }
-      }
-    );
   }
 
   onSubmit(): void {
@@ -50,6 +36,28 @@ export class StockFormComponent implements OnInit {
 
     this.stockItemService.create(this.payload)
       .subscribe(() => this.stockForm.reset());
+  }
+
+  onIdFieldChange(): void {
+    const id: number = this.idField.value;
+
+    if (id <= 0) {
+      this.stockForm.reset();
+      return;
+    }
+
+    try{
+      const item = this.stockItemService.getElementById(id) as StockItem;
+      this.stockForm.setValue({
+        id: item.id,
+        title: item.title,
+        quantity: item.quantity
+      });
+    } catch (e) {
+      this.stockForm.reset();
+      this.ns.showError('Item Not Found', 'Stock Item not Found');
+    }
+
   }
 
 

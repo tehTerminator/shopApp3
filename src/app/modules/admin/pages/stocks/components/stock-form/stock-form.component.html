@@ -17,7 +17,7 @@
     >
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>ID</mat-label>
-        <input type="number" matInput formControlName="id" />
+        <input type="number" matInput formControlName="id" (blur)="onIdFieldChange()" />
       </mat-form-field>
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Title</mat-label>
@@ -36,8 +36,10 @@
         <input type="number" matInput formControlName="quantity" [readonly]="editMode" />
       </mat-form-field>
 
-      <button type="submit" class="btn btn-primary">Submit</button>
-      <button class="btn btn-danger" type="reset">Reset</button>
+      <div class="actions d-flex">
+        <button type="submit" class="btn btn-primary me-2">Submit</button>
+        <button class="btn btn-danger" type="reset">Reset</button>
+      </div>
     </form>
   </div>
 </div>

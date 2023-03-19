@@ -1,1 +1,5 @@
-<p>stock-table works!</p>
+<ul class="card card-body">
+    <li *ngFor="let stock of stocks | async">
+        {{ stock.title }}
+    </li>
+</ul>
