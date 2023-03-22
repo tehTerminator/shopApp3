@@ -15,11 +15,10 @@ export class ProductService extends BaseService {
     super('products', HOUR);
   }
 
-
   protected fetch(): void {
-    this.api.select<Product[]>(this.tableName).subscribe(
-      products => this.store(products),
-      error => {
+    this.api.get<Product[]>(['products']).subscribe(
+      (products: Product[]) => this.store(products),
+      (error): void => {
         this.data.next([]);
         this.notificationService.showError('Error', 'An Error Occurred While Fetching Data');
         console.log(error);
