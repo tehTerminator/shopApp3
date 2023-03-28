@@ -51,22 +51,22 @@ export class ApiService {
     );
   }
 
-  insert<Type>(url: string[], payload: { [key: string]: any }): Observable<Type> {
+  insert<Type>(url: (string|number)[], payload: { [key: string]: any }): Observable<Type> {
     const serverUrl = this.createUrl('create', url);
     return this.http.post<Type>(serverUrl, payload);
   }
 
-  revise<Type>(url: string[], payload: { [key: string]: any }): Observable<Type> {
+  revise<Type>(url: (string|number)[], payload: { [key: string]: any }): Observable<Type> {
     const serverUrl = this.createUrl('update', url);
     return this.http.put<Type>(serverUrl, payload);
   }
 
-  remove(url: string[]): Observable<GeneralReponse> {
+  remove(url: (string|number)[]): Observable<GeneralReponse> {
     const serverUrl = this.createUrl('delete', url);
     return this.http.delete<GeneralReponse>(serverUrl);
   }
 
-  private createUrl(prefix: string, url: string[]): string {
+  private createUrl(prefix: string, url: (string|number)[]): string {
     const trail = [prefix, ...url].join('/');
     return `${environment.baseUrl}/${trail}`;
   }
