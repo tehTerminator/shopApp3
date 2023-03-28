@@ -1,4 +1,4 @@
-import { TableRow } from "./collection";
+import { TableRow } from "./../collection";
 
 
 export interface Ledger extends TableRow {
