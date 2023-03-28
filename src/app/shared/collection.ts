@@ -75,5 +75,4 @@ export enum ItemType {
     PRODUCT,
     LEDGER,
     BUNDLE,
-    STOCK
 }
