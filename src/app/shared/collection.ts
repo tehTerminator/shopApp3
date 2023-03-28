@@ -1,3 +1,5 @@
+import { Ledger } from "./Ledger";
+
 export const SECOND = 1000;
 export const MINUTE = 60000;
 export const HOUR = 3600000;
@@ -24,11 +26,6 @@ export enum AuthState {
     LOGGED_IN,
 }
 
-export interface Ledger extends TableRow {
-    title: string;
-    kind: string;
-}
-
 export interface Balance extends TableRow {
     ledger_id: number;
     opening: number;
@@ -46,7 +43,7 @@ export interface Product extends TableRow {
     rate: number;
 }
 
-export interface PosItemTemplate extends TableRow {
+export interface BundleTemplate extends TableRow {
     positem_id: number;
     item_id: number;
     kind: string;
@@ -57,7 +54,7 @@ export interface PosItemTemplate extends TableRow {
 export interface Bundle extends TableRow {
     title: string;
     rate: number;
-    pos_templates: PosItemTemplate[];
+    templates: BundleTemplate[];
 }
 
 export interface Voucher extends TableRow {
@@ -76,26 +73,6 @@ export interface Customer extends TableRow {
     address: string;
 }
 
-export interface Transaction extends TableRow {
-    invoice_id: number;
-    item_id: number;
-    item_type: string;
-    description: string;
-    quantity: number;
-    rate: number;
-    discount: number;
-}
-
-export interface Invoice extends TableRow {
-    customer: Customer;
-    customer_id: number;
-    user_id: number;
-    paid: boolean;
-    paymentMethod: string;
-    amount: number;
-    transactions: Transaction[];
-}
-
 export interface ChartData {
     name: string;
     value: number;
@@ -111,11 +88,6 @@ export interface GeneralItem {
 export enum ItemType {
     PRODUCT,
     LEDGER,
-    POSITEM
+    BUNDLE,
+    STOCK
 }
-
-export interface StockItem extends TableRow {
-    title: string;
-    quantity: number;
-}
-
