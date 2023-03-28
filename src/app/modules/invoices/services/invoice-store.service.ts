@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Customer, Invoice, Ledger, PosItem, PosItemTemplate, Product, Transaction } from '../../../shared/collection';
+import { Customer, Product } from '../../../shared/collection';
+import { Invoice, GeneralTransaction, DetailedTransaction, StockTransaction } from '../../../shared/interface/Invoice'; 
 import { LedgerService } from '../../../shared/services/ledger/ledger.service';
-import { PosItemService } from '../../../shared/services/posItem/pos-item.service';
+import { BundleService } from '../../../shared/services/bundle/bundle.service';
 import { ProductService } from '../../../shared/services/product/product.service';
 
 @Injectable()
@@ -21,7 +22,7 @@ export class InvoiceStoreService {
   constructor(
     private ledgerService: LedgerService,
     private productService: ProductService,
-    private posItemService: PosItemService,
+    private posItemService: BundleService,
   ) { }
 
   set customer(customer: Customer) {
@@ -150,39 +151,4 @@ export class InvoiceStoreService {
     this.invoice.next(this.baseInvoice);
   }
 
-  get baseInvoice(): Invoice {
-    return {
-      id: 0,
-      customer_id: 0,
-      customer: {
-        id: 0,
-        title: 'NOT SELECTED',
-        address: 'NOT SELECTED',
-        created_at: '',
-        updated_at: ''
-      },
-      user_id: 0,
-      paid: false,
-      paymentMethod: 'CASH',
-      amount: 0,
-      transactions: [],
-      created_at: '',
-      updated_at: ''
-    };
-  }
-
-  get baseTransaction(): Transaction {
-    return {
-      id: 0,
-      invoice_id: 0,
-      item_id: 0,
-      item_type: 'PRODUCT',
-      description: '',
-      quantity: 0,
-      rate: 0,
-      discount: 0,
-      created_at: '',
-      updated_at: ''
-    };
-  }
 }

@@ -1,4 +1,4 @@
-import { Ledger } from "./Ledger";
+import { Ledger } from "./interface/Ledger";
 
 export const SECOND = 1000;
 export const MINUTE = 60000;
@@ -41,20 +41,6 @@ export interface UserData extends TableRow {
 export interface Product extends TableRow {
     title: string;
     rate: number;
-}
-
-export interface BundleTemplate extends TableRow {
-    positem_id: number;
-    item_id: number;
-    kind: string;
-    rate: number;
-    quantity: number;
-}
-
-export interface Bundle extends TableRow {
-    title: string;
-    rate: number;
-    templates: BundleTemplate[];
 }
 
 export interface Voucher extends TableRow {

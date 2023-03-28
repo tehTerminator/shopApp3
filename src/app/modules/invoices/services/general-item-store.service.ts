@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Product, Ledger, PosItem, GeneralItem, ItemType } from '../../../shared/collection';
+import { Product, GeneralItem, ItemType } from '../../../shared/collection';
+import { Bundle } from "../../../shared/interface/Bundle";
+import { Ledger } from '../../../shared/Ledger';
 import { LedgerService } from '../../../shared/services/ledger/ledger.service';
-import { PosItemService } from '../../../shared/services/posItem/pos-item.service';
+import { BundleService } from '../../../shared/services/bundle/bundle.service';
 import { ProductService } from '../../../shared/services/product/product.service';
 
 @Injectable()
@@ -9,13 +11,13 @@ export class GeneralItemStoreService {
     constructor(
         private ledgerService: LedgerService,
         private productService: ProductService,
-        private posItemService: PosItemService
+        private bundleService: BundleService
     ) { }
 
     init(): void {
         this.ledgerService.init();
         this.productService.init();
-        this.posItemService.init();
+        this.bundleService.init();
     }
 
     get products(): GeneralItem[] {
@@ -29,27 +31,27 @@ export class GeneralItemStoreService {
         return this.mapListToGeneralItemList(list);
     }
 
-    get posItems(): GeneralItem[] {
-        const list = this.posItemService.getAsList() as PosItem[];
+    get bundles(): GeneralItem[] {
+        const list = this.bundleService.getAsList() as Bundle[];
         return this.mapListToGeneralItemList(list);
     }
 
     get items(): GeneralItem[] {
-        return [...this.products, ...this.posItems, ...this.ledgers];
+        return [...this.products, ...this.bundles, ...this.ledgers];
     }
 
-    private mapListToGeneralItemList(list: Ledger[] | Product[] | PosItem[]): GeneralItem[] {
+    private mapListToGeneralItemList(list: Ledger[] | Product[] | Bundle[]): GeneralItem[] {
         if (list.length === 0) {
             return [];
         }
         const newList: GeneralItem[] = [];
-        list.forEach((item: Product | Ledger | PosItem) => {
+        list.forEach((item: Product | Ledger | Bundle) => {
             let type = ItemType.PRODUCT;
             let rate = 0;
             if (this.ledgerService.isInstanceOfLedger(item)) {
                 type = ItemType.LEDGER;
-            } else if (this.posItemService.isInstanceOfPosItem(item)) {
-                type = ItemType.POSITEM;
+            } else if (this.bundleService.isInstanceOfBundle(item)) {
+                type = ItemType.BUNDLE;
                 rate = item.rate;
             } else {
                 rate = item.rate;
@@ -63,14 +65,14 @@ export class GeneralItemStoreService {
         return newList;
     }
 
-    selectActualItem(item: GeneralItem): Product | Ledger | PosItem {
+    selectActualItem(item: GeneralItem): Product | Ledger | Bundle {
         switch (item.type) {
             case ItemType.PRODUCT:
                 return this.productService.getElementById(item.id) as Product;
             case ItemType.LEDGER:
                 return this.ledgerService.getElementById(item.id) as Ledger;
             default:
-                return this.posItemService.getElementById(item.id) as PosItem;
+                return this.bundleService.getElementById(item.id) as Bundle;
         }
     }
 

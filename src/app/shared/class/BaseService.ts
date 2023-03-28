@@ -15,7 +15,7 @@ export abstract class BaseService {
         private ptableName: string,
         protected updateFrequency: number) { }
 
-    get tableName(): string {
+    get tableName(): string { 
         return this.ptableName;
     }
 
@@ -42,18 +42,20 @@ export abstract class BaseService {
 
     getElementById(id: number): TableRow {
         const list = this.data.value;
-        if (list.length > 0) {
-            const result = list.find(x => {
-                if (x.hasOwnProperty('id')) {
-                    return x.id === id;
-                }
-                throw new Error('ID field Not Found in List');
-            });
-            if (!!result) {
-                return result;
-            }
+        if (list.length === 0) {
+            throw new Error('Item Not Found');
         }
-        throw new Error('Item Not Found');
+        
+        const result = list.find(x => {
+            if (x.hasOwnProperty('id')) {
+                return x.id === id;
+            }
+            throw new Error('ID field Not Found in List');
+        });
+
+        if (!!result) {
+            return result;
+        }
     }
 
     get(index: number): TableRow {

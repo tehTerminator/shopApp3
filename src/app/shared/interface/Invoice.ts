@@ -1,4 +1,4 @@
-import { TableRow, Customer } from "./collection";
+import { TableRow, Customer } from "../collection";
 
 
 export interface Invoice extends TableRow {
