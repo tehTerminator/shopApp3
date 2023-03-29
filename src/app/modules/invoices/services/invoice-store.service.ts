@@ -1,21 +1,17 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Customer, Product } from '../../../shared/collection';
-import { Invoice, GeneralTransaction, DetailedTransaction, StockTransaction } from '../../../shared/interface/Invoice'; 
+import { Invoice } from '../../../shared/interface/Invoice'; 
+import { Bundle } from '../../../shared/interface/Bundle';
 import { LedgerService } from '../../../shared/services/ledger/ledger.service';
 import { BundleService } from '../../../shared/services/bundle/bundle.service';
 import { ProductService } from '../../../shared/services/product/product.service';
+import { TransactionStoreService } from './transactions.service';
 
 @Injectable()
 export class InvoiceStoreService {
 
-  selectedItem: Product | Ledger | PosItem  = {
-    id: 0,
-    title: '',
-    rate: 0,
-    created_at: '',
-    updated_at: ''
-  };
+  selectedItem: Product | Ledger | Bundle;
 
   invoice = new BehaviorSubject<Invoice>(this.baseInvoice);
 
@@ -23,10 +19,11 @@ export class InvoiceStoreService {
     private ledgerService: LedgerService,
     private productService: ProductService,
     private posItemService: BundleService,
+    private transactionService: TransactionStoreService
   ) { }
 
   set customer(customer: Customer) {
-    this.invoice.next({ ...this.invoice.value, customer, customer_id: customer.id });
+    this.invoice.next({ ...this.invoice.value, customer, contact_id: customer.id });
   }
 
   get customer(): Customer {
@@ -37,13 +34,13 @@ export class InvoiceStoreService {
     this.invoice.next({ ...this.invoice.value, paid });
   }
 
-  set paymentMethod(paymentMethod: string) {
-    this.invoice.next({ ...this.invoice.value, paymentMethod });
-  }
+  // set paymentMethod(paymentMethod: string) {
+  //   this.invoice.next({ ...this.invoice.value, paymentMethod });
+  // }
 
-  get paymentMethod(): string {
-    return this.invoice.value.paymentMethod;
-  }
+  // get paymentMethod(): string {
+  //   return this.invoice.value.paymentMethod;
+  // }
 
   removeTransaction(index: number): void {
     const invoice = this.invoice.value;
