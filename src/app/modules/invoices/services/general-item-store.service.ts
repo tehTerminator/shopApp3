@@ -9,10 +9,12 @@ import { ApiService } from '../../../shared/services/api/api.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class GeneralItemStoreService {
 
-    private data = new BehaviorSubject<GeneralItem[]>([]);
+    private data:GeneralItem[] = [];
 
     constructor(
         private ledgerService: LedgerService,
@@ -28,16 +30,16 @@ export class GeneralItemStoreService {
 
         this.apiService.get<GeneralItem[]>(['general-item'])
         .subscribe(
-            res => this.data.next(res),
+            res => {this.data = res;},
             err => {
                 console.log(err);
-                this.data.next([]);
+                this.data = [];
             }
         );
     }
 
-    get items(): Observable<GeneralItem[]> {
-        return this.data as Observable<GeneralItem[]>;
+    get items(): GeneralItem[] {
+        return this.data;
     }
 
     // get products(): GeneralItem[] {
