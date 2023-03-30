@@ -2,30 +2,24 @@ import { TableRow, Customer } from "../collection";
 
 
 export interface Invoice extends TableRow {
+    kind: string;
     customer: Customer;
     contact_id: number;
     user_id: number;
     paid: boolean;
     amount: number;
-    generalTransactions: GeneralTransaction[];
-    detailedTransactions: DetailedTransaction[];
-    stockTransactions: StockTransaction[];
+    transactions: Transaction[];
 }
 
 export interface Transaction extends TableRow {
     invoice_id: number;
-    quantity: number;
-}
-
-export interface GeneralTransaction extends Transaction {
-    description: string;
-    rate: number;
-    discount: number;
-}
-
-export interface DetailedTransaction extends GeneralTransaction {
     item_id: number;
     kind: string;
+    description: string;
+    quantity: number;
+    rate: number;
+    discount: number;
+    user_id: number;
 }
 
 export interface StockTransaction extends Transaction {
