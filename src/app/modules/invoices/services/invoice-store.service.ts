@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Customer, Product } from '../../../shared/collection';
-import { Invoice } from '../../../shared/interface/Invoice'; 
+import { Customer, GeneralItem, Product } from '../../../shared/collection';
+import { GeneralTransaction, Invoice } from '../../../shared/interface/Invoice'; 
 import { Bundle } from '../../../shared/interface/Bundle';
+import { Ledger } from '../../../shared/interface/Ledger';
 import { LedgerService } from '../../../shared/services/ledger/ledger.service';
 import { BundleService } from '../../../shared/services/bundle/bundle.service';
 import { ProductService } from '../../../shared/services/product/product.service';
@@ -11,14 +12,14 @@ import { TransactionStoreService } from './transactions.service';
 @Injectable()
 export class InvoiceStoreService {
 
-  selectedItem: Product | Ledger | Bundle;
+  generalItem: GeneralItem;
 
   invoice = new BehaviorSubject<Invoice>(this.baseInvoice);
 
   constructor(
     private ledgerService: LedgerService,
     private productService: ProductService,
-    private posItemService: BundleService,
+    private bundleService: BundleService,
     private transactionService: TransactionStoreService
   ) { }
 
@@ -42,27 +43,6 @@ export class InvoiceStoreService {
   //   return this.invoice.value.paymentMethod;
   // }
 
-  removeTransaction(index: number): void {
-    const invoice = this.invoice.value;
-    invoice.transactions.splice(index, 1);
-    this.invoice.next(invoice);
-  }
-
-  appendTransaction(transaction: Transaction): void {
-    if (transaction.quantity === 0 || transaction.rate === 0) {
-      return;
-    }
-    const invoice = this.invoice.value;
-    const indexOfTransaction = this.findTransactionIndex(transaction);
-    if (indexOfTransaction >= 0) {
-      transaction.quantity += invoice.transactions[indexOfTransaction].quantity;
-      invoice.transactions.splice(indexOfTransaction, 1, transaction);
-    } else {
-      invoice.transactions.push(transaction);
-    }
-    invoice.amount = this.grandTotal(invoice);
-    this.invoice.next(invoice);
-  }
 
   private grandTotal(invoice: Invoice): number {
     let total = 0;
@@ -91,12 +71,35 @@ export class InvoiceStoreService {
 
     if (this.ledgerService.isInstanceOfLedger(this.selectedItem)) {
       transaction = this.createTransactionFromLedger(quantity, rate, description);
-    } else if (this.posItemService.isInstanceOfPosItem(this.selectedItem)) {
-      this.handlePosItem(this.selectedItem, quantity);
+    } else if (this.bundleService.isInstanceOfPosItem(this.selectedItem)) {
+      this.handleBundle(this.selectedItem, quantity);
     } else {
       transaction = this.createTransactionFromProduct(quantity, rate, discount);
     }
     this.appendTransaction(transaction);
+  }
+
+  private createGeneralTransaction(quantity: number, rate: number, discount = 0) {
+    let transaction = { ... this.baseGeneralTransaction };
+    transaction.description = this.generalItem.title;
+    transaction.quantity = quantity;
+    transaction.rate = rate;
+    transaction.discount = discount;
+
+
+
+  }
+
+  private appendGeneralTransaction(transaction: GeneralTransaction) {
+    
+  }
+
+  private createDetailedTransaction() {
+
+  }
+
+  private createStockTransaction() {
+
   }
 
   private createTransactionFromLedger(quantity: number, rate: number, description?: string): Transaction {
@@ -120,10 +123,10 @@ export class InvoiceStoreService {
     return {...this.baseTransaction, quantity, rate, discount, description, item_id };
   }
 
-  private handlePosItem(posItem: PosItem, quantity: number, description?: string): void {
-    for (const template of posItem.pos_templates) {
+  private handleBundle(bundle: Bundle, quantity: number, description?: string): void {
+    for (const template of bundle.templates) {
       try {
-        let item: Product | Ledger | PosItem = {... posItem };
+        let item: Product | Ledger | Bundle = {... bundle };
         if (template.kind === 'PRODUCT') {
           item = this.productService.getElementById(template.item_id) as Product;
         } else {
@@ -147,5 +150,58 @@ export class InvoiceStoreService {
   reset(): void {
     this.invoice.next(this.baseInvoice);
   }
+
+  get baseInvoice(): Invoice {
+    return {
+      id: 0,
+      contact_id: 0,
+      customer: {
+        id: 0,
+        title: 'NOT SELECTED',
+        address: 'NOT SELECTED',
+        created_at: '',
+        updated_at: ''
+      },
+      user_id: 0,
+      paid: false,
+      amount: 0,
+      created_at: '',
+      updated_at: '',
+      generalTransactions: [],
+      detailedTransactions: [],
+      stockTransactions: []
+    };
+  }
+
+  get baseTransaction() {
+    return {
+      invoice_id: 0,
+      quantity: 0,
+    };
+  }
+
+  get baseGeneralTransaction() {
+    return {
+      ... this.baseTransaction,
+      description: '',
+      rate: 0,
+      discount: 0
+    };
+  }
+
+  get baseDetailedTransaction() {
+    return {
+      ... this.baseGeneralTransaction,
+      item_id: 0,
+      kind: '',
+    }
+  }
+
+  get baseStockTransaction() {
+    return {
+      ... this.baseTransaction,
+      stock_item_id: 0
+    };
+  };
 
 }

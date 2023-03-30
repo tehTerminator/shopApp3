@@ -23,12 +23,9 @@ export interface GeneralTransaction extends Transaction {
     discount: number;
 }
 
-export interface DetailedTransaction extends Transaction {
+export interface DetailedTransaction extends GeneralTransaction {
     item_id: number;
     kind: string;
-    description: string;
-    rate: number;
-    discount: number;
 }
 
 export interface StockTransaction extends Transaction {

@@ -47,7 +47,7 @@ export class ListItemsComponent implements OnInit, AfterViewInit {
 
   onSubmit(): void {
     try {
-      this.store.selectedItem = this.itemStore.selectActualItem(this.itemField.value);
+      this.store.generalItem = this.itemField.value;
       this.router.navigate(['/invoices', 'create', 'transactions']);
     } catch (e) {
       this.notification.showError('Error', 'Item Not Found');
