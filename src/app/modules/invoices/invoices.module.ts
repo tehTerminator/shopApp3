@@ -14,7 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { WaitPageComponent } from './pages/wait-page/wait-page.component';
 import { GoBackBtnComponent } from './components/go-back-btn/go-back-btn.component';
 import { SharedComponentModule } from './shared-components/shared-components.module';
-import { MatLegacyAutocompleteModule as MatAutocompleteModule } from '@angular/material/legacy-autocomplete';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { UdhaarPaymentBtnComponent } from './pages/choose-payment-method/udhaar-payment-btn/udhaar-payment-btn.component';
 import { RecentPaymentBtnComponent } from './pages/choose-payment-method/recent-payment-btn/recent-payment-btn.component';
 import { SelectLedgerFormComponent } from './pages/choose-payment-method/select-ledger-form/select-ledger-form.component';

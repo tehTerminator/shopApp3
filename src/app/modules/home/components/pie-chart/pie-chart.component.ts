@@ -21,9 +21,7 @@ export class PieChartComponent implements OnInit, OnDestroy {
     readonly legendPosition = 'right';
     readonly TRUE = true;
     readonly view: [number, number] = [800, 300];
-    readonly colorScheme = {
-        domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5', '#FF00FF', '#FF0000', '#0000FF', '#003f5c', '#2f4b7c', '#665191', '#a05195', '#d45087', '#f95d6a', '#ff7c43', '#ffa600']
-    };
+    readonly colorScheme = 'vivid';
 
     private $notify = new Subject();
 

@@ -3,19 +3,7 @@
         <h1 class="fs-3 mb-0">{{ header }}</h1>
     </div>
     <div class="card-body text-center">
-        <ngx-charts-bar-vertical
-            [legend]="TRUE"
-            [legendPosition]="legendPosition"
-            [xAxis]="TRUE"
-            [yAxis]="TRUE"
-            [showXAxisLabel]="TRUE"
-            [showYAxisLabel]="TRUE"
-            [xAxisLabel]="xAxisLabel"
-            [yAxisLabel]="yAxisLabel"
-            [scheme]="colorScheme"
-            [results]="dataSet"
-            *ngIf="!empty; else noData"
-        ></ngx-charts-bar-vertical>
+        <ngx-charts-bar-vertical [legend]="TRUE" [xAxis]="TRUE" [yAxis]="TRUE" [showXAxisLabel]="TRUE" [showYAxisLabel]="TRUE" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [scheme]="colorScheme" [results]="dataSet" *ngIf="!empty; else noData"></ngx-charts-bar-vertical>
     </div>
 </div>
 <ng-template #noData>
