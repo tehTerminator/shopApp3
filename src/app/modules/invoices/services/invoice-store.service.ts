@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Customer, Invoice, Ledger, PosItem, PosItemTemplate, Product, Transaction } from '../../../shared/collection';
+import { Customer, Invoice, Ledger, PosItem, Product, Transaction } from '../../../shared/collection';
 import { LedgerService } from '../../../shared/services/ledger/ledger.service';
 import { PosItemService } from '../../../shared/services/posItem/pos-item.service';
 import { ProductService } from '../../../shared/services/product/product.service';
