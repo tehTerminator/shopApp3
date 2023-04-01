@@ -15,7 +15,7 @@ export class RecentPaymentBtnComponent {
     ) { }
 
     selectPaymentMethod(ledger: Ledger): void {
-        this.store.paymentMethod = `${ledger.title}#${ledger.id}`;
+        this.store.paymentMethod = ledger.id;
         this.store.paid = true;
         this.router.navigate(['/invoices', 'wait']);
     }

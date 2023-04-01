@@ -13,7 +13,7 @@ export class PreviewInvoiceComponent implements OnInit {
     this.store.reset();
   }
 
-  get paymentStatus(): string {
-    return this.store.paymentMethod ? this.store.paymentMethod : 'EMPTY';
+  get invoiceId(): number {
+    return this.store.invoice.value.id;
   }
 }

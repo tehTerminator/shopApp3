@@ -33,7 +33,7 @@ export class SelectLedgerFormComponent {
     }
 
     selectPaymentMethod(ledger: Ledger): void {
-        this.store.paymentMethod = `${ledger.title}#${ledger.id}`;
+        this.store.paymentMethod = ledger.id;
         this.recentPaymentMethod = ledger;
         this.store.paid = true;
         this.router.navigate(['/invoices', 'wait']);

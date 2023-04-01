@@ -90,7 +90,7 @@ export interface Invoice extends TableRow {
     customer_id: number;
     user_id: number;
     paid: boolean;
-    paymentMethod: string;
+    paymentMethod: number;
     amount: number;
     transactions: Transaction[];
 }

@@ -36,11 +36,11 @@ export class InvoiceStoreService {
     this.invoice.next({ ...this.invoice.value, paid });
   }
 
-  set paymentMethod(paymentMethod: string) {
+  set paymentMethod(paymentMethod: number) {
     this.invoice.next({ ...this.invoice.value, paymentMethod });
   }
 
-  get paymentMethod(): string {
+  get paymentMethod(): number {
     return this.invoice.value.paymentMethod;
   }
 
@@ -163,7 +163,7 @@ export class InvoiceStoreService {
       },
       user_id: 0,
       paid: false,
-      paymentMethod: 'CASH',
+      paymentMethod: 0,
       amount: 0,
       transactions: [],
       created_at: '',

@@ -24,7 +24,7 @@ export class UdhaarPaymentBtnComponent {
     ) {}
 
     setUdhaar(): void {
-        this.store.paymentMethod = 'UDHAAR';
+        this.store.paymentMethod = 0;
         this.store.paid = false;
         this.router.navigate(['/invoices', 'wait']);
       }

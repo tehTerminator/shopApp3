@@ -36,7 +36,7 @@ import { InvoiceStoreService } from './services/invoice-store.service';
     GoBackBtnComponent,
     UdhaarPaymentBtnComponent,
     RecentPaymentBtnComponent,
-    SelectLedgerFormComponent
+    SelectLedgerFormComponent,
   ],
   imports: [
     CommonModule,

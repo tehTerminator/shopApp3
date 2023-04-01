@@ -1,8 +1,9 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { Invoice } from '../../../../../../shared/collection';
+import { Invoice, Ledger } from '../../../../../../shared/collection';
 import { SearchInvoiceStoreService } from '../../search-invoice-store.service';
+import { LedgerService } from '../../../../../../shared/services/ledger/ledger.service';
 
 @Component({
     selector: 'app-invoice-list',
@@ -15,6 +16,21 @@ export class InvoiceListComponent implements OnInit, OnDestroy {
     get invoices(): Observable<Invoice[]> {
         return this.store.invoices;
     }
+
+    getLedger(id: number): Ledger{
+        try {
+          const ledger = this.ledgerService.getElementById(id) as Ledger;
+          return ledger;
+        } catch(e) {
+          return {
+            id: 0, 
+            title: 'Udhaar',
+            kind: '',
+            created_at: '',
+            updated_at: ''
+          };
+        }
+      }
 
     selectInvoice(id: number): void {
         console.log('Selecting ', id);
@@ -31,6 +47,7 @@ export class InvoiceListComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void { this.sub.unsubscribe(); }
 
     constructor(
+        private ledgerService: LedgerService,
         private store: SearchInvoiceStoreService) { }
 }
 

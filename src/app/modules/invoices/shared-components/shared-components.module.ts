@@ -5,13 +5,15 @@ import { CustomerTableComponent } from './customer-table/customer-table.componen
 import { InvoiceInfoComponent } from './invoice-info/invoice-info.component';
 import { PreviewInvoiceComponent } from './preview-invoice/preview-invoice.component';
 import { TransactionsTableComponent } from './transactions-table/transactions-table.component';
+import { PaymentInfoComponent } from './payment-info/payment-info.component';
 
 @NgModule({
     declarations: [
         CustomerTableComponent,
         InvoiceInfoComponent,
         PreviewInvoiceComponent,
-        TransactionsTableComponent
+        TransactionsTableComponent,
+        PaymentInfoComponent
     ],
     imports: [CommonModule, MatIconModule],
     exports: [PreviewInvoiceComponent]
