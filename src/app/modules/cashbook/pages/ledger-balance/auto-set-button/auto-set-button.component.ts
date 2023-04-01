@@ -9,11 +9,19 @@ import { LedgerBalanceService } from '../ledger-balance.service';
 })
 export class AutoSetButtons {
 
+    buttonDisabled = false;
+
     updateBalance(): void {
+        this.disableButton();
+        setTimeout(() => this.enableButton(), 10000);
         this.api.update<any>('balance', {})
         .subscribe(
             (response => this.store.accountBalance.next(response))
         );
     }
+
+    disableButton = () => this.buttonDisabled = true;
+    enableButton = () => this.buttonDisabled = false;
+
     constructor(private api: ApiService, private store: LedgerBalanceService) {}
 }
