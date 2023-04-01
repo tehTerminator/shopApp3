@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthStateService } from './../../../../shared/services/auth/auth-state.service';
 import { AuthService } from './../../../../shared/services/auth/auth.service';
 import { NotificationService } from './../../../../shared/services/notification/notification.service';
-import { ALPHA, AuthState } from './../../../../shared/collection';
+import { ALPHA } from './../../../../shared/collection';
 import {
   trigger,
   state,
