@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 @Component({
     selector: 'app-statement-table',
     templateUrl: './statement-table.component.html',
-    styles: ['']
+    styleUrls: ['./statement-table.component.css']
 })
 export class StatementTableComponent implements OnInit, OnDestroy {
     rowCount = 0;
