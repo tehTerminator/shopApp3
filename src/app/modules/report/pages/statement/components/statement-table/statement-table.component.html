@@ -13,19 +13,19 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let v of rows| async;let i = index" >
+                <tr *ngFor="let v of rows| async;let i = index">
                     <td>
                         <a [routerLink]="['/cashbook', 'voucher', v.id]">
                             {{ v.id }}
                         </a>
                     </td>
-                    <td>{{ v.date | date: 'd/M/yy' }}</td>
+                    <td>{{ v.date | date: 'dd MMM' }}</td>
                     <td>{{ v.transfer }}</td>
                     <td>
-                       <span>
+                        <span>
                            {{ splitText(v.narration)[0] }}
-                       </span> 
-                       <a [routerLink]="['/invoices', 'search', 'search-by-operator',  splitText(v.narration)[1]]">
+                       </span>
+                        <a [routerLink]="['/invoices', 'search', 'search-by-operator',  splitText(v.narration)[1]]">
                             {{ splitText(v.narration)[1] }}
                        </a>
                     </td>
