@@ -1,107 +1,60 @@
 <div class="row justify-content-center">
-  <div class="col-md-6">
-    <form
-      [@initialize]
-      class="card"
-      [formGroup]="voucherForm"
-      (ngSubmit)="onSubmit()"
-      [ngClass]="isLoading ? 'loading' : ''"
-    >
-      <h1 class="card-header">Create / Update Voucher</h1>
-      <div class="card-body">
-        <mat-form-field appearance="outline" class="d-block">
-          <mat-label>#</mat-label>
-          <input
-            type="number"
-            matInput=""
-            formControlName="id"
-            (blur)="onIdFieldChange()"
-          />
-        </mat-form-field>
-        <mat-form-field class="d-block" appearance="outline">
-          <mat-label>Giver</mat-label>
-          <input
-            type="text"
-            placeholder="Pick one"
-            aria-label="Creditor"
-            matInput
-            [formControl]="cr"
-            [matAutocomplete]="creditor"
-            #firstInputField
-          />
-          <mat-autocomplete
-            autoActiveFirstOption
-            #creditor="matAutocomplete"
-            [displayWith]="displayFunction"
-          >
-            <mat-option
-              *ngFor="let creditor of filteredCreditor | async"
-              [value]="creditor"
-            >
-              <div class="d-flex justify-content-between">
-                <span>{{ creditor.id }}</span>
-                <span>{{ creditor.title }}</span>
-                <span>{{ creditor.kind }}</span>
-              </div>
-            </mat-option>
-          </mat-autocomplete>
-        </mat-form-field>
-        <mat-form-field class="d-block" appearance="outline">
-          <mat-label>Receiver</mat-label>
-          <input
-            type="text"
-            placeholder="Pick one"
-            aria-label="Creditor"
-            matInput
-            [formControl]="dr"
-            [matAutocomplete]="debtor"
-          />
-          <mat-autocomplete
-            autoActiveFirstOption
-            #debtor="matAutocomplete"
-            [displayWith]="displayFunction"
-          >
-            <mat-option
-              *ngFor="let debtor of filteredDebtor | async"
-              [value]="debtor"
-            >
-              <div class="d-flex justify-content-between">
-                <span>{{ debtor.id }}</span
-                ><span>{{ debtor.title }}</span
-                ><span>{{ debtor.kind }}</span>
-              </div>
-            </mat-option>
-          </mat-autocomplete>
-        </mat-form-field>
-        <mat-form-field appearance="outline" class="d-block">
-          <mat-label>Narration</mat-label>
-          <textarea matInput formControlName="narration" rows="5"></textarea>
-        </mat-form-field>
-        <mat-form-field appearance="outline" class="d-block">
-          <mat-label>Amount</mat-label>
-          <input type="number" matInput formControlName="amount" min="0" (focus)="onAmountFieldFocus()" />
-          <mat-error *ngIf="amount.invalid && (amount.dirty || amount.touched)">
-            <span *ngIf="amount.hasError('required')">
-              Amount is Required for Voucher Entry
-            </span>
-            <span *ngIf="amount.hasError('min')">
-              Amount Must Be A Greater than 0
-            </span>
-          </mat-error>
-        </mat-form-field>
-        <button
-          type="submit"
-          class="btn m-1"
-          mat-raised-button
-          color="primary"
-          [disabled]="voucherForm.invalid"
-        >
-          Submit
-        </button>
-        <button type="reset" class="btn m-1" mat-raised-button color="warn">
-          Reset Form
-        </button>
-      </div>
-    </form>
-  </div>
+    <div class="col-md-6">
+        <form class="card" [formGroup]="voucherForm" (ngSubmit)="onSubmit()" [ngClass]="isLoading ? 'loading' : ''">
+            <h1 class="card-header">Create / Update Voucher</h1>
+            <div class="card-body">
+                <mat-form-field appearance="outline" class="d-block">
+                    <mat-label>#</mat-label>
+                    <input type="number" matInput="" formControlName="id" (blur)="onIdFieldChange()" />
+                </mat-form-field>
+                <mat-form-field class="d-block" appearance="outline">
+                    <mat-label>Giver</mat-label>
+                    <input type="text" placeholder="Pick one" aria-label="Creditor" matInput [formControl]="cr" [matAutocomplete]="creditor" #firstInputField />
+                    <mat-autocomplete autoActiveFirstOption #creditor="matAutocomplete" [displayWith]="displayFunction">
+                        <mat-option *ngFor="let creditor of filteredCreditor | async" [value]="creditor">
+                            <div class="d-flex justify-content-between w-100">
+                                <span>{{ creditor.id }}</span>
+                                <span>{{ creditor.title }}</span>
+                                <span>{{ creditor.kind }}</span>
+                            </div>
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+                <mat-form-field class="d-block" appearance="outline">
+                    <mat-label>Receiver</mat-label>
+                    <input type="text" placeholder="Pick one" aria-label="Creditor" matInput [formControl]="dr" [matAutocomplete]="debtor" />
+                    <mat-autocomplete autoActiveFirstOption #debtor="matAutocomplete" [displayWith]="displayFunction">
+                        <mat-option *ngFor="let debtor of filteredDebtor | async" [value]="debtor">
+                            <div class="d-flex justify-content-between">
+                                <span>{{ debtor.id }}</span><span>{{ debtor.title }}</span><span>{{ debtor.kind
+                                    }}</span>
+                            </div>
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="d-block">
+                    <mat-label>Narration</mat-label>
+                    <textarea matInput formControlName="narration" rows="5"></textarea>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="d-block">
+                    <mat-label>Amount</mat-label>
+                    <input type="number" matInput formControlName="amount" min="0" (focus)="onAmountFieldFocus()" />
+                    <mat-error *ngIf="amount.invalid && (amount.dirty || amount.touched)">
+                        <span *ngIf="amount.hasError('required')">
+                            Amount is Required for Voucher Entry
+                        </span>
+                        <span *ngIf="amount.hasError('min')">
+                            Amount Must Be A Greater than 0
+                        </span>
+                    </mat-error>
+                </mat-form-field>
+                <button type="submit" class="btn m-1" mat-raised-button color="primary" [disabled]="voucherForm.invalid">
+                    Submit
+                </button>
+                <button type="reset" class="btn m-1" mat-raised-button color="warn">
+                    Reset Form
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
