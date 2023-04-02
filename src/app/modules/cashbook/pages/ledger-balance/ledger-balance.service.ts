@@ -19,6 +19,22 @@ export class LedgerBalanceService {
         );
     }
 
+    updateBalance(id: number, opening: number, closing: number) {
+        console.log('Update Balance Called', id, opening, closing);
+        const oldList = this.accountBalance.value;
+        const index = oldList.findIndex(x=> x.ledger_id === id);
+        
+        console.log('Index of Item Found', index);
+        if (index < 0 ) {
+            return;
+        }
+
+        oldList[index].opening = opening;
+        oldList[index].closing = closing;
+
+        this.accountBalance.next(oldList);
+    }
+
     constructor(private api: ApiService, private ns: NotificationService) {}
 }
 

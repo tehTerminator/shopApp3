@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { CustomerTableComponent } from './customer-table/customer-table.component';
 import { InvoiceInfoComponent } from './invoice-info/invoice-info.component';

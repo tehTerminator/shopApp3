@@ -57,7 +57,7 @@ export class LedgerBalanceFormComponent implements OnInit, OnDestroy {
   get ledgers(): Observable<Ledger[]> {
     return (this.ledgerService.getAsObservable() as Observable<Ledger[]>)
     .pipe(
-      map( ledgers => ledgers.filter( x => x.kind === 'BANK' || x.kind === 'CASH'))
+      map( ledgers => ledgers.filter( x => ['BANK', 'WALLET', 'CASH'].includes(x.kind)))
     );
   }
 
@@ -74,6 +74,7 @@ export class LedgerBalanceFormComponent implements OnInit, OnDestroy {
     this.ledgerService.updateBalance(ledger.id, opening, closing)
     .subscribe(
       () => {
+        this.balanceStore.updateBalance(ledger.id, opening, closing);
         this.ns.showSuccess('Success', 'Opening and Closing Balance Saved Success');
         this.myForm.reset();
       },
