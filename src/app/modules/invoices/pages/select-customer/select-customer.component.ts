@@ -7,12 +7,8 @@ import { InvoiceStoreService } from '../../services/invoice-store.service';
   templateUrl: './select-customer.component.html',
   styleUrls: ['./select-customer.component.css']
 })
-export class SelectCustomerComponent implements OnInit {
+export class SelectCustomerComponent{
 
-  constructor(private titleService: Title) { }
-
-  ngOnInit(): void {
-    this.titleService.setTitle('Select Customer | ShopApp');
-  }
+  constructor() { }
 
 }

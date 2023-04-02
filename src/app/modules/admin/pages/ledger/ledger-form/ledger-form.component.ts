@@ -11,7 +11,7 @@ import { EMPTY, Observable, Subscription } from 'rxjs';
   styleUrls: ['./ledger-form.component.css']
 })
 export class LedgerFormComponent implements OnInit {
-  readonly kinds = ['BANK', 'CASH', 'PAYABLES', 'RECEIVABLES', 'EXPENSE', 'INCOME'];
+  readonly kinds = ['BANK', 'CASH', 'WALLET', 'PAYABLE', 'RECEIVABLE', 'EXPENSE', 'INCOME'];
   ledgerForm: UntypedFormGroup = new UntypedFormGroup({});
   sub = new Subscription();
   isLoading = false;

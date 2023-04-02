@@ -158,6 +158,7 @@ export class InvoiceStoreService {
         id: 0,
         title: 'NOT SELECTED',
         address: 'NOT SELECTED',
+        mobile: '',
         created_at: '',
         updated_at: ''
       },

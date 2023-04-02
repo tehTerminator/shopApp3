@@ -20,7 +20,6 @@ export class CreateTransactionComponent implements OnInit, AfterViewInit {
     private store: InvoiceStoreService,
     private fb: UntypedFormBuilder,
     private ledgerService: LedgerService,
-    private titleService: Title
   ) { }
 
   ngOnInit(): void {
@@ -46,9 +45,7 @@ export class CreateTransactionComponent implements OnInit, AfterViewInit {
         rate: this.store.selectedItem.rate
       });
     }
-
-    this.titleService.setTitle('Set Quantity And Rate | ShopApp');
-
+    
     window.scroll({
       top: 0,
       left: 0,

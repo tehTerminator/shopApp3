@@ -92,15 +92,16 @@ export class VoucherFormComponent implements OnInit {
 
   private updateFormData(voucher: Voucher): void {
     try {
+      console.log(voucher);
+      console.table(this.ledgerService.getAsList());
       const cr = this.ledgerService.getElementById(voucher.cr);
       const dr = this.ledgerService.getElementById(voucher.dr);
-      console.log({
-        cr, dr, narration: voucher.narration, amount: voucher.amount
-      });
+
       this.voucherForm.patchValue({
         cr, dr, narration: voucher.narration, amount: voucher.amount
       });
     } catch (e) {
+      console.log(e);
       this.ns.showError('Error', 'Error Loading Data From Server');
     }
   }
@@ -203,4 +204,12 @@ export class VoucherFormComponent implements OnInit {
   get amount(): UntypedFormControl {
     return this.voucherForm.get('amount') as UntypedFormControl;
   }
+}
+
+interface VoucherData {
+  id: number;
+  cr: number;
+  dr: number;
+  narration: string;
+  amount: number;
 }

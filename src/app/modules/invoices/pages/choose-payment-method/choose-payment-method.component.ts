@@ -10,7 +10,6 @@ import { InvoiceStoreService } from '../../services/invoice-store.service';
 })
 export class ChoosePaymentMethodComponent implements OnInit {
   constructor(
-    private titleService: Title,
     private store: InvoiceStoreService,
     private router: Router) { }
 
@@ -29,7 +28,5 @@ export class ChoosePaymentMethodComponent implements OnInit {
       this.router.navigate(['/invoices', 'create', 'list-items']);
       return;
     }
-
-    this.titleService.setTitle('Select Payment Method | ShopApp');
   }
 }

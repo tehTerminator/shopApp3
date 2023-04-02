@@ -22,15 +22,14 @@ export class PaymentInfoComponent {
     this.api.select<Voucher[]>('invoices/paymentInfo', {id: this._invoiceId.toString()})
     .subscribe(
       (data) => this.paymentInfo.next(data),
-      (err) => {
-        console.error(err);
-        this.paymentInfo.next([]);
-      }
+      () => this.paymentInfo.next([])
     )
+  }
+
+  get isEmpty(): boolean {
+    return this.paymentInfo.value.length === 0;
   }
   
 
-  constructor(private api: ApiService,
-    private invoiceStore: InvoiceStoreService,
-    private ledgerService: LedgerService) {}
+  constructor(private api: ApiService) {}
 }

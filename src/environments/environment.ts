@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost/ShopAppApi/public/'
+  baseUrl: 'https://api.maharajac.in/'
 };
 
 /*

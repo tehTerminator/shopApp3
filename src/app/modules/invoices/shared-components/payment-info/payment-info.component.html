@@ -1,6 +1,11 @@
 <strong>Payment Details</strong>
-<ul>
-  <li *ngFor="let voucher of paymentInfo | async">
-    {{ voucher.debtor.title }} - {{ voucher.amount | currency:'INR' }}
-  </li>
+<ul *ngIf="!isEmpty; else udhaar">
+    <li *ngFor="let voucher of paymentInfo | async">
+        {{ voucher.debtor.title }} - {{ voucher.amount | currency:'INR' }}
+    </li>
 </ul>
+
+
+<ng-template #udhaar>
+    UDHAAR
+</ng-template>

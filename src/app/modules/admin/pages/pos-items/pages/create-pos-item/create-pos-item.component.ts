@@ -7,7 +7,5 @@ import { Title } from "@angular/platform-browser";
     styles: ['']
 })
 export class CreatePosItemComponent {
-    constructor(private titleService: Title) {
-        this.titleService.setTitle('Create / Update Bundle | ShopApp');
-    }
+    constructor() {}
 }

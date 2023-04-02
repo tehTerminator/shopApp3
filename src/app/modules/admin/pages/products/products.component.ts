@@ -8,10 +8,12 @@ import { Title } from '@angular/platform-browser';
 })
 export class ProductsComponent implements OnInit {
 
-  constructor(private titleService: Title) { }
+  constructor(
+    // private titleService: Title
+    ) { }
 
   ngOnInit(): void {
-    this.titleService.setTitle('Create/Update Products | ShopApp');
+    // this.titleService.setTitle('Create/Update Products | ShopApp');
   }
 
 }

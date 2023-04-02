@@ -17,7 +17,5 @@ import { Title } from '@angular/platform-browser';
   styles: ['']
 })
 export class LedgerBalanceComponent {
-  constructor(private titleService: Title) {
-    this.titleService.setTitle('Ledger Balance | ShopApp');
-  }
+  constructor() {}
 }

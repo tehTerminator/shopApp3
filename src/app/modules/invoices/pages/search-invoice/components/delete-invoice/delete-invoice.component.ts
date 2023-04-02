@@ -12,7 +12,6 @@ export class DeleteInvoiceComponent implements OnInit {
 
   constructor(
     private store: InvoiceStoreService,
-    private api: ApiService,
     private listStore: SearchInvoiceStoreService
   ) { }
 

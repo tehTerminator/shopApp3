@@ -6,12 +6,8 @@ import { Title } from '@angular/platform-browser';
   templateUrl: './ledger.component.html',
   styleUrls: ['./ledger.component.css']
 })
-export class LedgerComponent implements OnInit {
+export class LedgerComponent {
 
-  constructor(private title: Title) { }
-
-  ngOnInit(): void {
-    this.title.setTitle('Ledger | ShopApp');
-  }
+  constructor() { }
 
 }

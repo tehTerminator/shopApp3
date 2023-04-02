@@ -5,6 +5,7 @@ export const HOUR = 3600000;
 export const STRING = '^[0-9a-zA-Z ]+$';
 export const ALPHA_NUM = '^[0-9a-zA-Z]+$';
 export const ALPHA = '^[a-zA-Z]+$';
+export const MOBILE = '^[6-9][0-9]{9}$'
 
 export interface TableRow {
     id: number;
@@ -73,6 +74,7 @@ export interface Voucher extends TableRow {
 export interface Customer extends TableRow {
     title: string;
     address: string;
+    mobile: string;
 }
 
 export interface Transaction extends TableRow {

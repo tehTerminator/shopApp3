@@ -25,7 +25,6 @@ export class ListItemsComponent implements OnInit, AfterViewInit {
     private store: InvoiceStoreService,
     private itemStore: GeneralItemStoreService,
     private notification: NotificationService,
-    private titleService: Title
   ) { }
 
   ngOnInit(): void {
@@ -33,7 +32,6 @@ export class ListItemsComponent implements OnInit, AfterViewInit {
       this.router.navigate(['/invoices', 'create', 'select-customer']);
     }
     this.itemStore.init();
-    this.titleService.setTitle('Select Invoice Item | ShopApp');
 
     this.filteredItems = this.itemField.valueChanges.pipe(
       startWith(''),

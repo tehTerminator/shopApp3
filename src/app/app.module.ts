@@ -25,7 +25,7 @@ import { CurrencyFormComponent } from './shared/components/calculator/currency-f
     CalculatorComponent,
     EvaluatorComponent,
     CurrencyTableComponent,
-    CurrencyFormComponent
+    CurrencyFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,13 +35,15 @@ import { CurrencyFormComponent } from './shared/components/calculator/currency-f
     BrowserAnimationsModule,
     MatSnackBarModule,
     MatDialogModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
   ],
-  providers: [{
-    provide: HTTP_INTERCEPTORS,
-    useClass: AuthInterceptor,
-    multi: true
-  }],
-  bootstrap: [AppComponent]
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    }
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

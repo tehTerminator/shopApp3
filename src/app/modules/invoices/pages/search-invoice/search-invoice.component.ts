@@ -8,12 +8,6 @@ import { SearchInvoiceStoreService } from './search-invoice-store.service';
   templateUrl: './search-invoice.component.html',
   styleUrls: ['./search-invoice.component.css']
 })
-export class SearchInvoiceComponent implements OnInit {
-  constructor(
-    private titleService: Title,
-  ) { }
-
-  ngOnInit(): void {
-    this.titleService.setTitle('Search Invoices | ShopApp');
-  }
+export class SearchInvoiceComponent {
+  constructor(  ) { }
 }
