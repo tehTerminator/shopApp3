@@ -102,8 +102,7 @@ export interface ChartData {
     value: number;
 }
 
-export interface GeneralItem {
-    id: number;
+export interface GeneralItem extends TableRow {
     title: string;
     type: ItemType;
     rate: number;

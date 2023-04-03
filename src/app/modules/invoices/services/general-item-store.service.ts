@@ -1,81 +1,35 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Product, Ledger, PosItem, GeneralItem, ItemType } from '../../../shared/collection';
+import { Product, Ledger, PosItem, GeneralItem, ItemType, HOUR } from '../../../shared/collection';
 import { ApiService } from '../../../shared/services/api/api.service';
 import { LedgerService } from '../../../shared/services/ledger/ledger.service';
 import { PosItemService } from '../../../shared/services/posItem/pos-item.service';
 import { ProductService } from '../../../shared/services/product/product.service';
+import { GeneralItemService } from '../../../shared/services/general-items/general-items.service';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class GeneralItemStoreService {
-    private _generalItems = new BehaviorSubject<GeneralItem[]>([]);
 
     constructor(
         private ledgerService: LedgerService,
         private productService: ProductService,
         private posItemService: PosItemService,
-        private api: ApiService
+        private generalItemService: GeneralItemService,
     ) { }
 
     init(): void {
         this.ledgerService.init();
         this.productService.init();
         this.posItemService.init();
-
-        this.api.select<GeneralItem[]>('generalItems')
-        .subscribe(
-            (items) => this._generalItems.next(items),
-            (err) => {
-                console.error(err);
-                this._generalItems.next([]);
-            }
-        )
+        this.generalItemService.init();
     }
-
-    // get products(): GeneralItem[] {
-    //     const list = this.productService.getAsList() as Product[];
-    //     return this.mapListToGeneralItemList(list);
-    // }
-
-    // get ledgers(): GeneralItem[] {
-    //     let list = this.ledgerService.getAsList() as Ledger[];
-    //     list = list.filter(x => x.kind === 'BANK' || x.kind === 'CASH');
-    //     return this.mapListToGeneralItemList(list);
-    // }
-
-    // get posItems(): GeneralItem[] {
-    //     const list = this.posItemService.getAsList() as PosItem[];
-    //     return this.mapListToGeneralItemList(list);
-    // }
+    
 
     get items(): GeneralItem[] {
-        return this._generalItems.value;
+        return this.generalItemService.getAsList() as GeneralItem[];
     }
-
-    // private mapListToGeneralItemList(list: Ledger[] | Product[] | PosItem[]): GeneralItem[] {
-    //     if (list.length === 0) {
-    //         return [];
-    //     }
-    //     const newList: GeneralItem[] = [];
-    //     list.forEach((item: Product | Ledger | PosItem) => {
-    //         let type = ItemType.PRODUCT;
-    //         let rate = 0;
-    //         if (this.ledgerService.isInstanceOfLedger(item)) {
-    //             type = ItemType.LEDGER;
-    //         } else if (this.posItemService.isInstanceOfPosItem(item)) {
-    //             type = ItemType.POSITEM;
-    //             rate = item.rate;
-    //         } else {
-    //             rate = item.rate;
-    //         }
-    //         newList.push({
-    //             id: item.id,
-    //             title: item.title,
-    //             type, rate
-    //         });
-    //     });
-    //     return newList;
-    // }
 
     selectActualItem(item: GeneralItem): Product | Ledger | PosItem {
         switch (item.type) {
