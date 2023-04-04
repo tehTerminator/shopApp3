@@ -16,7 +16,7 @@
                     <td>{{ invoice.created_at | date:'hh:mm a' }}</td>
                     <td class="text-center">{{ invoice.customer.title | slice:0:10 }}</td>
                     <td class="text-end pe-3">{{ invoice.amount | currency:'INR' }}</td>
-                    <td>{{ getLedger(invoice.paymentMethod).title }} </td>
+                    <td>{{ getLedger(invoice.paymentMethod).title | slice:0:3 }} ... </td>
                 </tr>
             </tbody>
         </table>
