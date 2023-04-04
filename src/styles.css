@@ -86,8 +86,8 @@ mat-form-field {
     cursor: pointer;
 }
 
-.mat-active {
-    background-color: #6320a6af !important;
-    color: #eee !important;
-    border-radius: 5px !important;
+.mat-mdc-option-active{
+    background-color: #cc8effc4 !important;
+    color: #ffffff !important;
+    /* border-radius: 5px !important; */
 }
