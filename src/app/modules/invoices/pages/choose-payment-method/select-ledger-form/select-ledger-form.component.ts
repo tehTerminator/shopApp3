@@ -26,7 +26,7 @@ export class SelectLedgerFormComponent {
         return (this.ledgerService.getAsObservable() as Observable<Ledger[]>)
             .pipe(map(
                 ledgers => ledgers.filter(
-                    x => x.kind === 'BANK' || x.kind === 'CASH'
+                    x => ['BANK', 'CASH', 'WALLET'].includes(x.kind)
                 )
             )
             );
