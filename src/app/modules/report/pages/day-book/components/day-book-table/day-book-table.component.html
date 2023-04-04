@@ -10,8 +10,8 @@
         </thead>
         <tbody>
           <tr *ngFor="let item of dayBook | async">
-            <td>{{ item.creditor }}</td>
-            <td>{{ item.debtor }}</td>
+            <td>{{ item.creditor.title }}</td>
+            <td>{{ item.debtor.title }}</td>
             <td>{{ item.amount | currency: "INR" }}</td>
           </tr>
         </tbody>

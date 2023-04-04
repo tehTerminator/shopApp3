@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { DayBookService, Entry } from '../../services/day-book.service';
+import { DayBookService} from '../../services/day-book.service';
+import { Voucher } from '../../../../../../shared/collection';
 
 @Component({
     selector: 'app-day-book-table',
@@ -9,7 +10,7 @@ import { DayBookService, Entry } from '../../services/day-book.service';
 export class DayBookTableComponent {
     constructor(private dayBookService: DayBookService) {}
 
-    get dayBook(): BehaviorSubject<Entry[]> {
+    get dayBook(): BehaviorSubject<Voucher[]> {
         return this.dayBookService.dayBook;
     }
 
