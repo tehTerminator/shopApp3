@@ -1,16 +1,14 @@
-<ul class="list-group-item">
-  <li
-    class="
-      list-group-item list-group-item-action
-      d-flex
-      justify-content-between
-    "
-    *ngFor="let p of posItems | async"
-    (click)="onSelect(p)"
-  >
-    <span> {{ p.id }} - {{ p.title }} </span
-    ><span>
-      {{ p.rate | currency: "INR" }}
-    </span>
-  </li>
-</ul>
+<div class="card card-body">
+  <ul class="list-group-item">
+    <li
+      class="list-group-item list-group-item-action d-flex justify-content-between"
+      *ngFor="let p of posItems | async"
+      (click)="onSelect(p)"
+    >
+      <span> {{ p.id }} - {{ p.title }} </span
+      ><span>
+        {{ p.rate | currency : "INR" }}
+      </span>
+    </li>
+  </ul>
+</div>
