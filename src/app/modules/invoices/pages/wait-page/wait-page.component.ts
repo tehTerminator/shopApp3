@@ -33,7 +33,6 @@ export class WaitPageComponent implements OnInit {
         this.store.reset();
         this.notificaitonService.showSuccess('Success', 'Invoice Created Successfully');
         this.router.navigate(['/invoices', 'create', 'select-customer']);
-        // this.router.navigate(['/invoices', 'create', 'paymentMethod']);
       },
       error => {
         console.error(error);
@@ -42,5 +41,4 @@ export class WaitPageComponent implements OnInit {
       }
     );
   }
-
 }
