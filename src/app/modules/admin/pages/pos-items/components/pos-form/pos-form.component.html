@@ -1,4 +1,4 @@
-<form class="card" [formGroup]="posForm" (ngSubmit)="onSubmit()">
+<form class="card" [formGroup]="posForm" (ngSubmit)="onSubmit()" [ngClass]="loading ? 'loading':''">
     <h2 class="fs-2 card-header">
         {{ editMode ? 'Update POS Item' : 'Create New Pos Item' }}
     </h2>

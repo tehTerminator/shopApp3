@@ -12,6 +12,7 @@ import { PosItemService } from './../../../../../../shared/services/posItem/pos-
   styleUrls: ['./pos-form.component.css']
 })
 export class PosFormComponent implements OnInit {
+  private _loading = false;
   posForm: UntypedFormGroup = new UntypedFormGroup({});
 
   constructor(
@@ -33,6 +34,8 @@ export class PosFormComponent implements OnInit {
       this.ns.showError('Form Error', 'Invalid Values in POS Form');
       return;
     }
+
+    this._loading = true;
 
     if (this.editMode) {
       this.handleResponse(this.posService.update(this.posForm.value));
@@ -70,7 +73,8 @@ export class PosFormComponent implements OnInit {
       },
       error => {
         this.ns.showError('Error', error);
-      }
+      },
+      () => this._loading = false
     );
   }
 
@@ -90,5 +94,7 @@ export class PosFormComponent implements OnInit {
     return this.posForm.get('rate') as UntypedFormControl;
   }
 
-
+  get loading(): boolean {
+    return this._loading;
+  }
 }

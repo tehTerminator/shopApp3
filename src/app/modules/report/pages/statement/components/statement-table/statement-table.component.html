@@ -1,4 +1,4 @@
-<div class="card" *ngIf="rowCount > 0;else noDataMessage">
+<div class="card" *ngIf="rowCount > 0;else noDataMessage" [ngClass]="loading ? 'loading':''">
     <div class="card-body" style="overflow-y: scroll; max-height: 80vh;">
         <table class="table table-hover table-sm">
             <thead class="text-center bg-dark text-light">

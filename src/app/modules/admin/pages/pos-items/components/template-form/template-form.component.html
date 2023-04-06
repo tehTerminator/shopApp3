@@ -1,4 +1,4 @@
-<form class="card" [formGroup]="templateForm" (ngSubmit)="onSubmit()">
+<form class="card" [formGroup]="templateForm" (ngSubmit)="onSubmit()" [ngClass]="loading ? 'loading':''">
     <h2 class="card-header fs-2">
         Create / Update Template
     </h2>

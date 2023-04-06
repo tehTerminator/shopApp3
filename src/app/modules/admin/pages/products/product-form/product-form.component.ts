@@ -10,7 +10,7 @@ import { ProductService } from '../../../../../shared/services/product/product.s
   styleUrls: ['./product-form.component.css']
 })
 export class ProductFormComponent implements OnInit {
-
+  private _loading = false;
   productForm: UntypedFormGroup = new UntypedFormGroup({});
 
   constructor(
@@ -49,6 +49,8 @@ export class ProductFormComponent implements OnInit {
       return;
     }
 
+    this._loading = true;
+
     if (this.editMode) {
       this.productService.update(this.productForm.value)
       .subscribe(() => {
@@ -57,7 +59,7 @@ export class ProductFormComponent implements OnInit {
       }, error => {
         this.ns.showError('Error', 'Unable to Update Product');
         console.log(error);
-      });
+      }, () => this._loading = false);
     } else {
       this.productService.create(this.productForm.value)
       .subscribe(() => {
@@ -65,7 +67,7 @@ export class ProductFormComponent implements OnInit {
         this.ns.showSuccess('Success', 'Product Created Successfully');
       }, () => {
         this.ns.showError('Error', 'Unable to Create New Product');
-      });
+      }, () => this._loading = false);
     }
   }
 
@@ -83,6 +85,10 @@ export class ProductFormComponent implements OnInit {
 
   get editMode(): boolean {
     return this.id.value > 0;
+  }
+
+  get loading(): boolean {
+    return this._loading;
   }
 
 }

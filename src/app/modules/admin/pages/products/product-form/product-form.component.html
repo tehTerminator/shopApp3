@@ -1,4 +1,4 @@
-<form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="card">
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="card" [ngClass]="loading ? 'loading':''">
     <h2 class="card-header">{{ editMode ? 'Update Product' : 'Create New Product' }}</h2>
     <div class="card-body">
         <mat-form-field appearance="outline" class="d-block">

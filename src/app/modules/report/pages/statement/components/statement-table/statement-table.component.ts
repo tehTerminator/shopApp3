@@ -48,5 +48,9 @@ export class StatementTableComponent implements OnInit, OnDestroy {
                 return cashbook.rows;
             }));
     }
+
+    get loading(): boolean {
+        return this.statementService.loading;
+    }
 }
 

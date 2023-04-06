@@ -1,4 +1,4 @@
-<form [formGroup]="ledgerForm" (ngSubmit)="onSubmit()" class="card" [ngClass]="isLoading ? 'loading':''">
+<form [formGroup]="ledgerForm" (ngSubmit)="onSubmit()" class="card" [ngClass]="loading ? 'loading':''">
     <h2 class="card-header fs-2">
         {{ editMode ? 'Update Ledger' : 'Create New Ledger' }}
     </h2>

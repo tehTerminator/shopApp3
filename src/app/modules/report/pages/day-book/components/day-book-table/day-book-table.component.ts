@@ -17,4 +17,8 @@ export class DayBookTableComponent {
     get length(): number {
         return this.dayBookService.dayBook.value.length;
     }
+
+    get loading(): boolean {
+        return this.dayBookService.loading;
+    }
 }

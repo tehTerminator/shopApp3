@@ -19,6 +19,7 @@ export class TemplateFormComponent implements OnInit, OnChanges, OnDestroy {
   sub: Subscription = new Subscription();
   isProduct = true;
   private notifier = new Subject();
+  private _loading = false;
 
   constructor(
     private ns: NotificationService,
@@ -100,6 +101,7 @@ export class TemplateFormComponent implements OnInit, OnChanges, OnDestroy {
 
     const payload: PosItemTemplate = this.templateForm.value;
     let response: Observable<any> = EMPTY;
+    this._loading = true;
 
     if (this.editMode) {
       response = this.posItemService.updateTemplate(payload);
@@ -120,7 +122,8 @@ export class TemplateFormComponent implements OnInit, OnChanges, OnDestroy {
       },
       error => {
         this.ns.showError('Error', error);
-      }
+      },
+      () => this._loading = false;
     );
   }
 
@@ -169,5 +172,9 @@ export class TemplateFormComponent implements OnInit, OnChanges, OnDestroy {
 
   get quantity(): UntypedFormControl {
     return this.templateForm.get('quantity') as UntypedFormControl;
+  }
+
+  get loading(): boolean {
+    return this._loading;
   }
 }

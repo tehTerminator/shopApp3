@@ -1,4 +1,4 @@
-<div class="card" *ngIf="length > 0; else noData">
+<div class="card" *ngIf="length > 0; else noData" [ngClass]="loading ? 'loading': ''">
     <div class="card-body">
       <table class="table-sm table-bordered text-center w-100">
         <thead class="bg-dark text-light">

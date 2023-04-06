@@ -52,4 +52,8 @@ export class StatementFormComponent implements OnInit {
     get ledgers(): Observable<Ledger[]> {
       return this.ledgerService.getAsObservable() as Observable<Ledger[]>;
     }
+
+    get loading(): boolean {
+      return this.statementService.loading;
+    }
 }

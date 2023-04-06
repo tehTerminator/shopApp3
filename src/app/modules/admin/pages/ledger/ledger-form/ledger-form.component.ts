@@ -11,10 +11,10 @@ import { EMPTY, Observable, Subscription } from 'rxjs';
   styleUrls: ['./ledger-form.component.css']
 })
 export class LedgerFormComponent implements OnInit {
+  private _loading = false;
   readonly kinds = ['BANK', 'CASH', 'WALLET', 'PAYABLE', 'RECEIVABLE', 'EXPENSE', 'INCOME'];
   ledgerForm: UntypedFormGroup = new UntypedFormGroup({});
   sub = new Subscription();
-  isLoading = false;
 
   constructor(
     private fb: UntypedFormBuilder,
@@ -31,7 +31,7 @@ export class LedgerFormComponent implements OnInit {
   }
 
   onIdFieldChange(): void {
-    this.isLoading = true;
+    this._loading = true;
     if (this.id > 0) {
       try{
         const ledger = this.ledgerService.getElementById(this.id) as Ledger;
@@ -39,13 +39,13 @@ export class LedgerFormComponent implements OnInit {
           title: ledger.title,
           kind: ledger.kind
         });
-        this.isLoading = false;
+        this._loading = false;
       } catch (e) {
         this.ledgerForm.reset();
-        this.isLoading = false;
+        this._loading = false;
       }
     } else {
-      this.isLoading = false;
+      this._loading = false;
     }
   }
 
@@ -55,7 +55,7 @@ export class LedgerFormComponent implements OnInit {
       return;
     }
 
-    this.isLoading = true;
+    this._loading = true;
     let response:Observable<Ledger> = EMPTY;
 
     if (this.editMode) {
@@ -77,13 +77,13 @@ export class LedgerFormComponent implements OnInit {
 
     ledger.subscribe(
       () => {
-        this.isLoading = false;
+        this._loading = false;
         this.notification.showSuccess('Success', message);
         this.ledgerForm.reset();
       },
       error => {
         this.notification.showError('Error', error);
-        this.isLoading = false;
+        this._loading = false;
       }
     );
   }
@@ -114,6 +114,10 @@ export class LedgerFormComponent implements OnInit {
 
   get kindField(): UntypedFormControl{
     return this.ledgerForm.get('kind') as UntypedFormControl;
+  }
+
+  get loading(): boolean {
+    return this._loading;
   }
 }
 
