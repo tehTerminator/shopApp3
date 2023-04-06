@@ -1,3 +1,5 @@
-<button type="button" class="btn btn-danger pr-3 pe-3" (click)="deleteInvoice()">
+<button
+    [ngClass]="loading ? 'loading': ''"
+ type="button" class="btn btn-danger pr-3 pe-3" (click)="deleteInvoice()">
     Delete Invoice
 </button>

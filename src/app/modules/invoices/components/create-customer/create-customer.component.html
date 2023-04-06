@@ -1,14 +1,17 @@
 <div class="card-header">Create New Customer</div>
-<div class="card-body">
-    <form [formGroup]="createCustomerForm" (ngSubmit)="onSubmit()">
-        <mat-form-field appearance="outline" class="d-block">
-            <mat-label>Customer Name</mat-label>
-            <input matInput formControlName="title" type="text" />
-            <mat-error *ngIf="
+<div class="card-body" [ngClass]="loading ? 'loading':''">
+  <form [formGroup]="createCustomerForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="outline" class="d-block">
+      <mat-label>Customer Name</mat-label>
+      <input matInput formControlName="title" type="text" />
+      <mat-error
+        *ngIf="
           nameFormControl.invalid &&
           (nameFormControl.dirty || nameFormControl.touched)
-        ">
-                <span *ngIf="nameFormControl.hasError('required')">Please Enter Customer Name</span
+        "
+      >
+        <span *ngIf="nameFormControl.hasError('required')"
+          >Please Enter Customer Name</span
         >
         <span *ngIf="nameFormControl.hasError('minlength')"
           >Customer Name Must Have 3 Characters</span
@@ -45,16 +48,19 @@
 
     <mat-form-field class="w-100" appearance="outline">
       <mat-label>Mobile Number</mat-label>
-      <input type="text" maxlength="10" matInput formControlName="mobile">
-      <mat-error *ngIf="mobileFormControl.invalid || (mobileFormControl.dirty && mobileFormControl.touched)">
+      <input type="text" maxlength="10" matInput formControlName="mobile" />
+      <mat-error
+        *ngIf="
+          mobileFormControl.invalid ||
+          (mobileFormControl.dirty && mobileFormControl.touched)
+        "
+      >
         Invalid Mobile Number.
       </mat-error>
     </mat-form-field>
 
     <mat-form-field class="w-100" appearance="outline">
-      <mat-label>
-        Default Ledger
-      </mat-label>
+      <mat-label> Default Ledger </mat-label>
       <mat-select formControlName="ledger_id">
         <mat-option *ngFor="let ledger of ledgers" [value]="ledger.id">
           {{ ledger.title }}

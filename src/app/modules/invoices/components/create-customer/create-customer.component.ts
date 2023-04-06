@@ -6,8 +6,6 @@ import { NotificationService } from '../../../../shared/services/notification/no
 import { CustomerService } from '../../services/customer.service';
 import { InvoiceStoreService } from '../../services/invoice-store.service';
 import { LedgerService } from '../../../../shared/services/ledger/ledger.service';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-create-customer',
@@ -20,6 +18,7 @@ export class CreateCustomerComponent implements OnInit {
   addressFormControl = new UntypedFormControl('', [Validators.required, Validators.pattern(STRING)]);
   mobileFormControl = new UntypedFormControl('', [Validators.pattern(MOBILE)]);
   ledgerIdControl = new UntypedFormControl('', [Validators.required]);
+  private _loading = false;
 
   constructor(
     private router: Router,
@@ -51,12 +50,16 @@ export class CreateCustomerComponent implements OnInit {
       return;
     }
 
+    this._loading = true;
+
     this.customerService.create(this.createCustomerForm.value)
       .subscribe(customer => {
+        this._loading = false;
         this.store.customer = customer;
         this.router.navigate(['/invoices', 'create', 'list-items']);
       },
         error => {
+          this._loading = false;
           this.notification.showError('Error', error);
         }
       );
@@ -79,6 +82,10 @@ export class CreateCustomerComponent implements OnInit {
   get ledgers(): Ledger[] {
     const list = this.ledgerService.getAsList() as Ledger[];
     return list.filter(x => x.kind === 'RECEIVABLE');
+  }
+
+  get loading(): boolean {
+    return this._loading;
   }
 
 }

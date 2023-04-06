@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { InvoiceStoreService } from './../../../../services/invoice-store.service';
-import { ApiService } from './../../../../../../shared/services/api/api.service';
 import { SearchInvoiceStoreService } from '../../search-invoice-store.service';
 
 @Component({
@@ -25,5 +24,9 @@ export class DeleteInvoiceComponent implements OnInit {
     if (this.confirmDelete()) {
       this.listStore.deleteInvoice(this.store.invoice.value.id);
     }
+  }
+
+  get loading(): boolean {
+    return this.listStore.loading;
   }
 }
