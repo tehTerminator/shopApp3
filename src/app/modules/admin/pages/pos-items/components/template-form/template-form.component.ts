@@ -123,7 +123,7 @@ export class TemplateFormComponent implements OnInit, OnChanges, OnDestroy {
       error => {
         this.ns.showError('Error', error);
       },
-      () => this._loading = false;
+      () => this._loading = false
     );
   }
 
