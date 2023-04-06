@@ -29,7 +29,7 @@ export class SearchInvoiceStoreService {
                     console.log(err);
                     this.invoices.next([]);
                 },
-                () => this._loading = false;
+                () => this._loading = false
             );
     }
 
