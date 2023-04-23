@@ -1,39 +1,23 @@
 export const MenuItems = [
     {
-        chartType: 'bar',
+        chartType: 'pie',
         url: 'userWiseInvoiceCount',
         title: 'User Wise Invoice Count',
-        queryParams: {
-            xaxislabel: 'Operators',
-            yaxislabel: 'Invoice Count'
-        }
     },
     {
-        chartType: 'bar',
+        chartType: 'pie',
         url: 'userWisePaymentCount',
-        title: 'User Wise Payment Count',
-        queryParams: {
-            xaxislabel: 'Operator',
-            yaxislabel: 'Invoice Amount'
-        }
+        title: 'User Wise Payment Count'
     },
     {
-        chartType: 'bar',
+        chartType: 'pie',
         url: 'userWiseSalesCount',
-        title: 'User Wise Sales Count',
-        queryParams: {
-            xaxislabel: 'Operator',
-            yaxislabel: 'Sale'
-        }
+        title: 'User Wise Sales Count'
     },
     {
-        chartType: 'bar',
+        chartType: 'pie',
         url: 'productWiseSaleCount',
-        title: 'Product Wise Sales',
-        queryParams: {
-            xaxislabel: 'Product Name',
-            yaxislabel: 'Amount'
-        }
+        title: 'Product Wise Sales'
     },
     {
         chartType: 'bar',
