@@ -4,7 +4,7 @@ import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NotificationService } from '../../../../shared/services/notification/notification.service';
 import { InvoiceStoreService } from '../../services/invoice-store.service';
-import { LedgerService } from './../../../../shared/services/ledger/ledger.service';
+import { LedgerService } from '../../../../shared/services/ledger/ledger.service';
 
 @Component({
   selector: 'app-create-transaction',

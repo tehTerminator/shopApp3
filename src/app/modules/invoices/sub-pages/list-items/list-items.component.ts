@@ -4,7 +4,7 @@ import { GeneralItem } from '../../../../shared/collection';
 import { InvoiceStoreService } from '../../services/invoice-store.service';
 import { NotificationService } from '../../../../shared/services/notification/notification.service';
 import { Title } from '@angular/platform-browser';
-import { GeneralItemStoreService } from './../../services/general-item-store.service';
+import { GeneralItemStoreService } from '../../services/general-item-store.service';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { EMPTY, Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
