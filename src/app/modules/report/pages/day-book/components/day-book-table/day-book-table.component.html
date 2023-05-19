@@ -1,28 +1,27 @@
-<div class="card" *ngIf="length > 0; else noData" [ngClass]="loading ? 'loading': ''">
-    <div class="card-body">
-      <table class="table-sm table-bordered text-center w-100">
-        <thead class="bg-dark text-light">
-          <tr>
-            <th>Creditor</th>
-            <th>Debtor</th>
-            <th>Amount</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of dayBook | async">
-            <td>{{ item.creditor.title }}</td>
-            <td>{{ item.debtor.title }}</td>
-            <td>{{ item.amount | currency: "INR" }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+<div *ngIf="dayBook | async as book">
+  <table
+    class="table-sm table-bordered text-center w-100"
+    *ngIf="book.length > 0; else noData"
+  >
+    <thead class="bg-dark text-light">
+      <tr>
+        <th>Creditor</th>
+        <th>Debtor</th>
+        <th>Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of dayBook | async">
+        <td>{{ item.creditor.title }}</td>
+        <td>{{ item.debtor.title }}</td>
+        <td>{{ item.amount | currency : "INR" }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
-  <ng-template #noData>
-    <div class="card">
-      <div class="card-body text-center">
-        <h3 class="fs-3">No Data To Display</h3>
-      </div>
-    </div>
-  </ng-template>
+<ng-template #noData>
+  <div class="card card-body">
+    <h3 class="fs-3 text-center">No Data</h3>
+  </div>
+</ng-template>

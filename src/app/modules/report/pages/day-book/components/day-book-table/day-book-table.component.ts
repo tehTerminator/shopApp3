@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Component, Input } from '@angular/core';
+import { Observable } from 'rxjs';
 import { DayBookService} from '../../services/day-book.service';
 import { Voucher } from '../../../../../../shared/collection';
 
@@ -8,17 +8,12 @@ import { Voucher } from '../../../../../../shared/collection';
     templateUrl: './day-book-table.component.html'
 })
 export class DayBookTableComponent {
+    @Input('creditor') creditor = '';
+    @Input('debtor') debtor = '';
+
     constructor(private dayBookService: DayBookService) {}
 
-    get dayBook(): BehaviorSubject<Voucher[]> {
-        return this.dayBookService.dayBook;
-    }
-
-    get length(): number {
-        return this.dayBookService.dayBook.value.length;
-    }
-
-    get loading(): boolean {
-        return this.dayBookService.loading;
+    get dayBook(): Observable<Voucher[]> {
+        return this.dayBookService.getFileteredData(this.creditor, this.debtor);
     }
 }

@@ -2,9 +2,37 @@
   <div class="col-md-4">
     <app-day-book-form></app-day-book-form>
   </div>
-  <div class="col-md-8">
-    <app-day-book-table></app-day-book-table>
+  <div
+    class="col-md-8"
+    [ngClass]="loading ? 'loading' : ''"
+  >
+    <div class="row g-3" *ngIf="length > 0; else noData">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            Total Number of Rows to Display = {{ length }}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6" *ngFor="let row of dataToDisplay">
+        <div class="card">
+          <div class="card-body">
+            <div class="card-title">
+              {{ row.title }}
+            </div>
+            <app-day-book-table
+              [creditor]="row.creditor"
+              [debtor]="row.debtor"
+            ></app-day-book-table>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
-
+<ng-template #noData>
+  <div class="card card-body">
+    <h3 class="fs-3 text-center">Noting To Display</h3>
+  </div>
+</ng-template>
