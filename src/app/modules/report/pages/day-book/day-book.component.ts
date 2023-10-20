@@ -10,17 +10,17 @@ import { map } from 'rxjs/operators';
 export class DayBookComponent{
   dataToDisplay: Rows[] = [
       {
-        creditor: "BANK,WALLET,CASH",
-        debtor: "RECEIVABLE",
+        creditor: 'BANK,WALLET,CASH',
+        debtor: 'RECEIVABLE',
         title: 'Online Payments'
       },
       {
-        creditor: "PAYABLE,RECEIVABLE",
-        debtor: "BANK,WALLET,CASH",
+        creditor: 'RECEIVABLE',
+        debtor: 'BANK,WALLET,CASH',
         title: 'Receipts'
       },
       {
-        creditor:'BANK,CASH,WALLET',
+        creditor:'BANK,WALLET,CASH',
         debtor:'BANK,WALLET',
         title:'Contra'
       },
@@ -30,13 +30,13 @@ export class DayBookComponent{
         title: 'Cash to Cash'
       },
       {
-        creditor: "BANK,WALLET,CASH",
-        debtor: "EXPENSE",
+        creditor: 'BANK,WALLET,CASH',
+        debtor: 'EXPENSE',
         title: 'EXPENSES'
       },
       {
-        creditor: "INCOME",
-        debtor: "BANK,WALLET,CASH,RECEIVABLE,PAYABLE",
+        creditor: 'INCOME',
+        debtor: 'BANK,WALLET,CASH,RECEIVABLE,PAYABLE',
         title: 'INCOME'
       },
       {

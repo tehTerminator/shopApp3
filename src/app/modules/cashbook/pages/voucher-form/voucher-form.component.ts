@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { LedgerService } from './../../../../shared/services/ledger/ledger.service';
 import { ApiService } from './../../../../shared/services/api/api.service';
 import { NotificationService } from '../../../../shared/services/notification/notification.service';
@@ -16,54 +16,62 @@ import { evaluateString } from '../../../../shared/functions';
 })
 export class VoucherFormComponent implements OnInit {
   @ViewChild('firstInputField') input!: ElementRef<HTMLInputElement>;
-  voucherForm: FormGroup;
+  voucherForm: UntypedFormGroup = new UntypedFormGroup({});
   isLoading = false;
   filteredCreditor: Observable<Ledger[]> = EMPTY;
   filteredDebtor: Observable<Ledger[]> = EMPTY;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private api: ApiService,
     private ns: NotificationService,
     private ledgerService: LedgerService,
     private route: ActivatedRoute
-  ) {
+  ) { }
+
+  ngOnInit(): void {
     this.voucherForm = this.fb.group({
-      id: [0],
+      id: 0,
       cr: [0, Validators.required],
       dr: [0, Validators.required],
       narration: ['', [Validators.required, Validators.minLength(3)]],
       amount: [0, [Validators.required, Validators.min(0.01)]]
     });
-  }
 
-  ngOnInit(): void {
     this.ledgerService.init();
     this.filteredCreditor = this.cr.valueChanges.pipe(
       startWith(''),
-      map(value => this.filteredOptions(value, 'EXPENSE'))
+      map(
+        value => this.filteredOptions(value, 'EXPENSE')
+      )
     );
 
     this.filteredDebtor = this.dr.valueChanges.pipe(
       startWith(''),
-      map(value => this.filteredOptions(value, 'INCOME'))
+      map(
+        value => this.filteredOptions(value, 'INCOME')
+      )
     );
 
     this.loadIdFromRoute();
   }
 
   private loadIdFromRoute(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id')) || null;
-    this.id.setValue(id);
-    if (id) {
+    try {
+      const id = Number(this.route.snapshot.paramMap.get('id'));
+      this.id.setValue(id);
       this.onIdFieldChange();
+    } catch (e) {
+      this.id.setValue(null);
     }
   }
 
   onIdFieldChange(): void {
     this.isLoading = true;
     if (this.id.value > 0) {
-      this.api.select<Voucher>('vouchers', { id: this.id.value }).subscribe(
+      this.api.select<Voucher>('vouchers', {
+        id: this.id.value,
+      }).subscribe(
         voucher => {
           this.isLoading = false;
           this.updateFormData(voucher);
@@ -87,10 +95,7 @@ export class VoucherFormComponent implements OnInit {
       const dr = this.ledgerService.getElementById(voucher.dr);
 
       this.voucherForm.patchValue({
-        cr,
-        dr,
-        narration: voucher.narration,
-        amount: voucher.amount
+        cr, dr, narration: voucher.narration, amount: voucher.amount
       });
     } catch (e) {
       console.log(e);
@@ -99,6 +104,7 @@ export class VoucherFormComponent implements OnInit {
   }
 
   onAmountFieldFocus(): void {
+    // alert('Focused');
     try {
       const value = evaluateString(this.narration.value);
       this.amount.setValue(value);
@@ -120,13 +126,16 @@ export class VoucherFormComponent implements OnInit {
 
     this.isLoading = true;
 
-    const payload = { ...this.voucherForm.value };
+    const payload = this.voucherForm.value;
     payload.cr = payload.cr.id;
     payload.dr = payload.dr.id;
+    let response = EMPTY;
 
-    const response = this.editMode
-      ? this.api.update<Voucher>('vouchers', payload)
-      : this.api.create<Voucher>('vouchers', payload);
+    if (this.editMode) {
+      response = this.api.update('vouchers', payload);
+    } else {
+      response = this.api.create('vouchers', payload);
+    }
 
     this.handleResponse(response);
   }
@@ -155,8 +164,14 @@ export class VoucherFormComponent implements OnInit {
 
   public filteredOptions(title: string, kindIsNot: string): Ledger[] {
     const ledgers = this.ledgerService.getAsList() as Ledger[];
-    const t = title.toLowerCase();
-    return ledgers.filter(x => x.kind !== kindIsNot && x.title.toLowerCase().indexOf(t) >= 0);
+    let t = '';
+    try{
+      t = title.toLowerCase();
+      return ledgers.filter(x => x.kind !== kindIsNot && x.title.toLowerCase().indexOf(t) >= 0);
+    }
+    catch (e) {
+      return ledgers.filter(x => x.kind !== kindIsNot);
+    }
   }
 
   public displayFunction(ledger: Ledger): string {
@@ -167,23 +182,23 @@ export class VoucherFormComponent implements OnInit {
     return this.id.value > 0;
   }
 
-  get id(): FormControl {
-    return this.voucherForm.get('id') as FormControl;
+  get id(): UntypedFormControl {
+    return this.voucherForm.get('id') as UntypedFormControl;
   }
 
-  get cr(): FormControl {
-    return this.voucherForm.get('cr') as FormControl;
+  get cr(): UntypedFormControl {
+    return this.voucherForm.get('cr') as UntypedFormControl;
   }
 
-  get dr(): FormControl {
-    return this.voucherForm.get('dr') as FormControl;
+  get dr(): UntypedFormControl {
+    return this.voucherForm.get('dr') as UntypedFormControl;
   }
 
-  get narration(): FormControl {
-    return this.voucherForm.get('narration') as FormControl;
+  get narration(): UntypedFormControl {
+    return this.voucherForm.get('narration') as UntypedFormControl;
   }
 
-  get amount(): FormControl {
-    return this.voucherForm.get('amount') as FormControl;
+  get amount(): UntypedFormControl {
+    return this.voucherForm.get('amount') as UntypedFormControl;
   }
 }
