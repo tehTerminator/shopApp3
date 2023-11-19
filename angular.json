@@ -79,18 +79,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "shopApp3:build"
+            "buildTarget": "shopApp3:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "shopApp3:build:production"
+              "buildTarget": "shopApp3:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "shopApp3:build"
+            "buildTarget": "shopApp3:build"
           }
         },
         "test": {
